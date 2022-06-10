@@ -72,11 +72,11 @@ const SignUp = () => {
           placeholder = "로그인 시 사용할 ID를 입력해주세요." />
         <Button onClick = {checkIdHandler}>ID 중복확인</Button>
         <InputBox
-          type = "text"
+          type = "password"
           onChange = {(event) => { setPw(event.target.value); console.log(pw);}}
           placeholder = "비밀번호를 입력해주세요." />
         <InputBox
-          type = "text"
+          type = "password"
           onChange = {(event) => { setPw2(event.target.value); console.log(pw2);}}
           placeholder = "비밀번호를 재입력해주세요" />
         { (pw === pw2) ? <p> 비밀번호가 일치합니다! </p> : <p> 비밀번호가 일치하지 않습니다! </p>}
