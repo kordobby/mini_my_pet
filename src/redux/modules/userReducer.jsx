@@ -18,20 +18,22 @@ const REQ_SUCCESS = 'userReducer/REQ_SUCCESS';
 const REQ_ERROR = 'userReducer/REQ_ERROR';
 
 // [ LOGIN  & SIGN-UP ]
-const SIGN_UP = 'userReducer/SIGN_UP';
+// const SIGN_UP = 'userReducer/SIGN_UP';
 const LOGIN = 'userReducer/LOGIN';
 const CHECK_ID = 'userReducer/CHECK_ID';
+const LOGIN_CHECK = 'userReducer/LOGIN_CHECK';
 
 /* ACTION FUNCTION */
 // [ SERVER ]
-export const serverRequest = (payload) => ({ type : SERVER_REQ, payload });
-export const requestSuccess = (payload) => ({ type : REQ_SUCCESS, payload })
-export const requestError = (payload) => ({ type : REQ_ERROR, payload });
+const serverRequest = (payload) => ({ type : SERVER_REQ, payload });
+const requestSuccess = (payload) => ({ type : REQ_SUCCESS, payload })
+const requestError = (payload) => ({ type : REQ_ERROR, payload });
 
 // [ LOGIN  & SIGN-UP ]
-export const signUp = (paylaod) => ({ type : SIGN_UP, paylaod });
-export const login = (payload) => ({ type : LOGIN, payload });
-export const checkId = (payload) => ({ type : CHECK_ID, payload })
+// const signUp = (paylaod) => ({ type : SIGN_UP, paylaod });
+const login = (payload) => ({ type : LOGIN, payload });
+const checkId = (payload) => ({ type : CHECK_ID, payload });
+const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 
 /* THUNK */
 // [ SIGN-UP : checkId ]
@@ -135,6 +137,29 @@ export const loginDB = (payload) => {
   } 
 }};
 
+// [ SIGN-UP : checkId ]
+export const loginCheckDB = () => {
+  return async function(dispatch, getState, navigate) {
+    // #1. 서버 요청 보내기 => loading = true;
+    dispatch(serverRequest(true));
+  try {
+    // #2. 서버 로그인 요청
+    // response (success) => result { nickname : #### , ID : #### }
+    const loginState = await axios({
+      method : 'get',
+      url : '/api/auth'
+    })
+      console.log(loginState);
+      dispatch(loginCheck(loginState.data));   // response (success) => result { nickname : #### , ID : #### }
+      dispatch(requestSuccess(true));          // login state 값을 true로 변경
+      alert('어서오세요!')
+  } catch ( error ) {
+    console.log( error );
+    dispatch(requestError(error));
+  } finally {
+    dispatch(serverRequest(false));             // server request 종료
+  } 
+}};
 
 /* REDUCER */
 export default function userReducer( state = InitUserState, action ) {
@@ -147,6 +172,8 @@ export default function userReducer( state = InitUserState, action ) {
         return { ...state, error : action.payload };  // if login success => login : false
       case CHECK_ID :
         return { ...state, idCheck : action.payload }; // if success => idCheck : true => useSelector 
+      case LOGIN_CHECK :
+        return { ...state, list : [...state.list] };
     default :
       return state;
   }
