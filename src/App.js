@@ -12,7 +12,6 @@ import Update from './Pages/Update';
 
 /* import Components */
 import Header from './Components/Header';
-import HeaderIsLogin from './Components/HeaderIsLogin';
 
 /* import Pages */
 
