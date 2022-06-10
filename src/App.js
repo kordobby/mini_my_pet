@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 /* Style */
 import './App.css';
@@ -17,11 +17,20 @@ import Header from './Components/Header';
 
 /* Reducer */
 import { Routes, Route } from 'react-router-dom';
-
+import { loginCheckDB } from './redux/modules/userReducer';
+import { useDispatch, useSelector } from 'react-redux';
 /* Router setup */
 
 function App() {
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loginCheckDB());
+  }, [dispatch]);
+
+  const userInfo = useSelector((state) => state.userReducer);
+  console.log(userInfo); // nickname, userId
 
   return (
     <>
