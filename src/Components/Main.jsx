@@ -9,11 +9,15 @@ import { getCookie } from "../Shared/Cookie";
 
 const Main = () => {
   const dispatch = useDispatch()
-  //state에서 가져오기
-  const postList = useSelector(state=>state.postReducer.list)
+
+  //1. 서버에서 load
   useEffect(()=>{
-    dispatch(loadPostDB())
+    dispatch(loadPostDB()) // loadPostDB에 token 입력해야됨
   }, [dispatch])
+  
+  //2. 저장된 state에서 가져오기
+  const postList = useSelector(state=>state.postReducer.list)
+  console.log(postList)
   return (
     <>
     <MainJumbotron>여기는 MainJumbotron 공간입니다.</MainJumbotron>  
@@ -23,7 +27,7 @@ const Main = () => {
           img_url = {v.img}
           nickname = {v.nickname}
           postId = {v.postId}
-          userId = {v.userId}
+          username = {v.username}
           textData = {v.text}
           index = {i}
           key = {v.postId}
@@ -40,7 +44,7 @@ export const MainJumbotron = styled.div`
   background-color : white;
   text-align : center;
   font-size : 100px;
-  margin-top : 100px;
+  margin-top : 60px;
 `
 
 export default Main;
