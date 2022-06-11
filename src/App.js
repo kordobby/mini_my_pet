@@ -9,6 +9,7 @@ import SignUp from './Pages/SignUp';
 import Login from './Pages/Login';
 import Post from './Pages/Post';
 import Update from './Pages/Update';
+import Detail from './Pages/Detail';
 
 /* import Components */
 import Header from './Components/Header';
