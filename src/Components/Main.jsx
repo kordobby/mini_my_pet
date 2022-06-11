@@ -2,22 +2,10 @@
 */
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPostDB } from "../redux/modules/postReducer";
-
-export const PostItem = () => {
-  const dispatch = useDispatch()
-  const onClick = () =>{
-    dispatch(addPostDB)
-  } 
-  return (
-    <div>
-
-    </div>
-  )
-}
+import PostItem from "./PostItem";
 
 const Main = () => {
- const postList = useSelector(state=>state.postReducer.result)
+const postList = useSelector(state=>state.postReducer.list)
 console.log(postList)
   return (
     <>
