@@ -14,7 +14,7 @@ const Post = () => {
   const dispatch = useDispatch();
   const text_ref = useRef(null);
   const img_ref = useRef(null);
-  const IMG_URL = "";
+  let IMG_URL = "";
 
   // image 파트는 일단 URL "문자열"로 주고받기
   const onImgLoaded = (e) => {
