@@ -44,6 +44,7 @@ function App() {
         <Route path="/login" element = { <Login /> } />
         <Route path="/update" element = { <Update /> } />
         <Route path="/post" element = { <Post/> } />
+        <Route path="/detail" element = { <Detail/> } />
     </Routes>
     </>
   );
