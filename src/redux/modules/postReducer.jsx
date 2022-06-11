@@ -1,14 +1,19 @@
 /* CRUD reducer part */
+import axios from "axios";
+import { RESP } from "./mock_response";
 
 // Init State
 const initState = {
-    ok:true,
     result: [{
         img:"randomImg for test",
         nickname:"Nicks",
-        postId:"asdfasdfsadfas",
-        userId:"Peterk"
-    }],
+        postId:"asdfasdfsadfasadf",
+        userId:"Peter",
+        text:"this is a text for post",
+        postTime:"Date"
+        }]
+    // list: [],
+    // is_loading: false,
 }
 
 //Action Type
@@ -30,6 +35,41 @@ function updatePost (payload) {
 function deletePost (payload) {
     return {type: DELETE_POST, payload}
 }
+
+//middelwares
+// export const addPostDB = (payload) => {
+//     return async function(dispatch){
+//         const post_data = await axios.post('/api/post', {
+//             img: payload.img,
+//             text: payload.text,
+//             userId: payload.userId,
+//             postTime: payload.postTime
+//         });
+//         dispatch(addPost(post_data));
+//     }
+// }
+export const addPostDB = (payload) => {
+    return async function(dispatch){
+        const post_data = await axios.post('/api/post', {
+            img: payload.img,
+            text: payload.text,
+            userId: payload.userId,
+            postTime: payload.postTime
+        });
+        dispatch(addPost(post_data));
+    }
+}
+
+export const loadPostDB = ()=> {
+    return async function(dispatch){
+        const serverUrl = "EC2IP:8000" // 수정 필요
+        // const post_data = await axios.get(`${serverUrl}/api/main`);
+        const post_data = RESP.MAIN;
+        console.log(RESP.MAIN)
+        dispatch(loadPost(post_data))
+    }
+}
+
 
 export default function postReducer(state=initState, action={}){
     switch (action.type){

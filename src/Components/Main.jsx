@@ -1,11 +1,17 @@
 /* 비로그인/로그인 상태 모두에서 보여지는 Component, Home.jsx 페이지에 렌더링 됨
 */
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addPostDB } from "../redux/modules/postReducer";
 
 export const PostItem = () => {
+  const dispatch = useDispatch()
+  const onClick = () =>{
+    dispatch(addPostDB)
+  } 
   return (
     <div>
+
     </div>
   )
 }
