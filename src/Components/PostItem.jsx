@@ -9,7 +9,7 @@ import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 
 
-const PostItem = ({img_url, nickname, postId, userId, index, key, textData}) => {
+const PostItem = ({img_url, nickname, postId, username, index, key, textData}) => {
     const navigate = useNavigate();
     return (
       <div>
@@ -17,7 +17,7 @@ const PostItem = ({img_url, nickname, postId, userId, index, key, textData}) => 
             <div>{img_url}</div>
             <div>{nickname}</div>
             <div>{postId}</div>
-            <div>{userId}</div>
+            <div>{username}</div>
             <div>인덱스{index}</div>
             <div>{key}</div>
             <div>{textData}</div>

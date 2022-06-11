@@ -6,30 +6,30 @@ import { setCookie } from "../../Shared/Cookie";
 // Init State
 const initState = {
     list: [
-        {
-            img:"randomImg for test",
-            nickname:"Nicks",
-            postId:"1234",
-            userId:"Peter",
-            text:"this is a text for post0",
-            postTime:"Date"
-        },
-        {
-            img:"randomImg for test",
-            nickname:"Nicks",
-            postId:"asdfasdfsadfasadf",
-            userId:"Peter",
-            text:"this is a text for post1",
-            postTime:"Date"
-        },
-        {
-            img:"randomImg for test",
-            nickname:"Nicks",
-            postId:"dddff",
-            userId:"Peter",
-            text:"this is a text for post2",
-            postTime:"Date"
-        }
+        // {
+        //     img:"randomImg for test",
+        //     nickname:"Nicks",
+        //     postId:"1234",
+        //     username:"Peter",
+        //     text:"this is a text for post0",
+        //     postTime:"Date"
+        // },
+        // {
+        //     img:"randomImg for test",
+        //     nickname:"Nicks",
+        //     postId:"asdfasdfsadfasadf",
+        //     username:"Peter",
+        //     text:"this is a text for post1",
+        //     postTime:"Date"
+        // },
+        // {
+        //     img:"randomImg for test",
+        //     nickname:"Nicks",
+        //     postId:"dddff",
+        //     username:"Peter",
+        //     text:"this is a text for post2",
+        //     postTime:"Date"
+        // }
     ],
     loading: false,
     error: null
@@ -76,9 +76,8 @@ export const addPostDB = (payload) => {
             const post_data = await axios.post('/api/post', {
                 img: payload.img,
                 text: payload.text,
-                userId: payload.userId,
-                postTime: payload.postTime
-            }); //header 추가
+                username: payload.username,
+            }); //header 추가, token 작업 완료 후 추가 
             console.log(post_data);
             dispatch(addPost(post_data));
         } catch (error) {
@@ -89,7 +88,7 @@ export const addPostDB = (payload) => {
     }
 }
 
-export const loadPostDB = (token)=> { // token 필요한가? load는 token없이도 되어야 하는데?
+export const loadPostDB = (token)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
