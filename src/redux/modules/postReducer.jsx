@@ -1,6 +1,6 @@
 /* CRUD reducer part */
 import axios from "axios";
-import { RESP } from "./mock_response";
+// import { RESP } from "./mock_response";
 import { setCookie } from "../../Shared/Cookie";
 
 // Init State
@@ -11,7 +11,7 @@ const initState = {
             nickname:"Nicks",
             postId:"1234",
             userId:"Peter",
-            text:"this is a text for post",
+            text:"this is a text for post0",
             postTime:"Date"
         },
         {
@@ -19,14 +19,20 @@ const initState = {
             nickname:"Nicks",
             postId:"asdfasdfsadfasadf",
             userId:"Peter",
-            text:"this is a text for post",
+            text:"this is a text for post1",
+            postTime:"Date"
+        },
+        {
+            img:"randomImg for test",
+            nickname:"Nicks",
+            postId:"dddff",
+            userId:"Peter",
+            text:"this is a text for post2",
             postTime:"Date"
         }
-
     ],
     loading: false,
     error: null
-
 }
 
 //Action Type
@@ -72,7 +78,7 @@ export const addPostDB = (payload) => {
                 text: payload.text,
                 userId: payload.userId,
                 postTime: payload.postTime
-            });
+            }); //header 추가
             console.log(post_data);
             dispatch(addPost(post_data));
         } catch (error) {
@@ -80,8 +86,6 @@ export const addPostDB = (payload) => {
         } finally {
             dispatch(serverRequest(false))
         }
-
-
     }
 }
 
@@ -89,8 +93,8 @@ export const loadPostDB = (token)=> { // token 필요한가? load는 token없이
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-        const serverUrl = "EC2IP:8000" // 수정 필요
-        const loaded_data = await axios.get(`${serverUrl}/api/main`, {
+        // const serverUrl = "EC2IP:8000" // 수정 필요
+        const loaded_data = await axios.get(`http://localhost:4000/posts`, {
             headers: {
                 Authorization : `Bearer ${token}`
             }});
@@ -98,7 +102,7 @@ export const loadPostDB = (token)=> { // token 필요한가? load는 token없이
         dispatch(loadPost(loaded_data))
     }   catch ( error ) {
         console.log("데이터 Load 실패", error)
-        dispatch(requestError(error));
+            dispatch(requestError(error));
     }   finally {
         dispatch(serverRequest(false));
     }
