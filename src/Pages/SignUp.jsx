@@ -26,6 +26,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUpReq = useSelector((state) => state.userReducer);
+  console.log(signUpReq.idCheck);
 
   const num = pw.search(/[0-9]/g);
   const eng = pw.search(/[a-z]/ig);
@@ -47,12 +48,22 @@ const SignUp = () => {
   }, [pw])
 
   const signUpHandler = () => {
+    if ( !signUpReq.idCheck ) {
+      alert('ID 중복검사를 해주세요!');
+      return ;
+    } else if ( pw !== pw2 ) {
+      alert('패스워드가 일치하지 않습니다!')
+      return ;
+    } else if ( id === "" || pw === "" || pw2 === "" || nickname === "" ) {
+      alert('빈칸없이 작성해주세요!')
+      return ;
+    } else {
     dispatch(signUpDB({
       username : id,
       password : pw,
       nickname
     }));
-    ( signUpReq.error ) ? navigate('/login') : navigate('/signup');
+    ( signUpReq.error ) ? navigate('/login') : navigate('/signup'); }
   }
 
   const checkIdHandler = () => {
@@ -78,41 +89,47 @@ const SignUp = () => {
         <label className = 'label-form'>아이디</label>
         <div
           style = {{
-            display : 'flex'
+            display : 'flex',
+            marginBottom : '10px'
           }}>
           <SignUpInput
+            required
             type = "text"
-            onChange = {(event) => { setId(event.target.value); console.log(id);}}
+            onChange = {(event) => { setId(event.target.value); }}
             placeholder = "로그인 시 사용할 ID를 입력해주세요." />
           <Button
             onClick = {checkIdHandler}
             style = {{ marginLeft : '5px', fontSize : '16px'
              }}>ID check</Button>
         </div>
+        { (!signUpReq.idCheck) ? <p className = "pw-check__notice"> ID 중복검사를 해주세요! </p> : <p className = "correctPw"> 사용 가능한 ID 입니다! </p>}
         </SignUpForm>
         <SignUpForm>
           <label className = 'label-form'>비밀번호</label>
           <SignUpInput
+            required
             style = {{ marginBottom : '10px' }}
             type = "password"
-            onChange = {(event) => { setPw(event.target.value); console.log(pw);}}
+            onChange = {(event) => { setPw(event.target.value); }}
             placeholder = "비밀번호를 입력해주세요." />
         { (!checkPw) ? (pw === "") ? <p className = "pw-check__notice"> 영문 대소문자/숫자/특수문자 조합, 8자~12자  </p> : <p className = "incorrectPw"> 비밀번호를 형식에 맞게 작성해주세요! </p> : <p className = "correctPw"> 올바른 비밀번호입니다! </p>}
         </SignUpForm>
         <SignUpForm>
         <label className = 'label-form'>비밀번호 확인</label>
         <SignUpInput
+          required
           style = {{ marginBottom : '10px' }}
           type = "password"
-          onChange = {(event) => { setPw2(event.target.value); console.log(pw2);}}
+          onChange = {(event) => { setPw2(event.target.value); }}
           placeholder = "비밀번호를 재입력해주세요" />
         { (pw === pw2) ? (pw === "" && pw2 === "") ? <></> : <p className = "correctPw"> 비밀번호가 일치합니다! </p> : <p className = "incorrectPw"> 비밀번호가 일치하지 않습니다! </p> }
         </SignUpForm>
         <SignUpForm>
         <label className = 'label-form'>닉네임</label>
         <SignUpInput
+          required
           type = "text"
-          onChange = {(event) => { setNickName(event.target.value); console.log(nickname);}}
+          onChange = {(event) => { setNickName(event.target.value); }}
           placeholder = "닉네임을 입력해주세요." />
         </SignUpForm>
       <LoginBtnWrap>

@@ -45,22 +45,23 @@ export const checkIdDB = (payload) => {
     dispatch(serverRequest(true));
   try {
     const idCheck = await axios({
-      method : 'get',
+      method : 'post',
       url : 'http://3.39.25.179:8080/api/signup/checkid',
       data : {
-        username : payload.id
+        username : payload.username
       }
     })
-    console.log(idCheck);
-    dispatch(checkId(idCheck)); // idCheck : true or false, 굳이 필요할까?
-    if ( idCheck === true ) {
+    
+    console.log(idCheck.data);
+    if ( idCheck.data === true ) {
+      dispatch(checkId(idCheck.data));
       alert("사용가능한 ID입니다!")
     } else {
+      dispatch(checkId(idCheck.data));
       alert("이미 가입되어있는 ID입니다!")
     }
     }
   catch (error) {
-    alert('다시 입력해주세요!')
   } finally {
     dispatch(serverRequest(false));
   }
@@ -81,7 +82,7 @@ export const signUpDB = (payload) => {   // payload : { username : ###, password
       }
     })
     console.log(join); 
-    if ( join.data.result === true ) {
+    if ( join.data === true ) {
       alert('회원가입 성공!');
     }
   } catch (error) { 
@@ -116,27 +117,6 @@ export const loginDB = (payload) => {
     dispatch(serverRequest(false));             // server request 종료
   } 
 }};
-
-export const logoutDB = (token) => {
-  return async function(dispatch) {
-    dispatch(serverRequest(true)); 
-    try {
-      const logoutState = await axios({
-        method : 'post',
-        url : 'http://3.39.25.179:8080/api/logout',
-        headers : {
-          Authorization : `Bearer ${token}`
-        }
-      })
-      console.log(logoutState);
-      alert('로그아웃 되었습니다!')
-    } catch ( error ) {
-      dispatch(requestError(error));
-    } finally {
-      dispatch(serverRequest(false)); 
-    } 
-  }
-};
 
 // [ SIGN-UP : checkId ]
 export const loginCheckDB = (token) => {

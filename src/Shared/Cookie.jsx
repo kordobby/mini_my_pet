@@ -10,12 +10,6 @@ export const getCookie = (name) => {
   return cookies.get(name);
 }
 
-export const removeCookie = (name) => {
+export const deleteCookie = (name) => {
   return cookies.remove(name);
 }
-
-//export function logout() {
-//   console.log('localStorage set logout!');
-//   window.localStorage.setItem('logout', Date.now());
-//   cookies.remove('refresh_token');
-// }

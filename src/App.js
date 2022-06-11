@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /* Style */
 import './App.css';
@@ -14,19 +14,21 @@ import Detail from './Pages/Detail';
 /* import Components */
 import Header from './Components/Header';
 import HeaderIsLogin from './Components/HeaderisLogin'
+import Test from './Pages/Test';
 /* import Pages */
 
 /* Reducer */
-import { Routes, Route } from 'react-router-dom';
-import { loginCheckDB, logoutDB } from './redux/modules/userReducer';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { loginCheckDB } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCookie, removeCookie } from './Shared/Cookie';
+import { getCookie, deleteCookie } from './Shared/Cookie';
 /* Router setup */
 
 function App() {
 
   const dispatch = useDispatch();
   const accessToken = getCookie('token');
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(loginCheckDB(accessToken));
@@ -35,15 +37,20 @@ function App() {
   const userInfo = useSelector((state) => state.userReducer);
   console.log(userInfo); // nickname, userId
 
+  const userNick = userInfo.nickname;
+  const userId = userInfo.username;
+
   const logoutHandler = () => {
-    console.log(accessToken);
-    dispatch(logoutDB(accessToken));
+    deleteCookie('token');
+    alert('로그아웃 되었습니다!');
+    navigate('/');
   };
 
   return (
     <>
     {/* 로그인 여부에 따른 헤더 변경 */}
-    <Header/>
+    { accessToken ? <HeaderIsLogin userNick = {userNick} userID = {userId} logoutHandler = {logoutHandler}/> : <Header/>}
+    <Test></Test>
     <Routes>
     <Route path="/" element = { <Home /> } />
         <Route path="/signup" element = { <SignUp /> } />
@@ -52,7 +59,6 @@ function App() {
         <Route path="/post" element = { <Post/> } />
         <Route path="/detail" element = { <Detail/> } />
     </Routes>
-    <button style = {{ marginTop : '150px' }} onClick = {logoutHandler}>logout</button>
     </>
   );
 }
