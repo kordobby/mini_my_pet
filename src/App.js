@@ -19,15 +19,17 @@ import Header from './Components/Header';
 import { Routes, Route } from 'react-router-dom';
 import { loginCheckDB } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from './Shared/Cookie';
 /* Router setup */
 
 function App() {
 
   const dispatch = useDispatch();
+  const accessToken = getCookie('accessToken');
 
   useEffect(() => {
-    dispatch(loginCheckDB());
-  }, [dispatch]);
+    dispatch(loginCheckDB(accessToken));
+  }, [dispatch, accessToken]);
 
   const userInfo = useSelector((state) => state.userReducer);
   console.log(userInfo); // nickname, userId

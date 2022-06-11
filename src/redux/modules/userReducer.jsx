@@ -138,7 +138,7 @@ export const loginDB = (payload) => {
 }};
 
 // [ SIGN-UP : checkId ]
-export const loginCheckDB = () => {
+export const loginCheckDB = (token) => {
   return async function(dispatch, getState, navigate) {
     // #1. 서버 요청 보내기 => loading = true;
     dispatch(serverRequest(true));
@@ -147,14 +147,17 @@ export const loginCheckDB = () => {
     // response (success) => result { nickname : #### , ID : #### }
     const loginState = await axios({
       method : 'get',
-      url : '/api/auth'
+      url : '/api/auth',
+      headers : {
+        Authorization : `Bearer ${token}`
+      }
     })
       console.log(loginState);
       dispatch(loginCheck(loginState.data));   // response (success) => result { nickname : #### , ID : #### }
       dispatch(requestSuccess(true));          // login state 값을 true로 변경
       alert('어서오세요!')
   } catch ( error ) {
-    console.log( error );
+    console.log( "로그인 확인 실패", error );
     dispatch(requestError(error));
   } finally {
     dispatch(serverRequest(false));             // server request 종료
