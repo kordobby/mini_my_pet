@@ -1,6 +1,7 @@
 /* CRUD reducer part */
 import axios from "axios";
 import { RESP } from "./mock_response";
+import { setCookie } from "../../Shared/Cookie";
 
 // Init State
 const initState = {
@@ -61,17 +62,6 @@ function deletePost (payload) {
 }
 
 //middelwares
-// export const addPostDB = (payload) => {
-//     return async function(dispatch){
-//         const post_data = await axios.post('/api/post', {
-//             img: payload.img,
-//             text: payload.text,
-//             userId: payload.userId,
-//             postTime: payload.postTime
-//         });
-//         dispatch(addPost(post_data));
-//     }
-// }
 export const addPostDB = (payload) => {
     console.log("AddPostDB 페이로드 내용: ",payload)
     return async function(dispatch){
@@ -95,24 +85,35 @@ export const addPostDB = (payload) => {
     }
 }
 
-export const loadPostDB = ()=> {
+export const loadPostDB = (token)=> { // token 필요한가? load는 token없이도 되어야 하는데?
     return async function(dispatch){
-        // const serverUrl = "EC2IP:8000" // 수정 필요
-        // const post_data = await axios.get(`${serverUrl}/api/main`);
-        const post_data = RESP.MAIN;
-        console.log(RESP.MAIN)
-        dispatch(loadPost(post_data))
+        dispatch(serverRequest(true));
+        try {
+        const serverUrl = "EC2IP:8000" // 수정 필요
+        const loaded_data = await axios.get(`${serverUrl}/api/main`, {
+            headers: {
+                Authorization : `Bearer ${token}`
+            }});
+            console.log(loaded_data)
+        dispatch(loadPost(loaded_data))
+    }   catch ( error ) {
+        console.log("데이터 Load 실패", error)
+        dispatch(requestError(error));
+    }   finally {
+        dispatch(serverRequest(false));
     }
-}
+}}
 
-
+// REDUCER
 export default function postReducer(state=initState, action={}){
     switch (action.type){
         case ADD_POST: {
             return {...state, list: action.payload}
         } case LOAD_POST: {
             return {list: action.payload}
-        } default:
+        } case SERVER_REQ :
+            return {}
+        default:
             return state;
     }
 }
