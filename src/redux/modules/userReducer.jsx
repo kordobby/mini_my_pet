@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { setCookie } from '../../Shared/Cookie';
 /* Sign-up, Login-Logout */
 
 /* Initial State */
 const InitUserState = {
-  list : [],
+  username : "",
+  nickname : "",
   login : false,
   loading : false,
   error : null,
@@ -68,11 +70,7 @@ export const checkIdDB = (payload) => {
 export const signUpDB = (payload) => {   // payload : { username : ###, password : ###, nickName : ###}
   console.log(payload); 
   return async function(dispatch, getState) {
-    // #1. 서버 요청 보내기 => loading = true;
-  //   dispatch(serverRequest(true));
   try {
-    // #2. 서버 회원가입 요청 : username, password 보내기
-    // response (success) => result { result : true or false }
     const join = await axios({
       method : 'post',
       url : 'http://3.39.25.179:8080/api/signup',
@@ -82,14 +80,11 @@ export const signUpDB = (payload) => {   // payload : { username : ###, password
         nickname : payload.nickname
       }
     })
-    // #3-1 회원가입 성공
-      // 1) requestSuccess 시 로그인 알림 띄우기 (+)
-      // 2) navigate to Login page
-    console.log(join); // data : { result : true } or data : { result : false }
+    console.log(join); 
     if ( join.data.result === true ) {
       alert('회원가입 성공!');
     }
-  } catch (error) { // error 시 돌아갈 코드
+  } catch (error) { 
     console.log(error);
     alert('회원가입에 실패했습니다.')
   } finally {
@@ -99,35 +94,22 @@ export const signUpDB = (payload) => {   // payload : { username : ###, password
 
 // [ LOGIN ]
 export const loginDB = (payload) => {    
-  // #1. input 창에서 받아온 value => payload = { id : ####, pw : #### } (확인!)
-  console.log(payload); 
-  return async function(dispatch, getState) {
-    // #2. 서버 요청 보내기 => loading = true;
+  return async function(dispatch) {
     dispatch(serverRequest(true));
   try {
-    // #3. 서버 로그인 요청 : username, password 보내기
-    // response (success) => result { result : true or false }
     const login = await axios({
       method : 'post',
       url : 'http://3.39.25.179:8080/api/login',
       data : {
-        username : payload.username,   // id : ####
-        password : payload.password   // pw : ####
+        username : payload.username, 
+        password : payload.password   
       }
     })
-    console.log(login);  // 여기서 data가 어떻게 넘어오려나?
-    // #4-1 로그인 성공
-      // 1) 토큰 받아서 쿠키에 넣기 (+)
-      // 2) requestSuccess 시 login state true 변경 (+)
-      // 3) 로그인 알림 띄우기 (+)
-      // 4) navigate to Home
-      const accessToken =  login.headers.authorization.split(" ")[1];   // token 받기
-      console.log(accessToken);
-      setCookie('token', accessToken);         // token 쿠키 저장
-      dispatch(requestSuccess(true));          // login state 값을 true로 변경
-      alert('어서오세요!')
+      const accessToken =  login.headers.authorization.split(" ")[1];  
+      setCookie('token', accessToken);        
+      dispatch(requestSuccess(true));     
+      alert('로그인 성공!')    
   } catch ( error ) {
-    console.log( error );
     dispatch(requestError(error));
     alert('아이디어와 비밀번호를 다시 확인해주세요.');
   } finally {
@@ -147,8 +129,8 @@ export const logoutDB = (token) => {
         }
       })
       console.log(logoutState);
+      alert('로그아웃 되었습니다!')
     } catch ( error ) {
-      console.log( "로그인 확인 실패", error );
       dispatch(requestError(error));
     } finally {
       dispatch(serverRequest(false)); 
@@ -175,7 +157,6 @@ export const loginCheckDB = (token) => {
       console.log(loginState);
       dispatch(loginCheck(loginState.data));   // response (success) => result { nickname : #### , ID : #### }
       dispatch(requestSuccess(true));          // login state 값을 true로 변경
-      alert('어서오세요!')
   } catch ( error ) {
     console.log( "로그인 확인 실패", error );
     dispatch(requestError(error));
@@ -197,7 +178,7 @@ export default function userReducer( state = InitUserState, action ) {
       case CHECK_ID :
         return { ...state, idCheck : action.payload }; // if success => idCheck : true => useSelector 
       case LOGIN_CHECK :
-        return { ...state, list : [...state.list] };
+        return { ...state, username : action.payload.username, nickname : action.payload.nickname };
     default :
       return state;
   }

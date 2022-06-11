@@ -26,28 +26,11 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUpReq = useSelector((state) => state.userReducer);
-  console.log(signUpReq);
 
   const num = pw.search(/[0-9]/g);
   const eng = pw.search(/[a-z]/ig);
   const spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
 
-  /* 회원가입 실패 버튼 누르기 전에 미리 형식 확인할 수 있는 것이
-     사용자의 입장에서 좋을 것 같아서, 알림문구로 변경! */
-  // const checkPwForm = () => {
-  //   if(pw.length < 8 || pw.length > 20){
-  //     alert("비밀번호는 8자리 ~ 20자리 이내로 입력해주세요.");
-  //     return ;
-  //    }else if(pw.search(/\s/) != -1){
-  //     alert("비밀번호는 공백 없이 입력해주세요.");
-  //     return ;
-  //    }else if(num < 0 || eng < 0 || spe < 0 ){
-  //     alert("비밀번호는 영문, 숫자, 특수문자를 혼합하여 입력해주세요.");
-  //     return ;
-  //    }else {
-  //       return true;
-  //    }
-  // }
 
   useEffect(() => {
     if ( pw.length < 8 || pw.length > 12) {

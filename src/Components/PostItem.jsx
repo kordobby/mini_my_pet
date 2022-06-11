@@ -9,7 +9,7 @@ import { useState, useEffect } from "react"
 import { useSelector } from "react-redux"
 
 
-const PostItem = ({img_url, nickname, postId, userId, index, key, textData}) => {
+const PostItem = ({img_url, nickname, postId, userId, index, textData}) => {
     const navigate = useNavigate();
     return (
       <div>
@@ -19,7 +19,6 @@ const PostItem = ({img_url, nickname, postId, userId, index, key, textData}) => 
             <div>{postId}</div>
             <div>{userId}</div>
             <div>인덱스{index}</div>
-            <div>{key}</div>
             <div>{textData}</div>
             <button onClick={()=>navigate(`/detail/${postId}`)}>상세로 이동하는 버튼</button>
           </PostWrap>

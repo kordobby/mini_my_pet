@@ -11,9 +11,8 @@ const Main = () => {
   const dispatch = useDispatch()
   //state에서 가져오기
   const postList = useSelector(state=>state.postReducer.list)
-  console.log(postList)
   useEffect(()=>{
-    dispatch(loadPostDB(token))
+    dispatch(loadPostDB())
   }, [dispatch])
   return (
     <>
@@ -29,7 +28,6 @@ const Main = () => {
           index = {i}
           key = {v.postId}
         >
-          {console.log(v)}
         </PostItem>
         )
       })}

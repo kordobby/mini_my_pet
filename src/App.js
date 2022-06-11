@@ -35,9 +35,9 @@ function App() {
   const userInfo = useSelector((state) => state.userReducer);
   console.log(userInfo); // nickname, userId
 
-  const logOutHandler = (accessToken) => {
+  const logoutHandler = () => {
+    console.log(accessToken);
     dispatch(logoutDB(accessToken));
-    removeCookie()
   };
 
   return (
@@ -52,7 +52,7 @@ function App() {
         <Route path="/post" element = { <Post/> } />
         <Route path="/detail" element = { <Detail/> } />
     </Routes>
-    <button style = {{ marginTop : '150px' }} onClick = {logOutHandler}>logout</button>
+    <button style = {{ marginTop : '150px' }} onClick = {logoutHandler}>logout</button>
     </>
   );
 }

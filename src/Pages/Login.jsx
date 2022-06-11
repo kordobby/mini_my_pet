@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 /* Routes */
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 
 /* REDUX */
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,11 +15,10 @@ import { Button } from '../elem/Button';
 
 const Login = () => {
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const request = useSelector((state) => state.userReducer);
-  console.log(request.login);
-  console.log(request);
+
   const [ id, setId ] = useState('');
   const [ pw, setPw ] = useState('');
 
@@ -28,9 +27,7 @@ const Login = () => {
       username : id,
       password : pw
     }))
-    if ( request.login === true ) {
-      navigate('/')
-    } 
+    navigate('/');
   };
 
   return (
@@ -47,12 +44,12 @@ const Login = () => {
           <UserTitle>Welcome!</UserTitle>
           <InputBox 
             type = "text"
-            onChange = {(event) => { setId(event.target.value); console.log(id);}}
+            onChange = {(event) => { setId(event.target.value); }}
             placeholder = "ID"
             required />
           <InputBox
             type = "password" 
-            onChange = {(event) => { setPw(event.target.value); console.log(pw);}} 
+            onChange = {(event) => { setPw(event.target.value); }} 
             placeholder = "PW"
             required />
         <LoginBtnWrap>
