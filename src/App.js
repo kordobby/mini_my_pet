@@ -12,20 +12,20 @@ import Update from './Pages/Update';
 
 /* import Components */
 import Header from './Components/Header';
-
+import HeaderIsLogin from './Components/HeaderisLogin'
 /* import Pages */
 
 /* Reducer */
 import { Routes, Route } from 'react-router-dom';
-import { loginCheckDB } from './redux/modules/userReducer';
+import { loginCheckDB, logoutDB } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCookie } from './Shared/Cookie';
+import { getCookie, removeCookie } from './Shared/Cookie';
 /* Router setup */
 
 function App() {
 
   const dispatch = useDispatch();
-  const accessToken = getCookie('accessToken');
+  const accessToken = getCookie('token');
 
   useEffect(() => {
     dispatch(loginCheckDB(accessToken));
@@ -33,6 +33,11 @@ function App() {
 
   const userInfo = useSelector((state) => state.userReducer);
   console.log(userInfo); // nickname, userId
+
+  const logOutHandler = (accessToken) => {
+    dispatch(logoutDB(accessToken));
+    removeCookie()
+  };
 
   return (
     <>
@@ -45,6 +50,7 @@ function App() {
         <Route path="/update" element = { <Update /> } />
         <Route path="/post" element = { <Post/> } />
     </Routes>
+    <button style = {{ marginTop : '150px' }} onClick = {logOutHandler}>logout</button>
     </>
   );
 }

@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import { HeaderWrap, LogoWrap, LoginWrap, HeaderBtn } from './Header';
 /* Stlye */
 import styled from 'styled-components';
-
-const HeaderIsLogin = () => {
+import { removeCookie } from '../Shared/Cookie';
+const HeaderIsLogin = ( {logOutHandler} ) => {
 
 
 
@@ -18,8 +18,8 @@ const HeaderIsLogin = () => {
           <span>LOGO</span>
         </LogoWrap>
         <LoginWrap>
-          <Link to = '/login'>
-            <HeaderBtn>LOGIN</HeaderBtn>
+          <Link to = '/'>
+            <HeaderBtn onClick = {() =>logOutHandler}>LogOut</HeaderBtn>
           </Link>
           <Link to = '/signup'>
             <HeaderBtn style = {{ marginRight : "15px", marginLeft : "15px" }}>SIGNUP</HeaderBtn>

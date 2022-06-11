@@ -38,15 +38,15 @@ const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 /* THUNK */
 // [ SIGN-UP : checkId ]
 export const checkIdDB = (payload) => {
-  console.log(payload) // userId : #### 확인!
+  console.log(payload) // username : #### 확인!
   return async function(dispatch) {
     dispatch(serverRequest(true));
   try {
     const idCheck = await axios({
       method : 'get',
-      url : '/api/signup/checkid',
+      url : 'http://3.39.25.179:8080/api/signup/checkid',
       data : {
-        userId : payload.id
+        username : payload.id
       }
     })
     console.log(idCheck);
@@ -65,21 +65,21 @@ export const checkIdDB = (payload) => {
 }};
 
 // [ SIGN-UP ]
-export const signUpDB = (payload) => {   // payload : { userId : ###, password : ###, nickName : ###}
+export const signUpDB = (payload) => {   // payload : { username : ###, password : ###, nickName : ###}
   console.log(payload); 
-  return async function(dispatch, getState, navigate) {
+  return async function(dispatch, getState) {
     // #1. 서버 요청 보내기 => loading = true;
-    dispatch(serverRequest(true));
+  //   dispatch(serverRequest(true));
   try {
-    // #2. 서버 회원가입 요청 : userId, password 보내기
+    // #2. 서버 회원가입 요청 : username, password 보내기
     // response (success) => result { result : true or false }
     const join = await axios({
       method : 'post',
-      url : 'api/user/signup',
+      url : 'http://3.39.25.179:8080/api/signup',
       data : {
-        userId : payload.id,
-        password : payload.pw,
-        nickname : payload.nickName
+        username : payload.username,
+        password : payload.password,
+        nickname : payload.nickname
       }
     })
     // #3-1 회원가입 성공
@@ -88,12 +88,10 @@ export const signUpDB = (payload) => {   // payload : { userId : ###, password :
     console.log(join); // data : { result : true } or data : { result : false }
     if ( join.data.result === true ) {
       alert('회원가입 성공!');
-      navigate('/login');
     }
   } catch (error) { // error 시 돌아갈 코드
     console.log(error);
     alert('회원가입에 실패했습니다.')
-    navigate('/signup');
   } finally {
     dispatch(serverRequest(false));             // server request 종료
   }
@@ -103,18 +101,18 @@ export const signUpDB = (payload) => {   // payload : { userId : ###, password :
 export const loginDB = (payload) => {    
   // #1. input 창에서 받아온 value => payload = { id : ####, pw : #### } (확인!)
   console.log(payload); 
-  return async function(dispatch, getState, navigate) {
+  return async function(dispatch, getState) {
     // #2. 서버 요청 보내기 => loading = true;
     dispatch(serverRequest(true));
   try {
-    // #3. 서버 로그인 요청 : userId, password 보내기
+    // #3. 서버 로그인 요청 : username, password 보내기
     // response (success) => result { result : true or false }
     const login = await axios({
       method : 'post',
-      url : 'api/login',
+      url : 'http://3.39.25.179:8080/api/login',
       data : {
-        userId : payload.id,   // id : ####
-        password : payload.pw   // pw : ####
+        username : payload.username,   // id : ####
+        password : payload.password   // pw : ####
       }
     })
     console.log(login);  // 여기서 data가 어떻게 넘어오려나?
@@ -123,7 +121,7 @@ export const loginDB = (payload) => {
       // 2) requestSuccess 시 login state true 변경 (+)
       // 3) 로그인 알림 띄우기 (+)
       // 4) navigate to Home
-      const accessToken =  login.data.token;   // token 받기
+      const accessToken =  login.headers.authorization.split(" ")[1];   // token 받기
       console.log(accessToken);
       setCookie('token', accessToken);         // token 쿠키 저장
       dispatch(requestSuccess(true));          // login state 값을 true로 변경
@@ -137,17 +135,39 @@ export const loginDB = (payload) => {
   } 
 }};
 
+export const logoutDB = (token) => {
+  return async function(dispatch) {
+    dispatch(serverRequest(true)); 
+    try {
+      const logoutState = await axios({
+        method : 'post',
+        url : 'http://3.39.25.179:8080/api/logout',
+        headers : {
+          Authorization : `Bearer ${token}`
+        }
+      })
+      console.log(logoutState);
+    } catch ( error ) {
+      console.log( "로그인 확인 실패", error );
+      dispatch(requestError(error));
+    } finally {
+      dispatch(serverRequest(false)); 
+    } 
+  }
+};
+
 // [ SIGN-UP : checkId ]
 export const loginCheckDB = (token) => {
-  return async function(dispatch, getState, navigate) {
+  return async function(dispatch, getState) {
     // #1. 서버 요청 보내기 => loading = true;
     dispatch(serverRequest(true));
   try {
     // #2. 서버 로그인 요청
     // response (success) => result { nickname : #### , ID : #### }
+    console.log(token);
     const loginState = await axios({
       method : 'get',
-      url : '/api/auth',
+      url : 'http://3.39.25.179:8080/api/auth',
       headers : {
         Authorization : `Bearer ${token}`
       }
@@ -166,13 +186,14 @@ export const loginCheckDB = (token) => {
 
 /* REDUCER */
 export default function userReducer( state = InitUserState, action ) {
+  console.log(action);
   switch (action.type) {
       case SERVER_REQ :
         return { ...state, loading : action.payload };
       case REQ_SUCCESS :
-        return { ...state, login : action.payload };  // if login success => login : true
+        return { ...state, login : action.payload, error : null };  // if login success => login : true
       case REQ_ERROR :
-        return { ...state, error : action.payload };  // if login success => login : false
+        return { ...state, login : false, error : action.payload };  // if login success => login : false
       case CHECK_ID :
         return { ...state, idCheck : action.payload }; // if success => idCheck : true => useSelector 
       case LOGIN_CHECK :
