@@ -107,12 +107,16 @@ export const loadPostDB = (token)=> { // token 필요한가? load는 token없이
 // REDUCER
 export default function postReducer(state=initState, action={}){
     switch (action.type){
-        case ADD_POST: {
-            return {...state, list: action.payload}
-        } case LOAD_POST: {
+        case ADD_POST : 
+            return { ...state, list: action.payload };
+        case LOAD_POST : 
             return {list: action.payload}
-        } case SERVER_REQ :
-            return {}
+        case SERVER_REQ :
+            return { ...state, loading: action.payload };
+        // case REQ_SUCCESS :
+        //     return {...state}
+        case REQ_ERROR :
+            return { ...state, error : action.payload };
         default:
             return state;
     }
