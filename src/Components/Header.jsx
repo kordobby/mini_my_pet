@@ -10,9 +10,24 @@ const Header = () => {
   return (
     <>
       <HeaderWrap>
-        <LogoWrap>
-          <span>LOGO</span>
-        </LogoWrap>
+        <Link to = '/'>
+          <LogoWrap>
+            <span style = {{
+              color : 'var(--red)',
+              fontFamily : 'dokdo',
+              fontSize : '50px',
+              position : 'absolute',
+              bottom : '8px'
+            }}>GundiPang</span>
+            <span style = {{
+              color : 'var(--red)',
+              fontFamily : 'dokdo',
+              fontSize : '20px',
+              position : 'absolute',
+              bottom : '-4px'
+            }}>MY PET GALLERY</span>
+          </LogoWrap>
+        </Link>
         <LoginWrap>
           <Link to = '/login'>
             <HeaderBtn>LOGIN</HeaderBtn>
@@ -27,7 +42,7 @@ const Header = () => {
 }
 
 export const HeaderWrap = styled.div`
-  height : 80px;
+  height : 120px;
   width : 100%;
 
   display : flex;
@@ -38,11 +53,16 @@ export const HeaderWrap = styled.div`
   padding : 15px;
   position : fixed;
   top : 0;
-  background-color: salmon;
+  background-color: var(--blue);
 `;
 
 export const LogoWrap = styled.div`
-  width : 70%;
+  width : 240px;
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position : relative;
 `;
 
 export const LoginWrap = styled.div`
@@ -54,6 +74,8 @@ export const LoginWrap = styled.div`
 
 export const HeaderBtn = styled.span`
   font-size: 14px;
+  font-weight: 600;
+  color : white;
 `;
 
 export default Header;

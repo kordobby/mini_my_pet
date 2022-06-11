@@ -15,3 +15,27 @@ code {
 input::placeholder {
   color : grey;
 }
+
+a {
+  text-decoration: none;
+}
+
+/* SIGN-UP page */
+.label-form {
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.correctPw, .incorrectPw, .pw-check__notice {
+  font-size: 12px;
+  margin-left: 8px;
+  color: #2882ff
+}
+
+.pw-check__notice {
+  color : grey;
+}
+
+.incorrectPw {
+  color: #ff597d
+}

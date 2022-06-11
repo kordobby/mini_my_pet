@@ -10,8 +10,8 @@ export const getCookie = (name) => {
   return cookies.get(name);
 }
 
-export const removeCookoe = (name) => {
-  return
+export const removeCookie = (name) => {
+  return cookies.remove(name);
 }
 
 //export function logout() {
