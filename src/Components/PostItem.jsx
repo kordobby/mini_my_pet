@@ -4,9 +4,6 @@ import React from "react"
 import styled from 'styled-components';
 // Routes
 import { useNavigate } from "react-router-dom";
-// Redux
-import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
 
 
 const PostItem = ({img_url, nickname, postId, username, index, key, textData}) => {
@@ -18,7 +15,7 @@ const PostItem = ({img_url, nickname, postId, username, index, key, textData}) =
             <div>{nickname}</div>
             <div>{postId}</div>
             <div>{username}</div>
-            <div>인덱스{index}</div>
+            <div>{index}</div>
             <div>{textData}</div>
             <button onClick={()=>navigate(`/detail/${postId}`)}>상세로 이동하는 버튼</button>
           </PostWrap>
@@ -33,6 +30,5 @@ export const PostWrap = styled.div`
   height : 200px;
   border : 2px solid black;
 `
-
 
 export default PostItem;
