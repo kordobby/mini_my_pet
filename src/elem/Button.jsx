@@ -22,3 +22,26 @@ export const Button = styled.button`
     color : var(--red);
   }
 `
+
+export const ButtonPost = styled.button`
+  width : 120px;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: Dokdo, cursive;
+  font-size : 30px;
+
+  cursor : pointer;
+  border : none;
+  border-radius: 5px;
+  background-color: black;
+  color : white;
+
+  &:hover {
+    background-color: var(--red);
+    color : white;
+  }
+`
