@@ -107,6 +107,26 @@ export const loadPostDB = (token)=> {
     }
 }}
 
+export const updatePostDB = (payload)=> {
+    return async function(dispatch){
+        dispatch(serverRequest(true));
+        try {
+            const updated_data = await axios.put(`/api/detail/update/${payload.postId}`, {
+                text: payload.text,
+                headers: {
+                    Authorization : `Bearer ${payload.token}`
+                }}); 
+                console.log(updated_data);
+            dispatch(updatePost(updated_data));
+        } catch ( error ) {
+            console.log("데이터 upload 실패", error)
+            dispatch(requestError(error));
+        } finally {
+            dispatch(serverRequest(false));
+        }
+    }
+}
+
 export const delPostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
@@ -136,12 +156,13 @@ export default function postReducer(state=initState, action={}){
         case DELETE_POST :
             return {...state, list: 
                 state.list.filter((value, index)=> {
-                    return (index !== action.payload)
-                })}
+                    return (index !== action.payload)})}
+        case UPDATE_POST :
+            return {...state, list: action.payload} //확인 필요...
         case SERVER_REQ :
             return { ...state, loading: action.payload };
         // case REQ_SUCCESS :
-        //     return {...state}
+        //     return {...state}  // 이것도 확인 필요
         case REQ_ERROR :
             return { ...state, error : action.payload };
         default:
