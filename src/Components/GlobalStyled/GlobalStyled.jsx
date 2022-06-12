@@ -1,7 +1,7 @@
 /* GlobalStyle.jsx */
 import { createGlobalStyle } from 'styled-components';
 import '../GlobalStyled/GlobalStyled.module.css'
-import { normalize } from "styled-normalize"; 
+import { normalize } from "styled-normalize";
 
 /* Normalize :: 여러 브라우저마다 기본적으로 설치된 스타일을 지워줌 */
 import { reset } from "styled-reset";

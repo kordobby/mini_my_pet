@@ -1,0 +1,26 @@
+[
+    {
+        "img":"randomImg for test",
+        "nickname":"Nicks",
+        "postId":"1234",
+        "username":"Peter",
+        "text":"this is a text for post0",
+        "postTime":"Date"
+    },
+    {
+        "img":"randomImg for test",
+        "nickname":"Nicks",
+        "postId":"asdfasdfsadfasadf",
+        "username":"Peter",
+        "text":"this is a text for post1",
+        "postTime":"Date"
+    },
+    {
+        "img":"randomImg for test",
+        "nickname":"Nicks",
+        "postId":"dddff",
+        "username":"Peter",
+        "text":"this is a text for post2",
+        "postTime":"Date"
+    }
+]
