@@ -26,6 +26,7 @@ body {
     --blue : #0F4A63;
     --red : #EF3B44;
     --yellow : #EDBC67;
+    --green : #527E64;
     --bg : #FFEEDA;
     --post : #DBBFA0;
 }

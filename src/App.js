@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-scroll';
 
 /* Style */
 import './App.css';
@@ -15,6 +16,7 @@ import Detail from './Pages/Detail';
 import Header from './Components/Header';
 import HeaderIsLogin from './Components/HeaderisLogin'
 import Test from './Pages/Test';
+import MainStyle from './Components/MainStyle';
 /* import Pages */
 
 /* Reducer */
@@ -50,7 +52,8 @@ function App() {
     <>
     {/* 로그인 여부에 따른 헤더 변경 */}
     { accessToken ? <HeaderIsLogin userNick = {userNick} userID = {userId} logoutHandler = {logoutHandler}/> : <Header/>}
-    <Test></Test>
+    {/* <Test></Test>
+    <MainStyle></MainStyle> */}
     <Routes>
     <Route path="/" element = { <Home /> } />
         <Route path="/signup" element = { <SignUp /> } />

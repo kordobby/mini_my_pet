@@ -17,7 +17,7 @@ const Test = () => {
         <ImgBox src = {P4} />
         <ImgBox src = {P5} style = {{margin : '0'}}/>
       </PhotoWrap>
-      <BridgeTitle style = {{ color : 'var(--blue)' }}>WANT TO MEET UR BABIES!</BridgeTitle>
+      <BridgeTitleBtm style = {{ color : 'var(--blue)' }}>WANT TO MEET UR BABIES!</BridgeTitleBtm>
     </BridgeWrap>
   )
 }
@@ -35,10 +35,19 @@ const BridgeWrap = styled.div`
   background-color: var(--bg);
 `
 
-const BridgeTitle = styled.span`
+export const BridgeTitle = styled.span`
   font-family : 'Dokdo', cursive;
   font-size : 50px;
   color : var(--red);
+`
+const BridgeTitleBtm = styled.span`
+  font-family : 'Dokdo', cursive;
+  font-size : 40px;
+  color : var(--blue);
+  @media screen and (max-width : 600px) {
+    margin-top: 20px;
+    font-size : 30px;
+  }
 `
 
 const PhotoWrap = styled.div`
@@ -54,5 +63,32 @@ const ImgBox = styled.img`
   width : 200px;
   margin-right: 15px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &:nth-child(5) {
+    @media screen and (max-width : 1300px) {
+      display : none;
+    }
+  }
+  &:nth-child(4) {
+    @media screen and (max-width : 1000px) {
+      display : none;
+    }
+  }
+  &:nth-child(3) {
+    @media screen and (max-width : 800px) {
+      display : none;
+    }
+  }
+  &:nth-child(2) {
+    @media screen and (max-width : 600px) {
+      display : none;
+    }
+  }
+  &:nth-child(1) {
+    @media screen and (max-width : 600px) {
+      width : 250px;
+      height: 250px;
+    }
+  }
 `
 export default Test;
