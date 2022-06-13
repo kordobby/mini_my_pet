@@ -107,7 +107,7 @@ export const delPostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const delPostId = await axios.delete(`api/detail/${payload.postId}`, {
+            const delPostId = await axios.delete(`${MOCK_SERVER}/${payload.postId}`, {
                 headers: {
                     Authorization : `Bearer ${payload.token}`                
             }});

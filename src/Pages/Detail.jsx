@@ -19,16 +19,17 @@ const Detail = ({postId}) => {
   const postList = useSelector(state=>state.postReducer.list)
   const userData = useSelector(state=>state.userReducer)
   console.log(postList)
-  {postList.data !== undefined ? 
-    console.log(postList.data.find(v=>v.postId === postId))
-  : ""} 
+  // {postList.data !== undefined ? 
+  //   console.log(postList.data.find(v=>v.postId === postId))
+  // : ""} 
 
   // const postId = params.postId
   const postData = postList.data.find(v=>v.postId === postId)
   console.log(postData);
 
   const delPostHandler = () => {
-    dispatch(delPostDB({postId})) //token 전달 필요 
+    dispatch(delPostDB({postId})) //token 전달 필요
+    navigate(-1)
   }
   return (
     <>

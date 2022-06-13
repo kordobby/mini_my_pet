@@ -1,51 +1,72 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "리덕스 미들웨어를 배워봅시다",
-      "body": "리덕스 미들웨어를 직접 만들어보면 이해하기 쉽죠."
-    },
-    {
-      "id": 2,
-      "title": "redux-thunk를 사용해봅시다",
-      "body": "redux-thunk를 사용해서 비동기 작업을 처리해봅시다!"
-    },
-    {
-      "id": 3,
-      "title": "redux-saga도 사용해봅시다",
-      "body": "나중엔 redux-saga를 사용해서 비동기 작업을 처리하는 방법도 배워볼 거예요."
-    },
-    {
-      "id": 4,
-      "img": "randomImg for test",
-      "nickname": "Nicks",
-      "postId": "1234",
-      "username": "Peter",
-      "text": "this is a text for post0",
-      "postTime": "Date"
-    },
-    {
-      "id": 5,
-      "img": "randomImg for test",
-      "nickname": "Nicks",
-      "postId": "asdfasdfsadfasadf",
-      "username": "Peter",
-      "text": "this is a text for post1",
-      "postTime": "Date"
-    },
-    {
-      "id": 6,
-      "img": "randomImg for test",
-      "nickname": "Nicks",
-      "postId": "dddff",
-      "username": "Peter",
-      "text": "this is a text for post2",
-      "postTime": "Date"
-    },
-    {
       "img": "",
       "text": "asdfasdfsdaf",
       "id": 7
+    },
+    {
+      "img": "Screen Shot 2022-06-12 at 6.05.28 PM.png",
+      "text": "asdfasdf",
+      "username": "admin@gmail.com",
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFWFBJUkVEX0RBVEUiOjE2NTUzNTE3OTUsImlzcyI6InNwYXJ0YSIsIlVTRVJfTkFNRSI6ImFkbWluQGdtYWlsLmNvbSJ9.UpMKU4bfs_gVutAsJrdEnwnFmHU7uTOyrQh1bhy4uvM"
+      },
+      "id": 8
+    },
+    {
+      "img": "Screen Shot 2022-06-12 at 6.05.28 PM.png",
+      "text": "asdfasdf",
+      "username": "admin@gmail.com",
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFWFBJUkVEX0RBVEUiOjE2NTUzNTE3OTUsImlzcyI6InNwYXJ0YSIsIlVTRVJfTkFNRSI6ImFkbWluQGdtYWlsLmNvbSJ9.UpMKU4bfs_gVutAsJrdEnwnFmHU7uTOyrQh1bhy4uvM"
+      },
+      "id": 9
+    },
+    {
+      "img": "Screen Shot 2022-06-12 at 6.05.28 PM.png",
+      "text": "asdfasdf",
+      "username": "admin@gmail.com",
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFWFBJUkVEX0RBVEUiOjE2NTUzNTE3OTUsImlzcyI6InNwYXJ0YSIsIlVTRVJfTkFNRSI6ImFkbWluQGdtYWlsLmNvbSJ9.UpMKU4bfs_gVutAsJrdEnwnFmHU7uTOyrQh1bhy4uvM"
+      },
+      "id": 10
+    },
+    {
+      "img": "",
+      "text": "asdfasdf",
+      "username": "admin@gmail.com",
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFWFBJUkVEX0RBVEUiOjE2NTUzNTE3OTUsImlzcyI6InNwYXJ0YSIsIlVTRVJfTkFNRSI6ImFkbWluQGdtYWlsLmNvbSJ9.UpMKU4bfs_gVutAsJrdEnwnFmHU7uTOyrQh1bhy4uvM"
+      },
+      "id": 11
+    },
+    {
+      "img": "",
+      "text": "asdfasdf",
+      "username": "admin@gmail.com",
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFWFBJUkVEX0RBVEUiOjE2NTUzNTE3OTUsImlzcyI6InNwYXJ0YSIsIlVTRVJfTkFNRSI6ImFkbWluQGdtYWlsLmNvbSJ9.UpMKU4bfs_gVutAsJrdEnwnFmHU7uTOyrQh1bhy4uvM"
+      },
+      "id": 12
+    },
+    {
+      "img": "",
+      "text": "asdfasdf",
+      "username": "admin@gmail.com",
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFWFBJUkVEX0RBVEUiOjE2NTUzNTE3OTUsImlzcyI6InNwYXJ0YSIsIlVTRVJfTkFNRSI6ImFkbWluQGdtYWlsLmNvbSJ9.UpMKU4bfs_gVutAsJrdEnwnFmHU7uTOyrQh1bhy4uvM"
+      },
+      "id": 13
+    },
+    {
+      "img": "",
+      "text": "asdf",
+      "username": "admin@gmail.com",
+      "headers": {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJFWFBJUkVEX0RBVEUiOjE2NTUzNTE3OTUsImlzcyI6InNwYXJ0YSIsIlVTRVJfTkFNRSI6ImFkbWluQGdtYWlsLmNvbSJ9.UpMKU4bfs_gVutAsJrdEnwnFmHU7uTOyrQh1bhy4uvM"
+      },
+      "id": 14
     }
   ]
 }

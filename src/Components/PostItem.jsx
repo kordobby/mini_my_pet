@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 
 
-const PostItem = ({img_url, nickname, postId, username, index, key, textData}) => {
+const PostItem = ({img_url, nickname, postId, username, index, textData}) => {
     const navigate = useNavigate();
     return (
       <div>
