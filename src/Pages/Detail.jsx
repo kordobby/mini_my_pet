@@ -1,9 +1,10 @@
 /* 디테일 page => 포스트 클릭시 연결되는 상세페이지 */
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { delPostDB } from "../redux/modules/postReducer";
 
 const Detail = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
   const postList = useSelector(state=>state.postReducer.list)
@@ -21,6 +22,7 @@ const Detail = () => {
       <div>{userData.nickname}</div>
       <div>{postData.postTime}</div>
       <div>{postData.text}</div>
+      <button onClick={navigate(`/detail/update/${postId}`)}></button>
       <button onClick={delPostHandler}>Delete this</button>
     </>
   )
