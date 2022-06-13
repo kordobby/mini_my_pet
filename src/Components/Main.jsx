@@ -20,21 +20,8 @@ const Main = () => {
   console.log(postList.data)
   
   return (
-    <>
-      {postList.map((v, i) => {
-        return (
-        <PostItem
-          img_url = {v.img}
-          nickname = {v.nickname}
-          postId = {v.postId}
-          username = {v.username}
-          textData = {v.text}
-          index = {i}
-          key = {v.postId}
-        >
-        </PostItem>
-        ) : "" } )}  
-    </>
+    
+    <></>
   );
 }
 

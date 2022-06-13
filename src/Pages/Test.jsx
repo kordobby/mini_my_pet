@@ -9,10 +9,10 @@ import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 
 const Test = () => {
-  const scollToRef = useRef();
-  const handleToPost = () => {
-    scollToRef.current.scrollIntoView({behavior: "smooth", block: "start"});
-  }
+  // const scollToRef = useRef();
+  // const handleToPost = () => {
+  //   scollToRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+  // }
 
   return (
     <>
@@ -30,9 +30,9 @@ const Test = () => {
         color : 'var(--post)',
         fontSize : '40px',
         marginTop : '20px'
-      }}><button onClick = {handleToPost} ><FontAwesomeIcon icon = {faAnglesDown} /></button></div>
+      }}><button ><FontAwesomeIcon icon = {faAnglesDown} /></button></div>
     </BridgeWrap>
-    <div ref = {scollToRef} style = {{ height : '150px', width : '100%', backgroundColor : 'yellow'}}></div></>
+    <div style = {{ height : '150px', width : '100%', backgroundColor : 'yellow'}}></div></>
   )
 }
 

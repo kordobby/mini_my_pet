@@ -25,7 +25,7 @@ const Comment = () => {
   const token = getCookie('token');
   const dispatch = useDispatch(); 
 
-  const commentRegister = () => {
+  const updateCommentHandler = () => {
     dispatch(updateCommentDB({
       token : token,
       comment : commentData,
@@ -94,7 +94,7 @@ const Comment = () => {
         }}
         onClick = {modalCancel}>CANCEL</Button>
       <Button
-        onClick = {commentRegister}
+        onClick = {updateCommentHandler}
         style = {{
             position : 'absolute',
             bottom : '25px',

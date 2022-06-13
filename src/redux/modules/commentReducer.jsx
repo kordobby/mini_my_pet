@@ -69,16 +69,7 @@ export const loadCommentDB = (payload) => {
     } finally {
       dispatch(getRequest(false));
     }
-}}
-
-  /* payload : {
-      token : #### ,
-      username : ####,
-      nickname : ####,
-      comment : ####,
-      postId : ####
-     }}
-  */
+}};
 
 export const addCommentDB = (payload) => {
   // console.log(payload)
