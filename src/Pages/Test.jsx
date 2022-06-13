@@ -6,11 +6,16 @@ import P3 from '../Public/Images/P3.jpeg';
 import P4 from '../Public/Images/P4.jpeg';
 import P5 from '../Public/Images/P5.jpeg';
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
-import { withTheme } from 'styled-components';
+import { useRef } from 'react';
 
 const Test = () => {
+  const scollToRef = useRef();
+  const handleToPost = () => {
+    scollToRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+  }
 
   return (
+    <>
     <BridgeWrap>
       <BridgeTitle>TellmeTellme</BridgeTitle>
       <PhotoWrap>
@@ -25,8 +30,9 @@ const Test = () => {
         color : 'var(--post)',
         fontSize : '40px',
         marginTop : '20px'
-      }}><FontAwesomeIcon icon = {faAnglesDown} /></div>
+      }}><button onClick = {handleToPost} ><FontAwesomeIcon icon = {faAnglesDown} /></button></div>
     </BridgeWrap>
+    <div ref = {scollToRef} style = {{ height : '150px', width : '100%', backgroundColor : 'yellow'}}></div></>
   )
 }
 

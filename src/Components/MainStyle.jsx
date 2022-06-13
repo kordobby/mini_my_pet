@@ -1,9 +1,12 @@
 import styled from 'styled-components';
+import { useState } from 'react'; 
 import { BridgeTitle } from '../Pages/Test';
 import { ButtonPost } from '../elem/Button';
 import CardBox from './CardBox'; 
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 const MainStyle = () => {
+
 
   return (
     <MainWrap>
@@ -16,7 +19,7 @@ const MainStyle = () => {
           }}>
             GUNDIPANG GALLERY
       </BridgeTitle>
-      <ButtonPost> + Post!</ButtonPost>
+      <ButtonPost > + Post!</ButtonPost>
       </MainHeader>
       <GridWrap>
         <CardBox></CardBox>

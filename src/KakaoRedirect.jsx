@@ -17,7 +17,7 @@ const KakaoRedirect = (props) => {
 
   React.useEffect(() => {
     dispatch(kakaoLoginDB(code));
-    navigate('/');
+    // navigate('/');
   }, []);
 
   return (

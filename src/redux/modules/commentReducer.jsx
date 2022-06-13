@@ -55,7 +55,7 @@ export const loadCommentDB = (payload) => {
       // console.log(payload.token);
       const commentData = await axios({
         method : 'get',
-        url : 'http://3.39.25.179:8080/api/comment/payload.postId',
+        url : `http://3.39.25.179:8080/api/comment/${payload.postId}`,
         headers : {
           Authorization : `Bearer ${payload.token}`
         }
@@ -72,8 +72,7 @@ export const loadCommentDB = (payload) => {
 }}
 
   /* payload : {
-     token : #### ,
-     post : {
+      token : #### ,
       username : ####,
       nickname : ####,
       comment : ####,
@@ -89,7 +88,7 @@ export const addCommentDB = (payload) => {
     console.log(payload.token);
     const addData = await axios({
       method : 'post',
-      url : 'http://3.39.25.179:8080/api/comment/payload.post.postId',
+      url : `http://3.39.25.179:8080/api/comment/${payload.postId}`,
       data : {
         username : payload.post.username,
         nickname : payload.post.nickname,
@@ -124,7 +123,7 @@ export const delCommentDB = (payload) => {
       console.log(payload);
       const delData = await axios({
         method : 'delete',
-        url : 'http://3.39.25.179:8080/api/comment/:payload.commentId',
+        url : `http://3.39.25.179:8080/api/comment/${payload.commentId}`,
         headers : {
           Authorization : `Bearer ${payload.token}`
         }
@@ -147,7 +146,7 @@ export const updateCommentDB = (payload) => {
     console.log(payload);
     const updateData = await axios({
       method : 'put',
-      url : 'http://3.39.25.179:8080/api/comment/:payload.commentId',
+      url : `http://3.39.25.179:8080/api/comment/${payload.commentId}`,
       data : {
         comment : payload.comment
       },

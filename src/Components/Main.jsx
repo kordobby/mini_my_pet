@@ -21,7 +21,6 @@ const Main = () => {
   
   return (
     <>
-
       {postList.map((v, i) => {
         return (
         <PostItem
@@ -34,9 +33,7 @@ const Main = () => {
           key = {v.postId}
         >
         </PostItem>
-        )
-      })
-      : ""}  
+        ) : "" } )}  
     </>
   );
 }

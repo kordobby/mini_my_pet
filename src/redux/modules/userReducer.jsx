@@ -39,11 +39,11 @@ const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 
 /* THUNK */
 // KAKAO LOGIN
-export const kakaoLoginDB = (code) => {
-  return async function(dispatch) {
-    dispatch(serverRequest(true));
+export const kakaoLoginDB = (code) => {  
+  return async function(dispatch) {  
+    dispatch(serverRequest(true)); 
   try {
-    const kakaoLogin = await axios({
+    const kakaoLogin = await axios({  
       method : 'get',
       url : `http://3.39.25.179:8080/api/kakao/callback?code=${code}`
     })
@@ -59,15 +59,15 @@ export const kakaoLoginDB = (code) => {
      console.log('카카오 로그인 실패', error)
    } 
     finally {
-      dispatch(serverRequest(false));
-    }
+      dispatch(serverRequest(false)); 
+   }
 }};
 
 
 // [ SIGN-UP : checkId ]
 export const checkIdDB = (payload) => {
   console.log(payload) // username : #### 확인!
-  return async function(dispatch) {
+  return async function(dispatch) {   // promise 객체 => [ pending ] / fulfilled / rejected
     dispatch(serverRequest(true));
   try {
     const idCheck = await axios({
@@ -88,6 +88,9 @@ export const checkIdDB = (payload) => {
     }
     }
   catch (error) {
+    console.log(error)
+    alert(error)
+    
   } finally {
     dispatch(serverRequest(false));
   }

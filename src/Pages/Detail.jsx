@@ -19,13 +19,13 @@ const Detail = ({postId}) => {
   const postList = useSelector(state=>state.postReducer.list)
   const userData = useSelector(state=>state.userReducer)
   console.log(postList)
-  {postList.data !== undefined ? 
-    console.log(postList.data.find(v=>v.postId === postId))
-  : ""} 
+  // {postList.data !== undefined ? 
+  //   console.log(postList.data.find(v=>v.postId === postId))
+  // : ""} 
 
   // const postId = params.postId
-  const postData = postList.data.find(v=>v.postId === postId)
-  console.log(postData);
+  // const postData = postList.data.find(v=>v.postId === postId)
+  // console.log(postData);
 
   const delPostHandler = () => {
     dispatch(delPostDB({postId})) //token 전달 필요 
@@ -91,8 +91,8 @@ const Detail = ({postId}) => {
         <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <span>Detail</span>
       <div>{userData.nickname}</div>
-      <div>{postData?.postTime}</div>
-      <div>{postData?.text}</div>
+      {/* <div>{postData?.postTime}</div>
+      <div>{postData?.text}</div> */}
       <button onClick={navigate(`/detail/update/${postId}`)}></button>
       <button onClick={delPostHandler}>Delete this</button>
       </DetailWrap>
