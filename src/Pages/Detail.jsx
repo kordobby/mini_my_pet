@@ -78,9 +78,6 @@ const Detail = ({postId}) => {
           <ComTitle>Comments!</ComTitle>
           <Comment></Comment>
         </CommentList>
-      <div>{userData.nickname}</div>
-      <div>{postData?.postTime}</div>
-      <div>{postData?.text}</div>
       {/* <button onClick={()=>navigate(`/detail/update/${postId}`)}>수정하기</button> */}
       {/* <button onClick={()=>delPostHandler}>Delete this</button> */}
       </DetailWrap>
