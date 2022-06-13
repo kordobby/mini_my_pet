@@ -17,8 +17,6 @@ import Header from './Components/Header';
 import HeaderIsLogin from './Components/HeaderisLogin'
 import Test from './Pages/Test';
 import MainStyle from './Components/MainStyle';
-import ScrollTopBtn from './elem/ScrollTopBtn';
-
 /* import Pages */
 
 /* Reducer */
@@ -26,10 +24,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { loginCheckDB } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie, deleteCookie } from './Shared/Cookie';
-
-/* SNS Login */
-import Auth from "./Auth";
-import KakaoRedirect from './KakaoRedirect';
+/* Router setup */
 
 function App() {
 
@@ -54,7 +49,6 @@ function App() {
     navigate('/');
   };
 
-
   return (
     <>
     {/* 로그인 여부에 따른 헤더 변경 */}
@@ -63,14 +57,12 @@ function App() {
     <MainStyle></MainStyle> */}
     <Routes>
     <Route path="/" element = { <Home /> } />
-        <Route path="/oauth/kakao/callback" element = { <KakaoRedirect /> } />
         <Route path="/signup" element = { <SignUp /> } />
         <Route path="/login" element = { <Login /> } />
         <Route path="/update" element = { <Update /> } />
         <Route path="/post" element = { <Post username={userId}/> } />
         <Route path={`/detail/:${postId}`} element = { <Detail postId={postId} /> } />
     </Routes>
-    <ScrollTopBtn/>
     </>
   );
 }
