@@ -1,11 +1,11 @@
 /* 로그인 page */
 import React, { useState } from 'react';
-
+import {KAKAO_AUTH_URL} from '../Kakao';
 /* Styles */
 import styled from 'styled-components';
 
 /* Routes */
-import { useNavigate, Link, Navigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 /* REDUX */
 import { useDispatch, useSelector } from 'react-redux';
@@ -67,6 +67,14 @@ const Login = () => {
         }}>Create Account</span>
         </Link>
         </LoginBtnWrap>
+        <KakaoWrap>
+          <a href = {KAKAO_AUTH_URL}><span
+            style = {{
+              fontWeight : '600',
+              fontSize : '20px',
+              color : '#181700'
+          }}>Login with Kakao</span></a>
+        </KakaoWrap>
         </UserPageBox>
       </UserFormWrap>
     </>
@@ -94,10 +102,10 @@ export const StateHeaderText = styled.span`
   color : white;
 `
 
-export const Blank = styled.div`
-  width : 100%;
-  height : 120px;
-`
+// export const Blank = styled.div`
+//   width : 100%;
+//   height : 120px;
+// `
 
 /* Header 아래로 보이는 main-box */
 export const UserFormWrap = styled.div`
@@ -112,7 +120,7 @@ export const UserPageBox = styled.div`
   box-sizing : border-box;
 
   width : 500px;
-  height : 300px;
+  height : 350px;
   padding : 30px;
   display : flex;
   flex-direction: column;
@@ -142,5 +150,18 @@ export const LoginBtnWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+`
+
+const KakaoWrap = styled.div`
+  width : 100%;
+  height: 40px;
+  
+  margin-top: 15px;
+  border-radius: 5px;
+  background-color: #ffe926;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 export default Login;

@@ -38,6 +38,32 @@ const checkId = (payload) => ({ type : CHECK_ID, payload });
 const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 
 /* THUNK */
+// KAKAO LOGIN
+export const kakaoLoginDB = (code) => {
+  return async function(dispatch) {
+    dispatch(serverRequest(true));
+  try {
+    const kakaoLogin = await axios({
+      method : 'get',
+      url : `http://3.39.25.179:8080/api/kakao/callback?code=${code}`
+    })
+    console.log(kakaoLogin);
+    /* Token - Cookie */
+    const accessToken =  kakaoLogin.data.user.token;  
+    setCookie('token', accessToken);
+    // 유저 닉네임 & ID 저장하는 리듀서 만들어야함
+    dispatch(loginCheck('hello')) 
+    alert('로그인 성공!')
+  }
+   catch (error) {
+     console.log('카카오 로그인 실패', error)
+   } 
+    finally {
+      dispatch(serverRequest(false));
+    }
+}};
+
+
 // [ SIGN-UP : checkId ]
 export const checkIdDB = (payload) => {
   console.log(payload) // username : #### 확인!

@@ -21,7 +21,8 @@ const Main = () => {
   
   return (
     <>
-      {postList.data !== undefined ? postList.data.map((v, i) => {
+
+      {postList.map((v, i) => {
         return (
         <PostItem
           img_url = {v.img}
