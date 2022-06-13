@@ -67,7 +67,7 @@ function App() {
         <Route path="/signup" element = { <SignUp /> } />
         <Route path="/login" element = { <Login /> } />
         <Route path="/update" element = { <Update /> } />
-        <Route path="/post" element = { <Post/> } />
+        <Route path="/post" element = { <Post username={userId}/> } />
         <Route path={`/detail/:${postId}`} element = { <Detail postId={postId} /> } />
     </Routes>
     <ScrollTopBtn/>

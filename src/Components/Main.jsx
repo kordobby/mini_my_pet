@@ -6,22 +6,42 @@ import PostItem from "./PostItem";
 import styled from "styled-components"
 import { loadPostDB } from "../redux/modules/postReducer";
 import { getCookie } from "../Shared/Cookie";
+import { AddPostBtn } from "../elem/AddPostBtn";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
   const dispatch = useDispatch()
+  const token = getCookie('token')
+  const navigate = useNavigate();
 
   //1. 서버에서 load
   useEffect(()=>{
-    dispatch(loadPostDB()) // loadPostDB에 token 입력해야됨
+    dispatch(loadPostDB(token)) // loadPostDB에 token 입력해야됨
   },[dispatch]);
   
   //2. 저장된 state에서 가져오기
   const postList = useSelector(state=>state.postReducer.list)
-  console.log(postList.data)
+  console.log(postList)
   
   return (
-    
-    <></>
+
+    <>
+      {postList?.map((v, i) => { //is_loading 활용해서 만들수 있음
+        return (
+        <PostItem
+          img_url = {v.img}
+          nickname = {v.nickname}
+          postId = {v.postId}
+          username = {v.username}
+          textData = {v.text}
+          index = {i}
+          key = {v.postId}
+        >
+        </PostItem>
+        )
+      })}
+      <AddPostBtn onClick={()=>navigate('/post')}>+</AddPostBtn>
+    </>
   );
 }
 

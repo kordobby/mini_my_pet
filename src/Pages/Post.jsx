@@ -9,12 +9,12 @@ import { useParams } from "react-router-dom"
 
 
 
-const Post = () => {
+const Post = ({username}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const text_ref = useRef(null);
   const img_ref = useRef(null);
-  const IMG_URL = "";
+  let IMG_URL = "";
 
   // image 파트는 일단 URL "문자열"로 주고받기 --> FB에 Storage 가능한지 확인
   const onImgLoaded = (e) => {
@@ -24,20 +24,20 @@ const Post = () => {
   }
 
   const addPostHandler = ()=> {
-    setTimeout(()=>{ // 이거 timeout 줘야 되나요???
       dispatch(addPostDB({
         img: IMG_URL,
         text: text_ref.current?.value,
-        // username: getCookie()  // username 은 Prop로 받아와서 활용 예정
+        username: username,
+        token: getCookie('token')
       }))
-    }, 3000)
-  }
+      navigate(-1);
+    }
 
   return (
     <>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <span>Post</span><br/>
-      <input ref={img_ref} type='file' className="imgInput" id='postImg' accept="image/*" name="file" onChange={onImgLoaded}/>  
+      <input ref={img_ref} type='file' className="imgInput" id='postImg' accept="image/*" name="file" onChange={onImgLoaded} required/>  
       {/* <div className="thumbnail">썸네일</div>  */}
       <input ref={text_ref}></input>
       <button onClick={addPostHandler}>Submit</button><br/>

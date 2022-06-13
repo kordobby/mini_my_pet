@@ -24,11 +24,11 @@ const Detail = ({postId}) => {
   // : ""} 
 
   // const postId = params.postId
-  // const postData = postList.data.find(v=>v.postId === postId)
-  // console.log(postData);
-
+  const postData = postList.data?.find(v=>v.postId === postId)
+  console.log(postData);
   const delPostHandler = () => {
-    dispatch(delPostDB({postId})) //token 전달 필요 
+    dispatch(delPostDB({postId})) //token 전달 필요
+    navigate(-1)
   }
   return (
     <>
@@ -53,22 +53,12 @@ const Detail = ({postId}) => {
                 height : '40px',
                 borderRadius : '20px'
                 }}></Icon>
-              <span style = {{ fontSize : '20px'}}>username</span>
+              <span style = {{ fontSize : '20px'}}>{userData.nickname}</span>
             </UserHeader>
-            <MainText>
-              <span>코코몽월드</span>
+            <MainText style={{
+              postion : 'relative'}}>
+              <span>{postData?.text}</span>
             </MainText>
-            <div style = {{
-              display : "flex",
-              width : '100%',
-              justifyContent : 'flex-end',
-              marginTop : "10px"
-            }}>
-              <Button style = {{
-                marginRight : '10px'
-              }}>update!</Button>
-              <Button>delete!</Button>
-            </div>
             <CommentWrap style = {{
                 position : 'relative'}}>
               <ComTitle>
@@ -88,13 +78,11 @@ const Detail = ({postId}) => {
           <ComTitle>Comments!</ComTitle>
           <Comment></Comment>
         </CommentList>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <span>Detail</span>
       <div>{userData.nickname}</div>
-      {/* <div>{postData?.postTime}</div>
-      <div>{postData?.text}</div> */}
-      <button onClick={navigate(`/detail/update/${postId}`)}></button>
-      <button onClick={delPostHandler}>Delete this</button>
+      <div>{postData?.postTime}</div>
+      <div>{postData?.text}</div>
+      {/* <button onClick={()=>navigate(`/detail/update/${postId}`)}>수정하기</button> */}
+      {/* <button onClick={()=>delPostHandler}>Delete this</button> */}
       </DetailWrap>
     </>
   )
