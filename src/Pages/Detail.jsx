@@ -1,6 +1,6 @@
 /* 디테일 page => 포스트 클릭시 연결되는 상세페이지 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StateHeader, StateHeaderText } from "./Login";
 import styled from 'styled-components';
@@ -10,6 +10,8 @@ import { Button } from '../elem/Button';
 import  Comment  from '../Components/Comment';
 import { useNavigate, useParams } from "react-router-dom";
 import { delPostDB } from "../redux/modules/postReducer";
+import { loadCommentDB, addCommentDB } from "../redux/modules/commentReducer";
+import { getCookie } from "../Shared/Cookie";
 
 const Detail = ({postId}) => {
 
@@ -19,17 +21,36 @@ const Detail = ({postId}) => {
   const postList = useSelector(state=>state.postReducer.list)
   const userData = useSelector(state=>state.userReducer)
   console.log(postList)
-  // {postList.data !== undefined ? 
-  //   console.log(postList.data.find(v=>v.postId === postId))
-  // : ""} 
 
   // const postId = params.postId
-  const postData = postList.data?.find(v=>v.postId === postId)
+  const postData = postList.find(v=>v.postId === postId)
   console.log(postData);
+
   const delPostHandler = () => {
-    dispatch(delPostDB({postId})) //token 전달 필요
-    navigate(-1)
+    dispatch(delPostDB({postId})) //token 전달 필요 
   }
+
+  /* YOON'S CODE - comment things */
+
+  const [ comments, setComments ] = useState('');
+  const token = getCookie('token');
+
+  const CommentList = useSelector((state) => state.commentReducer?.list);
+  // Comment LOAD
+  useEffect(() => {
+    dispatch(loadCommentDB(token));
+  }, [dispatch]);
+
+  // Comment ADD
+  const commentHandler = () => {
+    dispatch(addCommentDB({
+      token : token,
+      comment : comments,
+      username : 'username',
+      nickname : 'nickname'
+    }))
+  }
+
   return (
     <>
       <StateHeader style = {{ backgroundColor : 'var(--green)'}}>
@@ -53,36 +74,59 @@ const Detail = ({postId}) => {
                 height : '40px',
                 borderRadius : '20px'
                 }}></Icon>
-              <span style = {{ fontSize : '20px'}}>{userData.nickname}</span>
+              <span style = {{ fontSize : '20px'}}>username</span>
             </UserHeader>
-            <MainText style={{
-              postion : 'relative'}}>
-              <span>{postData?.text}</span>
+            <MainText>
+              <span>코코몽월드</span>
             </MainText>
+            <div style = {{
+              display : "flex",
+              width : '100%',
+              justifyContent : 'flex-end',
+              marginTop : "10px"
+            }}>
+              <Button style = {{
+                marginRight : '10px'
+              }}>update!</Button>
+              <Button>delete!</Button>
+            </div>
             <CommentWrap style = {{
                 position : 'relative'}}>
               <ComTitle>
                 Write Comments!
               </ComTitle>
               <CommentInput
+                onChange = {(event) => { setComments(event.target.value); }}
                 placeholder="댓글을 작성해주세요!"/>
-              <Button style = {{
-                position : 'absolute',
-                bottom : '5px',
-                right : '6px'
+              <Button
+                onClick = {commentHandler}
+                style = {{
+                  position : 'absolute',
+                  bottom : '5px',
+                  right : '6px'
               }}>POST</Button>
             </CommentWrap>
           </Contents>
         </DetailBox>
-        <CommentList>
-          <ComTitle>Comments!</ComTitle>
-          <Comment></Comment>
-        </CommentList>
+        {/* <CommentList> */}
+          {/* <ComTitle>Comments!</ComTitle>
+          { 
+              CommentList.map((value, index) => {
+                return <div
+                  key = {value.commentId}
+                  text = {value.username}
+                  nickname = {value.nickname}
+                  comment = {value.comment}
+                  modifiedAt = {value.modifiedAt} />
+              } )} */}
+        {/* </CommentList> */}
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <span>Detail</span>
       <div>{userData.nickname}</div>
       <div>{postData?.postTime}</div>
       <div>{postData?.text}</div>
-      {/* <button onClick={()=>navigate(`/detail/update/${postId}`)}>수정하기</button> */}
-      {/* <button onClick={()=>delPostHandler}>Delete this</button> */}
+      <button onClick={() => {navigate(`/detail/update/${postId}`)}}></button>
+      <button onClick={delPostHandler}>Delete this</button>
       </DetailWrap>
     </>
   )
