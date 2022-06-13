@@ -42,11 +42,11 @@ const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 export const kakaoLoginDB = (code) => {  
   return async function(dispatch) {  
     dispatch(serverRequest(true)); 
+    console.log(code);
   try {
-    const kakaoLogin = await axios({  
-      method : 'get',
-      url : `http://3.39.25.179:8080/api/kakao/callback?code=${code}`
-    })
+    const kakaoLogin = await axios({                                                     
+      url : `http://3.39.25.179:8080/oauth/kakao/callback?code=${code}` 
+    })                                                               
     console.log(kakaoLogin);
     /* Token - Cookie */
     const accessToken =  kakaoLogin.data.user.token;  

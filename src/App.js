@@ -59,8 +59,8 @@ function App() {
     <>
     {/* 로그인 여부에 따른 헤더 변경 */}
     { accessToken ? <HeaderIsLogin userNick = {userNick} userID = {userId} logoutHandler = {logoutHandler}/> : <Header/>}
-    <Test></Test>
-    <MainStyle></MainStyle>
+    {/* <Test></Test>
+    <MainStyle></MainStyle> */}
     <Routes>
     <Route path="/" element = { <Home /> } />
         <Route path="/oauth/kakao/callback" element = { <KakaoRedirect /> } />
