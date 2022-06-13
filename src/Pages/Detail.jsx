@@ -38,6 +38,17 @@ const postList = useSelector(state=>state.postReducer.list)
             <MainText>
               <span>코코몽월드</span>
             </MainText>
+            <div style = {{
+              display : "flex",
+              width : '100%',
+              justifyContent : 'flex-end',
+              marginTop : "10px"
+            }}>
+              <Button style = {{
+                marginRight : '10px'
+              }}>update!</Button>
+              <Button>delete!</Button>
+            </div>
             <CommentWrap style = {{
                 position : 'relative'}}>
               <ComTitle>

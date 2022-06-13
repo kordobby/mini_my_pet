@@ -24,13 +24,16 @@ const MainStyle = () => {
         <CardBox></CardBox>
         <CardBox></CardBox>
       </GridWrap>
+      <MainFooter>
+        <span>seungjun-Koe is King of Spring</span>
+      </MainFooter>
     </MainWrap>
   )
 }
 
 const MainWrap = styled.div`
   width : 100%;
-  height : 100vh;
+  height : 100%;
   background-color: var(--post);
 `;
 
@@ -48,6 +51,7 @@ const GridWrap = styled.div`
   display : grid;
   grid-template-columns: repeat(4, 25%);
   grid-template-rows: repeat(1, 500px);
+  grid-row-gap: 50px;
   place-items: center;
 
   @media screen and (max-width : 1300px) {
@@ -60,4 +64,17 @@ const GridWrap = styled.div`
     grid-template-columns: repeat(1, 100%);
   }
 `;
+
+const MainFooter = styled.div`
+  height : 80px;
+  width : 100%;
+
+  display : flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 15px;
+  color : white;
+  font-size: 25px;
+  font-family: 'Dokdo', cursive;
+`
 export default MainStyle;

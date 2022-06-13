@@ -20,7 +20,6 @@ const Main = () => {
   console.log(postList)
   return (
     <>
-    <MainJumbotron>여기는 MainJumbotron 공간입니다.</MainJumbotron>  
       {postList.map((v, i) => {
         return (
         <PostItem
