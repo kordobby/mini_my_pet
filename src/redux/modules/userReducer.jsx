@@ -147,7 +147,6 @@ export const loginCheckDB = (token) => {
 
 /* REDUCER */
 export default function userReducer( state = InitUserState, action ) {
-  console.log(action);
   switch (action.type) {
       case SERVER_REQ :
         return { ...state, loading : action.payload };

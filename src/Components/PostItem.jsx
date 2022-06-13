@@ -3,7 +3,7 @@ import React from "react"
 // Style
 import styled from 'styled-components';
 // Routes
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 const PostItem = ({img_url, nickname, postId, username, index, textData}) => {
@@ -17,7 +17,9 @@ const PostItem = ({img_url, nickname, postId, username, index, textData}) => {
             <div>{username}</div>
             <div>{index}</div>
             <div>{textData}</div>
-            <button onClick={()=>navigate(`/detail/${postId}`)}>상세로 이동하는 버튼</button>
+            <Link to="/detail/:postId">
+            <button>상세로 이동하는 버튼</button>
+            </Link>
           </PostWrap>
       </div>
     )

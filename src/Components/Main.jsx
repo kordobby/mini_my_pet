@@ -21,11 +21,11 @@ const Main = () => {
   
   //2. 저장된 state에서 가져오기
   const postList = useSelector(state=>state.postReducer.list)
-  console.log(postList.data)
+  console.log(postList)
   
   return (
     <>
-      {postList.data !== undefined ? postList.data.map((v, i) => {
+      {postList?.map((v, i) => { //is_loading 활용해서 만들수 있음
         return (
         <PostItem
           img_url = {v.img}
@@ -34,12 +34,11 @@ const Main = () => {
           username = {v.username}
           textData = {v.text}
           index = {i}
-          key ={i}
+          key = {v.postId}
         >
         </PostItem>
         )
-      })
-      : ""}
+      })}
       <AddPostBtn onClick={()=>navigate('/post')}>+</AddPostBtn>
     </>
   );

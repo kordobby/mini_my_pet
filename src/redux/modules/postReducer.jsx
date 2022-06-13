@@ -1,7 +1,7 @@
 /* CRUD reducer part */
 import axios from "axios";
 // import { RESP } from "./mock_response";
-const MOCK_SERVER = 'http://localhost:4000/posts'
+const MOCK_SERVER = "http://3.39.25.179:8080/api"
 // Init State
 const initState = {
     list: [],
@@ -43,22 +43,23 @@ function deletePost (payload) {
 
 //middelwares
 export const addPostDB = (payload) => {
-    // console.log("AddPostDB 페이로드 내용: ",payload)
+    console.log("AddPostDB 페이로드 내용: ",payload)
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const post_data = await axios.post(MOCK_SERVER, {
+            const post_data = await axios.post("http://3.39.25.179:8080/api/post", {
                 img: payload.img,
                 text: payload.text,
-                username: payload.username,
-                headers: {
+                username: payload.username},
+                {headers: {
                     Authorization : `Bearer ${payload.token}`
                 } 
             });
-            // console.log(post_data);
-            dispatch(addPost(post_data));
+            console.log("postData입닏", post_data);
+            dispatch(addPost(post_data.data));
         } catch (error) {
-            alert("통신 에러 도망가세요")
+            console.log(error)
+            // alert("통신 에러 도망가세요 addPost")
         } finally {
             dispatch(serverRequest(false))
         }
@@ -69,12 +70,11 @@ export const loadPostDB = (token)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-        // const serverUrl = "EC2IP:8000" // 수정 필요
-            const loaded_data = await axios.get(MOCK_SERVER, {
+            const loaded_data = await axios.get("http://3.39.25.179:8080/api/post", {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }});
-            dispatch(loadPost(loaded_data))
+            dispatch(loadPost(loaded_data.data))
     }   catch ( error ) {
             console.log("데이터 Load 실패", error)
                 dispatch(requestError(error));
@@ -124,11 +124,12 @@ export const delPostDB = (payload)=> {
 
 // REDUCER
 export default function postReducer(state=initState, action={}){
+    console.log(action);
     switch (action.type){
         case ADD_POST : 
-            return { ...state, list: action.payload };
+            return { ...state, list: [...state, action.payload] };
         case LOAD_POST : 
-            return {list: action.payload}; // ...state가 필요할까?
+            return { ...state, list: action.payload}; // ...state가 필요할까?
         case DELETE_POST :
             return {...state, list: 
                 state.list.filter((value)=> {

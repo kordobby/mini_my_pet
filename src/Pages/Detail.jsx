@@ -24,7 +24,7 @@ const Detail = ({postId}) => {
   // : ""} 
 
   // const postId = params.postId
-  const postData = postList.data.find(v=>v.postId === postId)
+  const postData = postList.data?.find(v=>v.postId === postId)
   console.log(postData);
 
   const delPostHandler = () => {
@@ -54,10 +54,11 @@ const Detail = ({postId}) => {
                 height : '40px',
                 borderRadius : '20px'
                 }}></Icon>
-              <span style = {{ fontSize : '20px'}}>username</span>
+              <span style = {{ fontSize : '20px'}}>{userData.nickname}</span>
             </UserHeader>
-            <MainText>
-              <span>코코몽월드</span>
+            <MainText style={{
+              postion : 'relative'}}>
+              <span>{postData?.text}</span>
             </MainText>
             <CommentWrap style = {{
                 position : 'relative'}}>
@@ -83,8 +84,8 @@ const Detail = ({postId}) => {
       <div>{userData.nickname}</div>
       <div>{postData?.postTime}</div>
       <div>{postData?.text}</div>
-      <button onClick={navigate(`/detail/update/${postId}`)}></button>
-      <button onClick={delPostHandler}>Delete this</button>
+      <button onClick={()=>navigate(`/detail/update/${postId}`)}>수정하기</button>
+      <button onClick={()=>delPostHandler}>Delete this</button>
       </DetailWrap>
     </>
   )
