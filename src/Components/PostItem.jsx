@@ -17,7 +17,7 @@ const PostItem = ({img_url, nickname, postId, username, index, textData}) => {
             <div>{username}</div>
             <div>{index}</div>
             <div>{textData}</div>
-            <Link to="/detail/:postId">
+            <Link to={`/detail/${postId}`}>
             <button>상세로 이동하는 버튼</button>
             </Link>
           </PostWrap>

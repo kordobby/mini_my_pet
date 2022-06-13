@@ -16,16 +16,16 @@ const Detail = ({postId}) => {
   const navigate = useNavigate();
   // const params = useParams();
   const dispatch = useDispatch();
-  const postList = useSelector(state=>state.postReducer.list)
+  const postList = useSelector(state=>state.postReducer)
   const userData = useSelector(state=>state.userReducer)
-  console.log(postList)
+  console.log(postList, "포스트리스트")
   // {postList.data !== undefined ? 
   //   console.log(postList.data.find(v=>v.postId === postId))
   // : ""} 
 
   // const postId = params.postId
   const postData = postList.data?.find(v=>v.postId === postId)
-  console.log(postData);
+  console.log(postData, "postdata");
   const delPostHandler = () => {
     dispatch(delPostDB({postId})) //token 전달 필요
     navigate(-1)
