@@ -1,26 +1,51 @@
-[
+{
+  "posts": [
     {
-        "img":"randomImg for test",
-        "nickname":"Nicks",
-        "postId":"1234",
-        "username":"Peter",
-        "text":"this is a text for post0",
-        "postTime":"Date"
+      "id": 1,
+      "title": "리덕스 미들웨어를 배워봅시다",
+      "body": "리덕스 미들웨어를 직접 만들어보면 이해하기 쉽죠."
     },
     {
-        "img":"randomImg for test",
-        "nickname":"Nicks",
-        "postId":"asdfasdfsadfasadf",
-        "username":"Peter",
-        "text":"this is a text for post1",
-        "postTime":"Date"
+      "id": 2,
+      "title": "redux-thunk를 사용해봅시다",
+      "body": "redux-thunk를 사용해서 비동기 작업을 처리해봅시다!"
     },
     {
-        "img":"randomImg for test",
-        "nickname":"Nicks",
-        "postId":"dddff",
-        "username":"Peter",
-        "text":"this is a text for post2",
-        "postTime":"Date"
+      "id": 3,
+      "title": "redux-saga도 사용해봅시다",
+      "body": "나중엔 redux-saga를 사용해서 비동기 작업을 처리하는 방법도 배워볼 거예요."
+    },
+    {
+      "id": 4,
+      "img": "randomImg for test",
+      "nickname": "Nicks",
+      "postId": "1234",
+      "username": "Peter",
+      "text": "this is a text for post0",
+      "postTime": "Date"
+    },
+    {
+      "id": 5,
+      "img": "randomImg for test",
+      "nickname": "Nicks",
+      "postId": "asdfasdfsadfasadf",
+      "username": "Peter",
+      "text": "this is a text for post1",
+      "postTime": "Date"
+    },
+    {
+      "id": 6,
+      "img": "randomImg for test",
+      "nickname": "Nicks",
+      "postId": "dddff",
+      "username": "Peter",
+      "text": "this is a text for post2",
+      "postTime": "Date"
+    },
+    {
+      "img": "",
+      "text": "asdfasdfsdaf",
+      "id": 7
     }
-]
+  ]
+}

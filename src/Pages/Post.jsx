@@ -35,6 +35,7 @@ const Post = () => {
 
   return (
     <>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <span>Post</span><br/>
       <input ref={img_ref} type='file' className="imgInput" id='postImg' accept="image/*" name="file" onChange={onImgLoaded}/>  
       {/* <div className="thumbnail">썸네일</div>  */}

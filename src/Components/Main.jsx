@@ -13,15 +13,15 @@ const Main = () => {
   //1. 서버에서 load
   useEffect(()=>{
     dispatch(loadPostDB()) // loadPostDB에 token 입력해야됨
-  }, [dispatch]);
+  },[dispatch]);
   
   //2. 저장된 state에서 가져오기
   const postList = useSelector(state=>state.postReducer.list)
-  console.log(postList)
+  console.log(postList.data)
+  
   return (
     <>
-    {/* <MainJumbotron>여기는 MainJumbotron 공간입니다.</MainJumbotron>   */}
-      {postList.map((v, i) => {
+      {postList.data !== undefined ? postList.data.map((v, i) => {
         return (
         <PostItem
           img_url = {v.img}
@@ -34,7 +34,8 @@ const Main = () => {
         >
         </PostItem>
         )
-      })}
+      })
+      : ""}  
     </>
   );
 }

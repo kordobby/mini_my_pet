@@ -1,23 +1,31 @@
 /* 디테일 page => 포스트 클릭시 연결되는 상세페이지 */
 
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StateHeader, StateHeaderText } from "./Login";
 import styled from 'styled-components';
 import P3 from '../Public/Images/P3.jpeg';
 import { Icon, UserHeader } from '../Components/CardBox';
 import { Button } from '../elem/Button';
 import  Comment  from '../Components/Comment';
+import { useNavigate, useParams } from "react-router-dom";
+import { delPostDB } from "../redux/modules/postReducer";
 
-const Detail = () => {
+const Detail = ({postId}) => {
+
   const navigate = useNavigate();
-  const params = useParams();
+  // const params = useParams();
   const dispatch = useDispatch();
   const postList = useSelector(state=>state.postReducer.list)
   const userData = useSelector(state=>state.userReducer)
   console.log(postList)
-  const postId = params.postId
-  const postData = postList.find(v=>v.postId === postId)
+  {postList.data !== undefined ? 
+    console.log(postList.data.find(v=>v.postId === postId))
+  : ""} 
+
+  // const postId = params.postId
+  const postData = postList.data.find(v=>v.postId === postId)
+  console.log(postData);
 
   const delPostHandler = () => {
     dispatch(delPostDB({postId})) //token 전달 필요 
@@ -69,10 +77,11 @@ const Detail = () => {
           <ComTitle>Comments!</ComTitle>
           <Comment></Comment>
         </CommentList>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <span>Detail</span>
       <div>{userData.nickname}</div>
-      <div>{postData.postTime}</div>
-      <div>{postData.text}</div>
+      <div>{postData?.postTime}</div>
+      <div>{postData?.text}</div>
       <button onClick={navigate(`/detail/update/${postId}`)}></button>
       <button onClick={delPostHandler}>Delete this</button>
       </DetailWrap>

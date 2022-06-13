@@ -37,6 +37,7 @@ function App() {
   }, [dispatch, accessToken]);
 
   const userInfo = useSelector((state) => state.userReducer);
+  const postId = useSelector((state)=>state.postReducer.list.postId)
   console.log(userInfo); // nickname, userId
 
   const userNick = userInfo.nickname;
@@ -60,7 +61,7 @@ function App() {
         <Route path="/login" element = { <Login /> } />
         <Route path="/update" element = { <Update /> } />
         <Route path="/post" element = { <Post/> } />
-        <Route path="/detail/:postId" element = { <Detail/> } />
+        <Route path={`/detail/:${postId}`} element = { <Detail postId={postId} /> } />
     </Routes>
     </>
   );

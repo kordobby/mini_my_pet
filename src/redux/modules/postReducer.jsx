@@ -1,36 +1,10 @@
 /* CRUD reducer part */
 import axios from "axios";
 // import { RESP } from "./mock_response";
-import { setCookie } from "../../Shared/Cookie";
-
+const MOCK_SERVER = 'http://localhost:4000/posts'
 // Init State
 const initState = {
-    list: [
-        {
-            img:"randomImg for test",
-            nickname:"Nicks",
-            postId:"1234",
-            username:"Peter",
-            text:"this is a text for post0",
-            postTime:"Date"
-        },
-        {
-            img:"randomImg for test",
-            nickname:"Nicks",
-            postId:"asdfasdfsadfasadf",
-            username:"Peter",
-            text:"this is a text for post1",
-            postTime:"Date"
-        },
-        {
-            img:"randomImg for test",
-            nickname:"Nicks",
-            postId:"dddff",
-            username:"Peter",
-            text:"this is a text for post2",
-            postTime:"Date"
-        }
-    ],
+    list: [],
     loading: false,
     error: null
 }
@@ -73,11 +47,14 @@ export const addPostDB = (payload) => {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const post_data = await axios.post('/api/post', {
+            const post_data = await axios.post(MOCK_SERVER, {
                 img: payload.img,
                 text: payload.text,
                 username: payload.username,
-            }); //header 추가, token 작업 완료 후 추가 
+                headers: {
+                    Authorization : `Bearer ${payload.token}`
+                } 
+            });
             // console.log(post_data);
             dispatch(addPost(post_data));
         } catch (error) {
@@ -93,11 +70,10 @@ export const loadPostDB = (token)=> {
         dispatch(serverRequest(true));
         try {
         // const serverUrl = "EC2IP:8000" // 수정 필요
-            const loaded_data = await axios.get(`http://localhost:4000/posts`, {
+            const loaded_data = await axios.get(MOCK_SERVER, {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }});
-                console.log(loaded_data)
             dispatch(loadPost(loaded_data))
     }   catch ( error ) {
             console.log("데이터 Load 실패", error)
@@ -152,11 +128,11 @@ export default function postReducer(state=initState, action={}){
         case ADD_POST : 
             return { ...state, list: action.payload };
         case LOAD_POST : 
-            return {list: action.payload};
+            return {list: action.payload}; // ...state가 필요할까?
         case DELETE_POST :
             return {...state, list: 
-                state.list.filter((value, index)=> {
-                    return (index !== action.payload)})}
+                state.list.filter((value)=> {
+                    return (value.postId !== action.payload)})}
         case UPDATE_POST :
             return {...state, list: action.payload} //확인 필요...
         case SERVER_REQ :
