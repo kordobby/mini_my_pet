@@ -1,13 +1,21 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import P1 from '../Public/Images/P1.jpeg';
 import P2 from '../Public/Images/P2.jpeg';
 import P3 from '../Public/Images/P3.jpeg';
 import P4 from '../Public/Images/P4.jpeg';
 import P5 from '../Public/Images/P5.jpeg';
+import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
+import { useRef } from 'react';
 
 const Test = () => {
+  const scollToRef = useRef();
+  const handleToPost = () => {
+    scollToRef.current.scrollIntoView({behavior: "smooth", block: "start"});
+  }
 
   return (
+    <>
     <BridgeWrap>
       <BridgeTitle>TellmeTellme</BridgeTitle>
       <PhotoWrap>
@@ -18,7 +26,13 @@ const Test = () => {
         <ImgBox src = {P5} style = {{margin : '0'}}/>
       </PhotoWrap>
       <BridgeTitleBtm style = {{ color : 'var(--blue)' }}>WANT TO MEET UR BABIES!</BridgeTitleBtm>
+      <div style = {{
+        color : 'var(--post)',
+        fontSize : '40px',
+        marginTop : '20px'
+      }}><button onClick = {handleToPost} ><FontAwesomeIcon icon = {faAnglesDown} /></button></div>
     </BridgeWrap>
+    <div ref = {scollToRef} style = {{ height : '150px', width : '100%', backgroundColor : 'yellow'}}></div></>
   )
 }
 

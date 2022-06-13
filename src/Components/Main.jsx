@@ -25,7 +25,9 @@ const Main = () => {
   
   return (
     <>
+
       {postList?.map((v, i) => { //is_loading 활용해서 만들수 있음
+
         return (
         <PostItem
           img_url = {v.img}

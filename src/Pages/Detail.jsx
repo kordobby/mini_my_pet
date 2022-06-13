@@ -26,7 +26,6 @@ const Detail = ({postId}) => {
   // const postId = params.postId
   const postData = postList.data?.find(v=>v.postId === postId)
   console.log(postData);
-
   const delPostHandler = () => {
     dispatch(delPostDB({postId})) //token 전달 필요
     navigate(-1)
@@ -79,13 +78,11 @@ const Detail = ({postId}) => {
           <ComTitle>Comments!</ComTitle>
           <Comment></Comment>
         </CommentList>
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <span>Detail</span>
       <div>{userData.nickname}</div>
       <div>{postData?.postTime}</div>
       <div>{postData?.text}</div>
-      <button onClick={()=>navigate(`/detail/update/${postId}`)}>수정하기</button>
-      <button onClick={()=>delPostHandler}>Delete this</button>
+      {/* <button onClick={()=>navigate(`/detail/update/${postId}`)}>수정하기</button> */}
+      {/* <button onClick={()=>delPostHandler}>Delete this</button> */}
       </DetailWrap>
     </>
   )
