@@ -21,6 +21,8 @@ const Update = () => {
     postId,
     token: getCookie('token'),
     text: text_ref.current?.value,}))
+    alert("수정 성공")
+  navigate(-1)
   }
 
 
@@ -29,7 +31,7 @@ const Update = () => {
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       <span>Update</span>
       <input placeholder="00자 이내로 작성해주세요"></input>
-      <button onClick={()=>(updatePostHandler)}>UPDATE</button>
+      <button onClick={()=>(updatePostHandler())}>UPDATE</button>
       <button onClick={()=>(navigate(-1))}>CANCEL</button>
     </>
   )

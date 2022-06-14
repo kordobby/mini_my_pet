@@ -11,10 +11,10 @@ const PostItem = ({img_url, nickname, postId, username, index, textData}) => {
     return (
       <div>
           <PostWrap>
-            <div>{img_url}</div>
-            <div>{nickname}</div>
-            <div>{postId}</div>
-            <div>{username}</div>
+            <div>img:{img_url}</div>
+            <div>nickname:{nickname}</div>
+            <div>postID:{postId}</div>
+            <div>username:{username}</div>
             <div>{index}</div>
             <div>{textData}</div>
             <button onClick={() => {navigate(`/detail/${postId}`)}}>상세로 이동하는 버튼</button>

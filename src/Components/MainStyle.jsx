@@ -1,13 +1,28 @@
 import styled from 'styled-components';
-import { useState } from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import { BridgeTitle } from '../Pages/Test';
 import { ButtonPost } from '../elem/Button';
 import CardBox from './CardBox'; 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import PostItem from "./PostItem";
+import { loadPostDB } from "../redux/modules/postReducer";
+import { getCookie } from "../Shared/Cookie";
+
+
 const MainStyle = () => {
+  const dispatch = useDispatch()
+  const token = getCookie('token')
+  const navigate = useNavigate();
 
-
+    //1. 서버에서 load
+    useEffect(()=>{
+      dispatch(loadPostDB(token)) // loadPostDB에 token 입력해야됨
+    },[dispatch]);
+    
+    //2. 저장된 state에서 가져오기
+    const postList = useSelector(state=>state.postReducer.list)
+    console.log(postList)
   return (
     <MainWrap>
       <MainHeader>
@@ -22,10 +37,20 @@ const MainStyle = () => {
       <ButtonPost > + Post!</ButtonPost>
       </MainHeader>
       <GridWrap>
-        <CardBox></CardBox>
-        <CardBox></CardBox>
-        <CardBox></CardBox>
-        <CardBox></CardBox>
+      {postList?.map((v, i) => { //is_loading 활용해서 만들수 있음
+        return (
+        <CardBox
+          img_url = {v.img}
+          nickname = {v.nickname}
+          postId = {v.postId}
+          username = {v.username}
+          textData = {v.text}
+          index = {i}
+          key = {v.postId}
+        >
+        </CardBox>
+        )
+      })}
       </GridWrap>
       <MainFooter>
         <span>seungjun-Koe is King of Spring</span>

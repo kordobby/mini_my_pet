@@ -41,6 +41,7 @@ const Detail = () => {
   const postData = postList.filter((value) => (value.postId === Number(postId)));
   console.log(postData.text); // 잘 찍히는 것 확인
 
+
   /* YOON'S CODE - comment things */
 
   const [ comments, setComments ] = useState('');
@@ -76,7 +77,7 @@ const Detail = () => {
           <Contents>
             <UserHeader style = {{marginLeft : '0'}}>
               <Icon style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
-              <span style = {{ fontSize : '20px'}}>{userData.nickname}</span>
+              <span style = {{ fontSize : '20px'}}>{postData.nickname}</span>
             </UserHeader>
             <MainText>
               <span>{postData.text}</span>

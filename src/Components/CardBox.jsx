@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import P1 from '../Public/Images/P1.jpeg';
 
-const CardBox = () => {
-
+const CardBox = ({img_url, nickname, postId, username, textData, index, key}) => {
   return (
     <PostCards>
       <CardHeader>
@@ -12,7 +11,7 @@ const CardBox = () => {
         </UserHeader>
       </CardHeader>
       <CardBody>
-        <img 
+        <img
           src = {P1}
           style = {{
             width : '280px',
@@ -21,7 +20,7 @@ const CardBox = () => {
           alt = ""/>
       </CardBody>
       <CardFooter>
-        <span>내 귀여운 아가들</span>
+        <span>{textData}</span>
       </CardFooter>
     </PostCards>
   )

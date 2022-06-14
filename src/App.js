@@ -24,6 +24,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { loginCheckDB, logout } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie, deleteCookie } from './Shared/Cookie';
+import { loadPostDB } from './redux/modules/postReducer';
 /* Router setup */
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loginCheckDB(accessToken));
+    dispatch(loadPostDB(accessToken));
   }, [dispatch, accessToken]);
 
   const userInfo = useSelector((state) => state.userReducer);

@@ -16,6 +16,11 @@ const SERVER_REQ = 'postReducer/SERVER_REQ';
 const REQ_SUCCESS = 'postReducer/REQ_SUCCESS';
 const REQ_ERROR = 'postReducer/REQ_ERROR';
 
+// [ FIREBASE ]
+const ADD_IMG = 'postReducer/ADD_IMG';
+const LOAD_IMG = 'postReducer/LOAD_IMG';
+const DEL_IMG = 'postReducer/DEL_IMG';
+
 // [ POST ]
 const ADD_POST = 'postReducer/ADD_POST';
 const LOAD_POST = 'postReducer/LOAD_POST';
@@ -27,6 +32,11 @@ const DELETE_POST = 'postReducer/DELETE_POST';
 const serverRequest = (payload) => ({ type : SERVER_REQ, payload });
 const requestSuccess = (payload) => ({ type : REQ_SUCCESS, payload })
 const requestError = (payload) => ({ type : REQ_ERROR, payload });
+
+// [ FIREBASE ]
+const addImgFB = (payload) => ({ type : ADD_IMG, payload })
+const loadImgFB = (payload) => ({ type : LOAD_IMG, payload })
+const delImgFB = (payload) => ({ type : DEL_IMG, payload })
 
 // [POST]
 function addPost (payload) {
@@ -42,13 +52,14 @@ function deletePost (payload) {
     return {type: DELETE_POST, payload}
 }
 
+
 //middelwares
 export const addPostDB = (payload) => {
     console.log("AddPostDB 페이로드 내용: ",payload)
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const post_data = await axios.post(MOCK_SERVER, {
+            const post_data = await axios.post(`${REAL_SERVER}/post`, {
                 img: payload.img,
                 text: payload.text,
                 username: payload.username},
@@ -68,11 +79,13 @@ export const loadPostDB = (token)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));  
         try {
-            const loaded_data = await axios.get(MOCK_SERVER, {
+            const loaded_data = await axios.get(`${REAL_SERVER}/main`, {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }});
-            dispatch(loadPost(loaded_data.data))}
+            dispatch(loadPost(loaded_data.data))
+            console.log(loaded_data)}
+            
         catch ( error ) {
             console.log("데이터 Load 실패", error)
                 dispatch(requestError(error));}
@@ -85,7 +98,7 @@ export const updatePostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const updated_data = await axios.put(`/api/detail/update/${payload.postId}`,{
+            const updated_data = await axios.put(`${REAL_SERVER}/detail/${payload.postId}`,{
                 text: payload.text,
                 headers: {
                     Authorization : `Bearer ${payload.token}`
@@ -103,7 +116,7 @@ export const delPostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const delPostId = await axios.delete(`${MOCK_SERVER}/${payload.postId}`, {
+            const delPostId = await axios.delete(`${REAL_SERVER}/detail/${payload.postId}`, {
                 headers: {
                     Authorization : `Bearer ${payload.token}`                
             }});
@@ -129,7 +142,10 @@ export default function postReducer(state=initState, action={}){
                 state.list.filter((value)=> {
                     return (value.postId !== action.payload)})}
         case UPDATE_POST :
-            return {...state, list: action.payload} //확인 필요...
+            return {...state, list:
+                state.list.map((value, index)=>{
+                    return index === Number(action.payload.postId) ? action.payload : value})
+                }
         case SERVER_REQ :
             return { ...state, loading: action.payload };
         // case REQ_SUCCESS :

@@ -1,6 +1,6 @@
 /* 홈(메인) page */
 
-import Main from "../Components/Main";
+import MainStyle from "../Components/MainStyle";
 import Test from "./Test";
 import { AddPostBtn } from "../elem/AddPostBtn";
 import { useNavigate } from "react-router-dom";
@@ -10,12 +10,12 @@ const navigate = useNavigate();
   return (
     <>
       <Test/>
-      {/* { login ? (
-        <> */}
-          <Main/>
+      { login ? (
+        <>
+          <MainStyle/>
           <AddPostBtn onClick={()=>navigate('/post')}>+</AddPostBtn>
-        {/* </>
-      ) : ""} */}
+        </>
+      ) : ""}
     </>
   )
 }
