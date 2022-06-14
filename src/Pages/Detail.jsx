@@ -28,16 +28,15 @@ const Detail = () => {
   const postList = useSelector(state=>state.postReducer.list)
   const userData = useSelector(state=>state.userReducer)
   const token = getCookie('token')
-  
+  const { postId } = useParams();
   useEffect(()=>{
-      dispatch(loadPostDB(token)) // loadPostDB에 token 입력해야됨
+      dispatch(loadPostDB({postId, token})) // loadPostDB에 token 입력해야됨
     },[dispatch]);
 
   const delPostHandler = () => {
-    dispatch(delPostDB({postId, token})) //token 전달 필요
+    dispatch(delPostDB({token})) //token 전달 필요
     navigate(-1)}
 
-  const { postId } = useParams();
   const postData = postList.filter((value) => (value.postId === Number(postId)));
   console.log(postData.text); // 잘 찍히는 것 확인
 
@@ -49,7 +48,7 @@ const Detail = () => {
   const CommentList = useSelector((state) => state.commentReducer?.list);
   // CommentList.loading = true / false
   useEffect(() => {
-    dispatch(loadCommentDB(token));
+    dispatch(loadCommentDB({token, postId}));
   }, [dispatch]);
 
   // Comment ADD - userData 잘 넘어가는 것 확인함
@@ -109,17 +108,19 @@ const Detail = () => {
           </Contents>
         </DetailBox>
         <CommentListForm>
-          <Comment/><Comment/><Comment/>
-          {/* <ComTitle>Comments!</ComTitle>
+          {/* <Comment/><Comment/><Comment/> */}
+          <ComTitle>Comments!</ComTitle>
           { 
               CommentList?.map((value, index) => {
-                return <div
+                return <Comment
                   key = {value.commentId}
-                  text = {value.username}
+                  username = {value.username}
                   nickname = {value.nickname}
                   comment = {value.comment}
-                  modifiedAt = {value.modifiedAt} />
-              } )} */}
+                  postTime = {value.modifiedAt}
+                  commentId = {value.commentId}
+                  postId = {postId} />
+              } )}
         </CommentListForm>
       </DetailWrap>
       <DetailFooter></DetailFooter>
@@ -222,7 +223,7 @@ const CommentListForm = styled.div`
   
   @media screen and (max-width : 1300px) {
     width : 400px;
-    margin-top : 100px;
+    margin-top : 150px;
   }
 `
 

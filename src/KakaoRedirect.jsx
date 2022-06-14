@@ -23,7 +23,7 @@ const KakaoRedirect = (props) => {
     if ( accessToken ) {
        navigate('/')
     }
-  }, []);
+  }, [accessToken]);
 
   return (
     <>

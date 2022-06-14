@@ -1,6 +1,7 @@
 /* 로그인 page */
 import React, { useState } from 'react';
 import {KAKAO_AUTH_URL} from '../Kakao';
+import { useEffect } from 'react';
 /* Styles */
 import styled from 'styled-components';
 
@@ -22,13 +23,16 @@ const Login = () => {
   const [ id, setId ] = useState('');
   const [ pw, setPw ] = useState('');
 
-  const loginHandler = () => {
+  const loginHandler = async () => {
     dispatch(loginDB({
       username : id,
       password : pw
     }))
-    navigate('/');
   };
+
+  useEffect(() => { 
+    ( request.login === true ) ? navigate('/') : navigate('/login')
+  }, [request.login]);
 
   return (
     <>
@@ -102,19 +106,19 @@ export const StateHeaderText = styled.span`
   color : white;
 `
 
-// export const Blank = styled.div`
-//   width : 100%;
-//   height : 120px;
-// `
-
 /* Header 아래로 보이는 main-box */
 export const UserFormWrap = styled.div`
+  box-sizing: border-box;
+  margin-top : 50px;
   width : 100%;
   height: 100vh;
   
   display : flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width : 800px) {
+    margin-top : 10px;
+  }
 `
 export const UserPageBox = styled.div`
   box-sizing : border-box;
@@ -127,6 +131,10 @@ export const UserPageBox = styled.div`
   align-items: center;
   border : 1px solid #d2d2d2;
   border-radius: 8px;
+
+  @media screen and (max-width : 800px) {
+    border : none;
+  }
 `
 export const UserTitle = styled.div`
   font-family: Dokdo, cursive;

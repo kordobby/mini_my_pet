@@ -29,7 +29,7 @@ export const reqError = (payload) => {
   return { type : REQ_ERROR, payload }
 }
 
-const laodComment = (payload) => {
+const loadComment = (payload) => {
   return { type : LOAD_COMMENT, payload }
 };
 
@@ -47,12 +47,12 @@ const updateComment = (payload) => {
 
 /* THUNK */
 export const loadCommentDB = (payload) => {
-  // console.log(payload)
+  console.log(payload)
   // payload : { token : #### , postID : #### }
   return async function(dispatch) {
     dispatch(getRequest(true));
     try {
-      // console.log(payload.token);
+      console.log(payload);
       const commentData = await axios({
         method : 'get',
         url : `http://3.39.25.179:8080/api/comment/${payload.postId}`,
@@ -61,7 +61,7 @@ export const loadCommentDB = (payload) => {
         }
       })
       // console.log(commentData);
-      dispatch(laodComment(commentData.data));
+      dispatch(loadComment(commentData.data));
     } catch (error) {
       dispatch(reqError(error));
       alert('댓글 불러오기 실패!')
@@ -108,7 +108,7 @@ export const addCommentDB = (payload) => {
 
 export const delCommentDB = (payload) => {
   console.log(payload);
-  return async function (dispatch) {
+  return async function (dispatch, getState) {
     dispatch(getRequest(true));
     try {
       const delData = await axios({
@@ -118,8 +118,15 @@ export const delCommentDB = (payload) => {
           Authorization : `Bearer ${payload.token}`
         }
       })
+      const currentComment = getState().commentReducer.list;
+      console.log(currentComment);
       // delData.data = { commentId : #### }
+      const loadReq = {
+        postId : payload.postId,
+        token : payload.token
+      };
       dispatch(delComment(delData.data));
+      dispatch(loadCommentDB(loadReq));
     } catch ( error )  {
       console.log('댓글 삭제 실패', error);
       dispatch(reqError(error));
@@ -144,8 +151,13 @@ export const updateCommentDB = (payload) => {
         Authorization : `Bearer ${payload.token}`
       }
     })
+    const loadReq = {
+      postId : payload.postId,
+      token : payload.token
+    };
     dispatch(updateComment(updateData.data));
     alert('댓글 수정이 완료되었습니다!');
+    dispatch(loadCommentDB(loadReq));
   } catch (error) {
     console.log('댓글 수정 실패!', error);
     dispatch(reqError(error));
