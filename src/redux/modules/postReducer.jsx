@@ -66,7 +66,7 @@ export const addPostDB = (payload) => {
 
 export const loadPostDB = (token)=> {
     return async function(dispatch){
-        dispatch(serverRequest(true));
+        dispatch(serverRequest(true));  
         try {
             const loaded_data = await axios.get(MOCK_SERVER, {
                 headers: {
@@ -75,10 +75,18 @@ export const loadPostDB = (token)=> {
             dispatch(loadPost(loaded_data.data))}
         catch ( error ) {
             console.log("데이터 Load 실패", error)
+<<<<<<< HEAD
                 dispatch(requestError(error));}
         finally {
         dispatch(serverRequest(false));
 }}}
+=======
+                dispatch(requestError(error));
+    }   finally {
+        dispatch(serverRequest(false));  
+    }
+}}
+>>>>>>> 3b773bf64304b721a2e0f74457cd080d2d99488a
 
 export const updatePostDB = (payload)=> {
     return async function(dispatch){
@@ -120,7 +128,7 @@ export default function postReducer(state=initState, action={}){
     console.log(action);
     switch (action.type){
         case ADD_POST : 
-            return { ...state, list: [...state, action.payload] };
+            return { ...state, list: [...state.list, action.payload] };
         case LOAD_POST : 
             return { ...state, list: action.payload}; // ...state가 왜 필요할까
         case DELETE_POST :

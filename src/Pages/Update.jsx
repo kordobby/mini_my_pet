@@ -1,9 +1,15 @@
 /* 수정 page */
+<<<<<<< HEAD
 import { useRef } from "react";
 import { useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom";
 import { updatePostDB } from "../redux/modules/postReducer";
 import { getCookie } from "../Shared/Cookie";
+=======
+/* import Components */
+import { UserFormWrap, UserPageBox, UserTitle, LoginBtnWrap, StateHeader, StateHeaderText } from './Login';
+import { Button } from '../elem/Button';
+>>>>>>> 3b773bf64304b721a2e0f74457cd080d2d99488a
 
 const Update = () => {
   const navigate = useNavigate();

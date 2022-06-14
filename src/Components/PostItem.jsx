@@ -17,9 +17,13 @@ const PostItem = ({img_url, nickname, postId, username, index, textData}) => {
             <div>{username}</div>
             <div>{index}</div>
             <div>{textData}</div>
+<<<<<<< HEAD
             <Link to={`/detail/${postId}`}>
             <button>상세로 이동하는 버튼</button>
             </Link>
+=======
+            <button onClick={() => {navigate(`/detail/${postId}`)}}>상세로 이동하는 버튼</button>
+>>>>>>> 3b773bf64304b721a2e0f74457cd080d2d99488a
           </PostWrap>
       </div>
     )

@@ -22,6 +22,10 @@ const Main = () => {
   console.log(postList)
   
   return (
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3b773bf64304b721a2e0f74457cd080d2d99488a
     <>
       {postList?.map((v, i) => { //is_loading 활용해서 만들수 있음
         return (

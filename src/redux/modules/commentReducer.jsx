@@ -63,25 +63,15 @@ export const loadCommentDB = (payload) => {
       // console.log(commentData);
       dispatch(laodComment(commentData.data));
     } catch (error) {
-      console.log('댓글 저장 실패', error);
       dispatch(reqError(error));
-      alert('댓글 작성 실패!')
+      alert('댓글 불러오기 실패!')
     } finally {
       dispatch(getRequest(false));
     }
-}}
-
-  /* payload : {
-      token : #### ,
-      username : ####,
-      nickname : ####,
-      comment : ####,
-      postId : ####
-     }}
-  */
+}};
 
 export const addCommentDB = (payload) => {
-  // console.log(payload)
+  console.log(payload)
   return async function (dispatch) {
     dispatch(getRequest(true));
   try {
@@ -90,9 +80,9 @@ export const addCommentDB = (payload) => {
       method : 'post',
       url : `http://3.39.25.179:8080/api/comment/${payload.postId}`,
       data : {
-        username : payload.post.username,
-        nickname : payload.post.nickname,
-        comment : payload.post.comment
+        username : payload.username,
+        nickname : payload.nickname,
+        comment : payload.comment
       },
       headers : {
         Authorization : `Bearer ${payload.token}`
@@ -117,10 +107,10 @@ export const addCommentDB = (payload) => {
 */
 
 export const delCommentDB = (payload) => {
+  console.log(payload);
   return async function (dispatch) {
     dispatch(getRequest(true));
     try {
-      console.log(payload);
       const delData = await axios({
         method : 'delete',
         url : `http://3.39.25.179:8080/api/comment/${payload.commentId}`,

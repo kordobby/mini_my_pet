@@ -24,6 +24,7 @@ const REQ_ERROR = 'userReducer/REQ_ERROR';
 const LOGIN = 'userReducer/LOGIN';
 const CHECK_ID = 'userReducer/CHECK_ID';
 const LOGIN_CHECK = 'userReducer/LOGIN_CHECK';
+const LOGOUT = 'userReducer/LOGOUT';
 
 /* ACTION FUNCTION */
 // [ SERVER ]
@@ -33,7 +34,7 @@ const requestError = (payload) => ({ type : REQ_ERROR, payload });
 
 // [ LOGIN  & SIGN-UP ]
 // const signUp = (paylaod) => ({ type : SIGN_UP, paylaod });
-const login = (payload) => ({ type : LOGIN, payload });
+export const logout = (payload) => ({ type : LOGOUT, payload });
 const checkId = (payload) => ({ type : CHECK_ID, payload });
 const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 
@@ -42,14 +43,15 @@ const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 export const kakaoLoginDB = (code) => {  
   return async function(dispatch) {  
     dispatch(serverRequest(true)); 
+    console.log(code);
   try {
-    const kakaoLogin = await axios({  
-      method : 'get',
-      url : `http://3.39.25.179:8080/api/kakao/callback?code=${code}`
-    })
+    const kakaoLogin = await axios({                                                     
+      url : `http://3.39.25.179:8080/oauth/kakao/callback?code=${code}` 
+    })                                                               
     console.log(kakaoLogin);
     /* Token - Cookie */
-    const accessToken =  kakaoLogin.data.user.token;  
+    const accessToken =  kakaoLogin.data.user.token;
+    console.log(accessToken);
     setCookie('token', accessToken);
     // 유저 닉네임 & ID 저장하는 리듀서 만들어야함
     dispatch(loginCheck('hello')) 
@@ -187,6 +189,8 @@ export default function userReducer( state = InitUserState, action ) {
         return { ...state, idCheck : action.payload }; // if success => idCheck : true => useSelector 
       case LOGIN_CHECK :
         return { ...state, username : action.payload.username, nickname : action.payload.nickname };
+      case LOGOUT : 
+        return { ...state, username : null, nickname : null, login : false };
     default :
       return state;
   }

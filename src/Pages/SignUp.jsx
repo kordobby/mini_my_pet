@@ -141,12 +141,12 @@ const SignUp = () => {
   )
 }
 
-const SignUpForm = styled.div`
+export const SignUpForm = styled.div`
   width : 100%;
   margin-bottom: 20px;
 `
 
-const SignUpInput = styled.input`
+export const SignUpInput = styled.input`
   width : 100%;
   height: 30px;
 

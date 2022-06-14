@@ -1,16 +1,26 @@
-import styled from 'styled-components';
 import { useState } from "react";
-import { Button } from '../elem/Button';
-import { CommentInput } from '../Pages/Detail';
-import { useDispatch } from 'react-redux';
-import { delCommentDB, updateCommentDB } from '../redux/modules/commentReducer';
 import { getCookie } from '../Shared/Cookie';
 
+/* Redux Setup */
+import { useSelector, useDispatch } from 'react-redux';
+import { delCommentDB, updateCommentDB } from '../redux/modules/commentReducer';
+
+/* Styles */
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { CommentInput } from '../Pages/Detail';
 
 const Comment = () => {
-  // props : username, postId, commentId
+  // props : username, postId, commentId, nickname
   const [ modal, setModal ] = useState(false);
   const [ commentData, setCommentData ] = useState('');
+
+  /* 로그인중인 현재 유저 정보 가져오기 */
+  const isLoginUser = useSelector((state) => state.userReducer.username);
 
   /* 수정 버튼 Modal 구현 */
   const modalHandler = () => {
@@ -25,7 +35,7 @@ const Comment = () => {
   const token = getCookie('token');
   const dispatch = useDispatch(); 
 
-  const commentRegister = () => {
+  const updateCommentHandler = () => {
     dispatch(updateCommentDB({
       token : token,
       comment : commentData,
@@ -43,70 +53,52 @@ const Comment = () => {
 
   return (
     <CommentBoxWrap>
+
+    {/* 댓글 달리는 카드 */}
     <CommentBox>
-      <div style = {{
-        width : '10%', 
-        display : "flex",
-        alignContent : 'center'}}>
-        <span>user_nick</span>
-      </div>
-      <div style = {{
-        width : '70%',
-        display : "flex",
-        alignContent : 'center'
-        }}>
-        <span>헐 너무 귀여워요!</span>
-      </div>
-      <div style = {{
-        width : '10%',
-        display : "flex",
-        alignContent : 'center',
-        justifyContent : 'flex-end',
-        paddingRight : '20px'}}>
-        <DelBtn onClick = {delCommentHandler}>del</DelBtn>
-        <DelBtn style = {{
-          marginLeft : '10px'
-        }} onClick = {modalHandler}>up</DelBtn>
-      </div>
-      <div style = {{
-        width : '10%',
-        display : "flex",
-        alignContent : 'center',
-        justifyContent : 'flex-end',
-        paddingRight : '20px'}}>
-        <span>00-00-00</span>
-      </div>
+      <NickBox>
+        <span>user_nick</span> {/* nickname */}
+      </NickBox>
+      <CommentTexts>
+        <span>헐 너무 귀여워요!</span> {/* commnet */}
+      </CommentTexts>
+      <ButtonBoxComment>
+        <DelBtn onClick = {delCommentHandler}><FontAwesomeIcon icon = {faTrashCan}/></DelBtn>
+        <DelBtn onClick = {modalHandler}><FontAwesomeIcon icon = {faPenToSquare} /></DelBtn>
+      </ButtonBoxComment>
+      <TimeBox>
+        <span>00-00-00</span> {/* createdAt */}
+      </TimeBox>
     </CommentBox>
+
+    {/* Modal : 댓글 수정란 */}
     { modal ? <>
-    <UpdateBox style = {{
-        position : 'relative'}}>
+    <UpdateBox style = {{ position : 'relative'}}>
       <CommentInput
           type = "text"
           onChange = {(event) => { setCommentData(event.target.value);}}
           placeholder="수정할 댓글을 작성해주세요!"
           required />
-      <Button
-          style = {{
-            position : 'absolute',
-            bottom : '25px',
-            right : '6px',
-            backgroundColor : 'grey'
-        }}
-        onClick = {modalCancel}>CANCEL</Button>
-      <Button
-        onClick = {commentRegister}
-        style = {{
-            position : 'absolute',
-            bottom : '25px',
-            right : '110px'
-          }}>UPDATE</Button>
+      {/* isLoginUser === username ? 버튼 표시 : null */}
+      <DelBtn
+          style = {{ width : '24px', height: '24px', position : 'absolute',
+                     bottom : '28px', right : '6px', fontSize : '12px' }}
+           onClick = {modalCancel}><FontAwesomeIcon icon = {faXmark} />
+      </DelBtn>
+      <DelBtn
+          onClick = {updateCommentHandler}
+          style = {{  width : '24px', height: '24px', position : 'absolute', bottom : '28px', right : '35px' }}>
+            <FontAwesomeIcon icon = {faFloppyDisk} />
+      </DelBtn>
     </UpdateBox> </> : <></> }
   </CommentBoxWrap>
   )
 }
 
 const CommentBoxWrap = styled.div`
-  
+  height : 100%;
+  width : 100%;
+  background-color  : var(--bg);
 `
 
 const CommentBox = styled.div`
@@ -120,18 +112,34 @@ const CommentBox = styled.div`
   
   padding-left : 20px;
   margin-top: 20px;
+
+  @media screen and (max-width : 1300px) {
+    height : 100px;
+    align-items: flex-start;
+    padding-top : 15px;
+    flex-direction: column;
+} 
 `
 
 const DelBtn = styled.button`
   width : 30px;
   height: 30px;
 
+  display : flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
   border-radius: 15px;
   border : none;
-  background-color: var(--yellow); // 수정예정
+  background-color : #e0d9d9;
 
   &:hover {
     background-color: var(--blue); // 수정예정
+    color : white;
+  }
+  &:nth-child(2) {
+    margin-left : 10px;
   }
 `
 const UpdateBox = styled.div`
@@ -140,4 +148,46 @@ const UpdateBox = styled.div`
   margin-top: 10px;
 `
 
+const ButtonBoxComment = styled.div`
+  width : 10%;
+  display : flex;
+  align-content: center;
+  justify-content: flex-end;
+  padding-right: 0px;
+
+  @media screen and (max-width : 1300px) {
+  width : 100%;
+  align-content: flex-end;
+  padding-right: 15px;
+} 
+`
+const TimeBox = styled.div`
+  width : 10%;
+  display : flex;
+  align-content : center;
+  justify-content : flex-end;
+  padding-right : 20px;
+  @media screen and (max-width : 1300px) {
+    display : none;
+} 
+`
+
+const CommentTexts = styled.div`
+  width : 70%;
+  display : flex;
+  align-content: cneter;
+
+  @media screen and (max-width : 1300px) {
+    width : 80%;
+  }
+`
+const NickBox = styled.div`
+  width : 10%;
+  display : flex;
+  align-content: center;
+  @media screen and (max-width : 1300px) {
+    width : 30%;
+    margin-bottom: 10px;
+  }
+`
 export default Comment;
