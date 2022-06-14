@@ -37,7 +37,7 @@ const Detail = ( ) => {
 
   const { postId } = useParams();
   const postData = postList.filter((value) => (value.postId === Number(postId)));
-  console.log(postData); // 잘 찍히는 것 확인
+  console.log(postData.text); // 잘 찍히는 것 확인
 
   const delPostHandler = () => {
     dispatch(delPostDB({postId})) //token 전달 필요 
@@ -81,7 +81,7 @@ const Detail = ( ) => {
               <span style = {{ fontSize : '20px'}}>{userData.nickname}</span>
             </UserHeader>
             <MainText>
-              <span>Hello</span>
+              <span>{postData.text}</span>
             </MainText>
             <div style = {{ display : "flex", width : '100%', justifyContent : 'flex-end', marginTop : "10px" }}>
               <Button
