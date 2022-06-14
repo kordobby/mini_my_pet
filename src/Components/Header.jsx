@@ -30,10 +30,10 @@ const Header = () => {
         </Link>
         <LoginWrap>
           <Link to = '/login'>
-            <HeaderBtn>LOGIN</HeaderBtn>
+            <HeaderBtn style = {{ marginRight : "15px"}}>LOGIN</HeaderBtn>
           </Link>
           <Link to = '/signup'>
-            <HeaderBtn style = {{ marginRight : "15px", marginLeft : "15px" }}>SIGNUP</HeaderBtn>
+            <HeaderBtn style = {{ marginRight : "15px" }}>SIGNUP</HeaderBtn>
           </Link>
         </LoginWrap>
       </HeaderWrap>

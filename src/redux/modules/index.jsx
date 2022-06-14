@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 /* Reducers */
 import postReducer from './postReducer';
 import userReducer from './userReducer';
-
-const rootReducer = combineReducers( { postReducer, userReducer } );
+import commentReducer from "./commentReducer";
+const rootReducer = combineReducers( { postReducer, userReducer, commentReducer } );
 
 export default rootReducer;

@@ -127,7 +127,7 @@ export default function postReducer(state=initState, action={}){
     console.log(action);
     switch (action.type){
         case ADD_POST : 
-            return { ...state, list: [...state, action.payload] };
+            return { ...state, list: [...state.list, action.payload] };
         case LOAD_POST : 
             return { ...state, list: action.payload}; // ...state가 필요할까?
         case DELETE_POST :
