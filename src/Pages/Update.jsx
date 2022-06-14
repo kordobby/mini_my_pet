@@ -8,6 +8,7 @@ import { getCookie } from "../Shared/Cookie";
 /* import Components */
 import { UserFormWrap, UserPageBox, UserTitle, LoginBtnWrap, StateHeader, StateHeaderText } from './Login';
 import { Button } from '../elem/Button';
+import { useEffect } from "react";
 
 const Update = () => {
   const navigate = useNavigate();
@@ -15,17 +16,16 @@ const Update = () => {
   const text_ref = useRef(null);
   const distpatch = useDispatch();
   const postId = params.postId;
-  console.log(postId)
+
   const updatePostHandler = () => {
   distpatch(updatePostDB({
     postId,
     token: getCookie('token'),
     text: text_ref.current?.value,}))
-    // alert("수정 성공")
-  // navigate(-1)
+    navigate(-1);
   }
 
-
+  
   return (
     <>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

@@ -24,7 +24,7 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
 
   /* 수정 버튼 Modal 구현 */
   const modalHandler = () => {
-    modal === true ?  setModal(false) : setModal(true)
+    modal === true ?  setModal(false) : setModal(true);
   }
   // 취소버튼
   const modalCancel = () => {
@@ -41,7 +41,7 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
       comment : commentData,
       commentId : commentId  // props 로 받으면 수정 필요
     }))
-    
+    setModal(false);
   }
 
   /* Comment 삭제 서버 요청 보내기 : token, commentId */

@@ -1,6 +1,6 @@
 /* 로그인 page */
 import React, { useState } from 'react';
-import {KAKAO_AUTH_URL} from '../Kakao';
+import {KAKAO_AUTH_URL} from '../Shared/Kakao';
 import { useEffect } from 'react';
 /* Styles */
 import styled from 'styled-components';

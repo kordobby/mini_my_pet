@@ -107,7 +107,6 @@ export const addCommentDB = (payload) => {
 */
 
 export const delCommentDB = (payload) => {
-  console.log(payload);
   return async function (dispatch, getState) {
     dispatch(getRequest(true));
     try {
@@ -118,9 +117,7 @@ export const delCommentDB = (payload) => {
           Authorization : `Bearer ${payload.token}`
         }
       })
-      const currentComment = getState().commentReducer.list;
-      console.log(currentComment);
-      // delData.data = { commentId : #### }
+      // const currentComment = getState().commentReducer.list;
       const loadReq = {
         postId : payload.postId,
         token : payload.token

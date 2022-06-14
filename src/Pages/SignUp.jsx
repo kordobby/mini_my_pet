@@ -26,7 +26,6 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const signUpReq = useSelector((state) => state.userReducer);
-  console.log(signUpReq.idCheck);
 
   const num = pw.search(/[0-9]/g);
   const eng = pw.search(/[a-z]/ig);
