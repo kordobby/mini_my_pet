@@ -29,16 +29,20 @@ const Detail = () => {
   const userData = useSelector(state=>state.userReducer)
   const token = getCookie('token')
   const { postId } = useParams();
-  useEffect(()=>{
-      dispatch(loadPostDB({postId, token})) // loadPostDB에 token 입력해야됨
-    },[dispatch]);
+  
+  // useEffect(()=>{
+  //     dispatch(loadPostDB({postId, token})) // loadPostDB에 token 입력해야됨
+  //   },[dispatch]);
+  const tempData = useSelector(state=>state.postReducer.list)
+  console.log(tempData)
 
   const delPostHandler = () => {
-    dispatch(delPostDB({token})) //token 전달 필요
-    navigate(-1)}
+    dispatch(delPostDB({token, postId})) //token 전달 필요
+    // navigate(-1)
+  }
 
-  const postData = postList.filter((value) => (value.postId === Number(postId)));
-  console.log(postData.text); // 잘 찍히는 것 확인
+  const postData = tempData?.filter((value) => (value.postId === Number(postId)));
+  console.log(postData); // 잘 찍히는 것 확인
 
 
   /* YOON'S CODE - comment things */

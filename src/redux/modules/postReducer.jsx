@@ -97,8 +97,9 @@ export const loadPostDB = (token)=> {
 export const updatePostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
+        console.log(payload)
         try {
-            const updated_data = await axios.put(`${REAL_SERVER}/detail/${payload.postId}`,{
+            const updated_data = await axios.put(`${REAL_SERVER}/detail/update/${payload.postId}`,{
                 text: payload.text,
                 headers: {
                     Authorization : `Bearer ${payload.token}`

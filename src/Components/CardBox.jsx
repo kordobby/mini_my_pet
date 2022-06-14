@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import P1 from '../Public/Images/P1.jpeg';
 
 const CardBox = ({img_url, nickname, postId, username, textData, index, key}) => {
+  const navigate = useNavigate();
   return (
-    <PostCards>
+    <PostCards style={{cursor:"pointer"}} onClick={()=>{navigate(`/detail/${postId}`)}}>
       <CardHeader>
         <Icon></Icon>
         <UserHeader>
