@@ -1,12 +1,11 @@
-//kakaoLogin: (code) => api.get(`/api/kakao/callback?code=${code}`),
 
 // 카카오 리다이렉트될 화면
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { kakaoLoginDB } from './redux/modules/userReducer';
+import { kakaoLoginDB } from '../redux/modules/userReducer';
 import { useNavigate } from 'react-router-dom';
-import { getCookie } from './Shared/Cookie';
+import { getCookie } from '../Shared/Cookie';
 
 const KakaoRedirect = (props) => {
   const dispatch = useDispatch();
