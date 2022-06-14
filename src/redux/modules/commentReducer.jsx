@@ -122,8 +122,9 @@ export const delCommentDB = (payload) => {
         postId : payload.postId,
         token : payload.token
       };
-      dispatch(delComment(delData.data));
+      console.log(loadReq);
       dispatch(loadCommentDB(loadReq));
+      dispatch(delComment(delData.data));
     } catch ( error )  {
       console.log('댓글 삭제 실패', error);
       dispatch(reqError(error));

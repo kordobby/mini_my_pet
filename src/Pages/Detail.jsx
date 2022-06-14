@@ -28,7 +28,7 @@ const Detail = () => {
   const userData = useSelector(state=>state.userReducer)
   const token = getCookie('token')
   const { postId } = useParams();
-
+  console.log(postId);
   const delPostHandler = () => {
     dispatch(delPostDB({token, postId})); //token 전달 필요
     navigate('/');
