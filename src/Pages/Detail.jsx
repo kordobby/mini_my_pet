@@ -1,9 +1,7 @@
 /* 디테일 page => 포스트 클릭시 연결되는 상세페이지 */
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 /* Hooks */
-import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 /* Styles */

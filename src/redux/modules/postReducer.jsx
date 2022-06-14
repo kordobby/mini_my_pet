@@ -75,18 +75,11 @@ export const loadPostDB = (token)=> {
             dispatch(loadPost(loaded_data.data))}
         catch ( error ) {
             console.log("데이터 Load 실패", error)
-<<<<<<< HEAD
                 dispatch(requestError(error));}
         finally {
         dispatch(serverRequest(false));
 }}}
-=======
-                dispatch(requestError(error));
-    }   finally {
-        dispatch(serverRequest(false));  
-    }
-}}
->>>>>>> 3b773bf64304b721a2e0f74457cd080d2d99488a
+
 
 export const updatePostDB = (payload)=> {
     return async function(dispatch){
