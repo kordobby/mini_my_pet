@@ -3,10 +3,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PostItem from "./PostItem";
-import styled from "styled-components"
 import { loadPostDB } from "../redux/modules/postReducer";
 import { getCookie } from "../Shared/Cookie";
-import { AddPostBtn } from "../elem/AddPostBtn";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
@@ -25,9 +23,7 @@ const Main = () => {
   
   return (
     <>
-
       {postList?.map((v, i) => { //is_loading 활용해서 만들수 있음
-
         return (
         <PostItem
           img_url = {v.img}
@@ -41,17 +37,8 @@ const Main = () => {
         </PostItem>
         )
       })}
-      <AddPostBtn onClick={()=>navigate('/post')}>+</AddPostBtn>
     </>
   );
 }
-
-export const MainJumbotron = styled.div`
-  height : 400px;
-  background-color : white;
-  text-align : center;
-  font-size : 100px;
-  margin-top : 60px;
-`
 
 export default Main;

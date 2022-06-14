@@ -1,6 +1,6 @@
 /* 디테일 page => 포스트 클릭시 연결되는 상세페이지 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StateHeader, StateHeaderText } from "./Login";
 import styled from 'styled-components';
@@ -10,24 +10,30 @@ import { Button } from '../elem/Button';
 import  Comment  from '../Components/Comment';
 import { useNavigate, useParams } from "react-router-dom";
 import { delPostDB } from "../redux/modules/postReducer";
+import { loadPostDB } from "../redux/modules/postReducer";
+import { getCookie } from "../Shared/Cookie";
 
-const Detail = ({postId}) => {
-
+const Detail = () => {
   const navigate = useNavigate();
-  // const params = useParams();
   const dispatch = useDispatch();
-  const postList = useSelector(state=>state.postReducer)
+  const postList = useSelector(state=>state.postReducer.list)
   const userData = useSelector(state=>state.userReducer)
-  console.log(postList, "포스트리스트")
+  const token = getCookie('token')
+  const params = useParams();
+  const postId = params.postId;
+  
+  useEffect(()=>{
+      dispatch(loadPostDB(token)) // loadPostDB에 token 입력해야됨
+    },[dispatch]);
+
   // {postList.data !== undefined ? 
   //   console.log(postList.data.find(v=>v.postId === postId))
   // : ""} 
-
-  // const postId = params.postId
+  console.log(postList, "postLIST");
   const postData = postList.data?.find(v=>v.postId === postId)
   console.log(postData, "postdata");
   const delPostHandler = () => {
-    dispatch(delPostDB({postId})) //token 전달 필요
+    dispatch(delPostDB({postId, token})) //token 전달 필요
     navigate(-1)
   }
   return (
@@ -40,7 +46,7 @@ const Detail = ({postId}) => {
       <DetailWrap>
         <DetailBox>
           <img
-            src = {P3}
+            src = {require("https://www.rd.com/list/black-cat-breeds/").default}
             style = {{
               width : '400px',
               height : '400px'
@@ -59,6 +65,18 @@ const Detail = ({postId}) => {
               postion : 'relative'}}>
               <span>{postData?.text}</span>
             </MainText>
+            <Button style={{
+              display : 'inline-block',
+              marginTop : '10px',
+              // postion : 'absolute',
+              right : '6px'
+            }} onClick={()=>navigate(`../detail/update/${postId}`, {replace:true})} >EDIT</Button>
+            <Button style={{
+              display : 'inline-block',
+              marginTop : '10px',
+              // postion : 'absolute',
+              right : '6px'
+            }}>DELETE</Button>
             <CommentWrap style = {{
                 position : 'relative'}}>
               <ComTitle>

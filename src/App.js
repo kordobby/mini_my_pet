@@ -37,11 +37,13 @@ function App() {
   }, [dispatch, accessToken]);
 
   const userInfo = useSelector((state) => state.userReducer);
-  const postId = useSelector((state)=>state.postReducer.list.postId)
+  const postData = useSelector((state)=>state.postReducer.list)
   console.log(userInfo); // nickname, userId
+  console.log(postData)
 
   const userNick = userInfo.nickname;
   const userId = userInfo.username;
+  const login = userInfo.login;
 
   const logoutHandler = () => {
     deleteCookie('token');
@@ -56,12 +58,12 @@ function App() {
     {/* <Test></Test>
     <MainStyle></MainStyle> */}
     <Routes>
-    <Route path="/" element = { <Home /> } />
+    <Route path="/" element = { <Home login={login}/> } />
         <Route path="/signup" element = { <SignUp /> } />
         <Route path="/login" element = { <Login /> } />
-        <Route path="/update" element = { <Update /> } />
+        <Route path="/detail/update/:postId" element = { <Update /> } />
         <Route path="/post" element = { <Post username={userId}/> } />
-        <Route path={`/detail/:${postId}`} element = { <Detail postId={postId} /> } />
+        <Route path="/detail/:postId" element = { <Detail /> } />
     </Routes>
     </>
   );

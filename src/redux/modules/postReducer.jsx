@@ -1,7 +1,8 @@
 /* CRUD reducer part */
 import axios from "axios";
-// import { RESP } from "./mock_response";
-const MOCK_SERVER = "http://3.39.25.179:8080/api"
+
+const MOCK_SERVER = "http://localhost:4000/posts"
+const REAL_SERVER = "http://3.39.25.179:8080/api"
 // Init State
 const initState = {
     list: [],
@@ -47,61 +48,55 @@ export const addPostDB = (payload) => {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const post_data = await axios.post("http://3.39.25.179:8080/api/post", {
+            const post_data = await axios.post(MOCK_SERVER, {
                 img: payload.img,
                 text: payload.text,
                 username: payload.username},
                 {headers: {
                     Authorization : `Bearer ${payload.token}`
-                } 
-            });
+                }});
             console.log("postData입닏", post_data);
-            dispatch(addPost(post_data.data));
-        } catch (error) {
+            dispatch(addPost(post_data.data));}
+        catch (error) {
             console.log(error)
-            // alert("통신 에러 도망가세요 addPost")
-        } finally {
+            alert("통신 에러 도망가세요 addPost")}
+        finally {
             dispatch(serverRequest(false))
-        }
-    }
-}
+}}}
 
 export const loadPostDB = (token)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const loaded_data = await axios.get("http://3.39.25.179:8080/api/post", {
+            const loaded_data = await axios.get(MOCK_SERVER, {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }});
-            dispatch(loadPost(loaded_data.data))
-    }   catch ( error ) {
+            dispatch(loadPost(loaded_data.data))}
+        catch ( error ) {
             console.log("데이터 Load 실패", error)
-                dispatch(requestError(error));
-    }   finally {
+                dispatch(requestError(error));}
+        finally {
         dispatch(serverRequest(false));
-    }
-}}
+}}}
 
 export const updatePostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const updated_data = await axios.put(`/api/detail/update/${payload.postId}`, {
+            const updated_data = await axios.put(`/api/detail/update/${payload.postId}`,{
                 text: payload.text,
                 headers: {
                     Authorization : `Bearer ${payload.token}`
                 }}); 
                 console.log(updated_data);
-            dispatch(updatePost(updated_data));
-        } catch ( error ) {
+            dispatch(updatePost(updated_data));}
+        catch ( error ) {
             console.log("데이터 upload 실패", error)
-            dispatch(requestError(error));
-        } finally {
+            dispatch(requestError(error));}
+        finally {
             dispatch(serverRequest(false));
-        }
-    }
-}
+}}}
 
 export const delPostDB = (payload)=> {
     return async function(dispatch){
@@ -112,15 +107,13 @@ export const delPostDB = (payload)=> {
                     Authorization : `Bearer ${payload.token}`                
             }});
             console.log(delPostId);
-            dispatch(deletePost(delPostId))
-    }   catch ( error ) {
+            dispatch(deletePost(delPostId))}
+        catch ( error ) {
             console.log("데이터 삭제 실패", error)
-                dispatch(requestError(error));
-    }   finally {
+                dispatch(requestError(error));}
+        finally {
         dispatch(serverRequest(false));
-    }
-    }
-}
+}}}
 
 // REDUCER
 export default function postReducer(state=initState, action={}){
@@ -129,7 +122,7 @@ export default function postReducer(state=initState, action={}){
         case ADD_POST : 
             return { ...state, list: [...state, action.payload] };
         case LOAD_POST : 
-            return { ...state, list: action.payload}; // ...state가 필요할까?
+            return { ...state, list: action.payload}; // ...state가 왜 필요할까
         case DELETE_POST :
             return {...state, list: 
                 state.list.filter((value)=> {
@@ -144,5 +137,4 @@ export default function postReducer(state=initState, action={}){
             return { ...state, error : action.payload };
         default:
             return state;
-    }
-}
+}}
