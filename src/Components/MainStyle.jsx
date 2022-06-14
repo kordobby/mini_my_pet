@@ -68,7 +68,7 @@ const GridWrap = styled.div`
   }
 `;
 
-const MainFooter = styled.div`
+export const MainFooter = styled.div`
   height : 80px;
   width : 100%;
 

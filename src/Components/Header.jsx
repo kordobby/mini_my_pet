@@ -70,12 +70,18 @@ export const LoginWrap = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  @media screen and (max-width : 800px) {
+    flex-direction: column;
+  }
 `;
 
 export const HeaderBtn = styled.span`
   font-size: 14px;
   font-weight: 600;
   color : white;
+  @media screen and (max-width : 800px) {
+    margin-bottom: 5px;
+  }
 `;
 
 export default Header;

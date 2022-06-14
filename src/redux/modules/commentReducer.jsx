@@ -71,7 +71,7 @@ export const loadCommentDB = (payload) => {
 }};
 
 export const addCommentDB = (payload) => {
-  // console.log(payload)
+  console.log(payload)
   return async function (dispatch) {
     dispatch(getRequest(true));
   try {
@@ -107,10 +107,10 @@ export const addCommentDB = (payload) => {
 */
 
 export const delCommentDB = (payload) => {
+  console.log(payload);
   return async function (dispatch) {
     dispatch(getRequest(true));
     try {
-      console.log(payload);
       const delData = await axios({
         method : 'delete',
         url : `http://3.39.25.179:8080/api/comment/${payload.commentId}`,

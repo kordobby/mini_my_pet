@@ -23,7 +23,7 @@ import ScrollTopBtn from './elem/ScrollTopBtn';
 
 /* Reducer */
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { loginCheckDB } from './redux/modules/userReducer';
+import { loginCheckDB, logout } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie, deleteCookie } from './Shared/Cookie';
 
@@ -35,6 +35,7 @@ function App() {
 
   const dispatch = useDispatch();
   const accessToken = getCookie('token');
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,8 +51,9 @@ function App() {
 
   const logoutHandler = () => {
     deleteCookie('token');
+    dispatch(logout());
     alert('로그아웃 되었습니다!');
-    navigate('/');
+    // navigate('/');
   };
 
 
@@ -68,7 +70,7 @@ function App() {
         <Route path="/login" element = { <Login /> } />
         <Route path="/update" element = { <Update /> } />
         <Route path="/post" element = { <Post username={userId}/> } />
-        <Route path={`/detail/:${postId}`} element = { <Detail postId={postId} /> } />
+        <Route path="detail/:postId" element = { <Detail postId={postId} /> } />
     </Routes>
     <ScrollTopBtn/>
     </>

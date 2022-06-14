@@ -1,30 +1,43 @@
 /* 디테일 page => 포스트 클릭시 연결되는 상세페이지 */
 
+/* Hooks */
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+
+/* Styles */
 import { StateHeader, StateHeaderText } from "./Login";
 import styled from 'styled-components';
 import P3 from '../Public/Images/P3.jpeg';
 import { Icon, UserHeader } from '../Components/CardBox';
 import { Button } from '../elem/Button';
 import  Comment  from '../Components/Comment';
-import { useNavigate, useParams } from "react-router-dom";
+
+/* Redux setup */
 import { delPostDB } from "../redux/modules/postReducer";
 import { loadCommentDB, addCommentDB } from "../redux/modules/commentReducer";
+import { useDispatch, useSelector } from "react-redux";
+
+/* Cookies */
 import { getCookie } from "../Shared/Cookie";
 
-const Detail = ({postId}) => {
+const Detail = ( ) => {
+  // props로 받아올 수 없어서 삭제했습니다-!
+
+  /* token 받아오기, DB request function 모두 보내주기! */
+  const token = getCookie('token');
 
   const navigate = useNavigate();
-  // const params = useParams();
   const dispatch = useDispatch();
-  const postList = useSelector(state=>state.postReducer.list)
-  const userData = useSelector(state=>state.userReducer)
-  console.log(postList)
 
-  // const postId = params.postId
-  const postData = postList.find(v=>v.postId === postId)
-  console.log(postData);
+  const postList = useSelector(state => state.postReducer.list)
+  const userData = useSelector(state => state.userReducer)
+  console.log(postList);  // 새로고침하면 모든 데이터가 날아가버림, DB에서 로드하는 과정 필요할까
+  // postList => 모든 게시물
+  // nickname = userData.nickname, username = userData.username
+
+  const { postId } = useParams();
+  const postData = postList.filter((value) => (value.postId === Number(postId)));
+  console.log(postData); // 잘 찍히는 것 확인
 
   const delPostHandler = () => {
     dispatch(delPostDB({postId})) //token 전달 필요 
@@ -33,21 +46,21 @@ const Detail = ({postId}) => {
   /* YOON'S CODE - comment things */
 
   const [ comments, setComments ] = useState('');
-  const token = getCookie('token');
 
   const CommentList = useSelector((state) => state.commentReducer?.list);
-  // Comment LOAD
+  // CommentList.loading = true / false
   useEffect(() => {
     dispatch(loadCommentDB(token));
   }, [dispatch]);
 
-  // Comment ADD
+  // Comment ADD - userData 잘 넘어가는 것 확인함
   const commentHandler = () => {
     dispatch(addCommentDB({
-      token : token,
+      postId,
+      token,
       comment : comments,
-      username : 'username',
-      nickname : 'nickname'
+      username : userData.username,
+      nickname : userData.nickname
     }))
   }
 
@@ -58,37 +71,25 @@ const Detail = ({postId}) => {
           Details!
         </StateHeaderText>
       </StateHeader>
+
       <DetailWrap>
         <DetailBox>
-          <img
-            src = {P3}
-            style = {{
-              width : '400px',
-              height : '400px'
-            }}></img>
+          <img src = {P3} style = {{ width : '400px', height : '400px' }}></img>
           <Contents>
             <UserHeader style = {{marginLeft : '0'}}>
-              <Icon style = {{
-                marginRight : '10px',
-                width : '40px',
-                height : '40px',
-                borderRadius : '20px'
-                }}></Icon>
-              <span style = {{ fontSize : '20px'}}>username</span>
+              <Icon style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
+              <span style = {{ fontSize : '20px'}}>{userData.nickname}</span>
             </UserHeader>
             <MainText>
-              <span>코코몽월드</span>
+              <span>Hello</span>
             </MainText>
-            <div style = {{
-              display : "flex",
-              width : '100%',
-              justifyContent : 'flex-end',
-              marginTop : "10px"
-            }}>
-              <Button style = {{
-                marginRight : '10px'
-              }}>update!</Button>
-              <Button>delete!</Button>
+            <div style = {{ display : "flex", width : '100%', justifyContent : 'flex-end', marginTop : "10px" }}>
+              <Button
+                onClick={() => {navigate(`/detail/update/${postId}`)}}
+                style = {{
+                  marginRight : '10px'
+                }}>update!</Button>
+              <Button onClick={delPostHandler}>delete!</Button>
             </div>
             <CommentWrap style = {{
                 position : 'relative'}}>
@@ -108,10 +109,11 @@ const Detail = ({postId}) => {
             </CommentWrap>
           </Contents>
         </DetailBox>
-        {/* <CommentList> */}
+        <CommentListForm>
+          <Comment/><Comment/><Comment/>
           {/* <ComTitle>Comments!</ComTitle>
           { 
-              CommentList.map((value, index) => {
+              CommentList?.map((value, index) => {
                 return <div
                   key = {value.commentId}
                   text = {value.username}
@@ -119,22 +121,16 @@ const Detail = ({postId}) => {
                   comment = {value.comment}
                   modifiedAt = {value.modifiedAt} />
               } )} */}
-        {/* </CommentList> */}
-        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <span>Detail</span>
-      <div>{userData.nickname}</div>
-      <div>{postData?.postTime}</div>
-      <div>{postData?.text}</div>
-      <button onClick={() => {navigate(`/detail/update/${postId}`)}}></button>
-      <button onClick={delPostHandler}>Delete this</button>
+        </CommentListForm>
       </DetailWrap>
+      <DetailFooter></DetailFooter>
     </>
   )
 }
 
 const DetailWrap = styled.div`
   background-color: var(--bg);
-  height: 100vh;
+  height: 100%;
   display : flex;
 
   margin-top: 120px;
@@ -149,6 +145,12 @@ const DetailBox = styled.div`
   margin-top: 80px;
   display : flex;
   justify-content: center;
+
+  @media screen and (max-width : 1300px) {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px;
+  }
 `;
 
 const Contents = styled.div`
@@ -159,6 +161,11 @@ const Contents = styled.div`
   display : flex;
   flex-direction: column;
   align-items: flex-start;
+
+  @media screen and (max-width : 1300px) {
+    margin : 30px;
+    width : 400px;
+  }
 `
 
 const MainText = styled.div`
@@ -171,6 +178,11 @@ const MainText = styled.div`
   box-sizing: border-box;
   border-radius: 8px;
   background-color: white;
+
+  @media screen and (max-width : 1300px) {
+    width : 400px;
+    margin-top: 10px;
+  }
 `
 
 const CommentWrap = styled.div`
@@ -181,6 +193,10 @@ const CommentWrap = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
+
+  @media screen and (max-width : 1300px) {
+    height : 120px;
+  }
 `
 
 const ComTitle = styled.span`
@@ -200,10 +216,20 @@ export const CommentInput = styled.input`
   }
 `
 
-const CommentList = styled.div`
+const CommentListForm = styled.div`
   width : 1150px;
-  height: 500px; 
   margin-top : 50px;
   box-sizing: border-box;
+  
+  @media screen and (max-width : 1300px) {
+    width : 400px;
+    margin-top : 100px;
+  }
+`
+
+const DetailFooter = styled.div`
+  height : 80px;
+  width : 100%; 
+  background-color: var(--bg);
 `
 export default Detail;
