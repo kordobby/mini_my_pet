@@ -1,6 +1,6 @@
 import { KAKAO_AUTH_URL } from './Kakao';
 
-function OAuth() {
+function Auth() {
   //let 변수명 = new URL(window.location.href).searchParams.get('code')
   console.log(KAKAO_AUTH_URL);
 
@@ -11,4 +11,4 @@ function OAuth() {
   );
 }
 
-export default OAuth;
+export default Auth;

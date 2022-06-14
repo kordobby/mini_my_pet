@@ -50,11 +50,12 @@ export const kakaoLoginDB = (code) => {
     })                                                               
     console.log(kakaoLogin);
     /* Token - Cookie */
-    const accessToken =  kakaoLogin.data.user.token;
-    console.log(accessToken);
-    setCookie('token', accessToken);
-    // 유저 닉네임 & ID 저장하는 리듀서 만들어야함
-    dispatch(loginCheck('hello')) 
+    const accessToken =  kakaoLogin.headers.authorization.split(" ")[1];  
+      setCookie('token', accessToken, {
+        path : "/",
+        expire : "after60m"
+      });        
+      dispatch(requestSuccess(true));     
     alert('로그인 성공!')
   }
    catch (error) {
@@ -138,7 +139,10 @@ export const loginDB = (payload) => {
       }
     })
       const accessToken =  login.headers.authorization.split(" ")[1];  
-      setCookie('token', accessToken);        
+      setCookie('token', accessToken, {
+        path : "/",
+        expire : "after60m"
+      });      
       dispatch(requestSuccess(true));     
       alert('로그인 성공!')    
   } catch ( error ) {
@@ -153,7 +157,7 @@ export const loginDB = (payload) => {
 export const loginCheckDB = (token) => {
   return async function(dispatch, getState) {
     // #1. 서버 요청 보내기 => loading = true;
-    dispatch(serverRequest(true));
+    dispatch(serverRequest(true)); // loading => true
   try {
     // #2. 서버 로그인 요청
     // response (success) => result { nickname : #### , ID : #### }
@@ -172,7 +176,7 @@ export const loginCheckDB = (token) => {
     console.log( "로그인 확인 실패", error );
     dispatch(requestError(error));
   } finally {
-    dispatch(serverRequest(false));             // server request 종료
+    dispatch(serverRequest(false)); // loading : false 
   } 
 }};
 

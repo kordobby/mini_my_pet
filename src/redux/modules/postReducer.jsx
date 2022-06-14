@@ -48,7 +48,7 @@ export const addPostDB = (payload) => {
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
-            const post_data = await axios.post(MOCK_SERVER, {
+            const post_data = await axios.post(`${REAL_SERVER}/post`, {
                 img: payload.img,
                 text: payload.text,
                 username: payload.username},
@@ -68,7 +68,7 @@ export const loadPostDB = (token)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));  
         try {
-            const loaded_data = await axios.get(MOCK_SERVER, {
+            const loaded_data = await axios.get(`${REAL_SERVER}/main`, {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }});

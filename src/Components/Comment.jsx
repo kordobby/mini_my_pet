@@ -14,7 +14,7 @@ import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { CommentInput } from '../Pages/Detail';
 
-const Comment = () => {
+const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) => {
   // props : username, postId, commentId, nickname
   const [ modal, setModal ] = useState(false);
   const [ commentData, setCommentData ] = useState('');
@@ -39,15 +39,17 @@ const Comment = () => {
     dispatch(updateCommentDB({
       token : token,
       comment : commentData,
-      commentId : 'commentId'  // props 로 받으면 수정 필요
+      commentId : commentId  // props 로 받으면 수정 필요
     }))
+    
   }
 
   /* Comment 삭제 서버 요청 보내기 : token, commentId */
   const delCommentHandler = () => {
+    console.log(commentId);
     dispatch(delCommentDB({
-      token : token,
-      commentId : 'commentId' // props 로 받으면 수정 필요
+      token,
+      commentId
     }))
   }
 
@@ -57,17 +59,22 @@ const Comment = () => {
     {/* 댓글 달리는 카드 */}
     <CommentBox>
       <NickBox>
-        <span>user_nick</span> {/* nickname */}
+        <span>{nickname}</span> {/* nickname */}
       </NickBox>
       <CommentTexts>
-        <span>헐 너무 귀여워요!</span> {/* commnet */}
+        <span>{comment}</span> {/* commnet */}
       </CommentTexts>
+      { isLoginUser === username ? 
       <ButtonBoxComment>
         <DelBtn onClick = {delCommentHandler}><FontAwesomeIcon icon = {faTrashCan}/></DelBtn>
         <DelBtn onClick = {modalHandler}><FontAwesomeIcon icon = {faPenToSquare} /></DelBtn>
-      </ButtonBoxComment>
+      </ButtonBoxComment> : <></> }
+      {/* // <ButtonBoxComment>
+      //   <DelBtn onClick = {delCommentHandler}><FontAwesomeIcon icon = {faTrashCan}/></DelBtn>
+      //   <DelBtn onClick = {modalHandler}><FontAwesomeIcon icon = {faPenToSquare} /></DelBtn>
+      // </ButtonBoxComment> */}
       <TimeBox>
-        <span>00-00-00</span> {/* createdAt */}
+        <span>{postTime}</span> {/* createdAt */}
       </TimeBox>
     </CommentBox>
 

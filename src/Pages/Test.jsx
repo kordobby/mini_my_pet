@@ -9,10 +9,6 @@ import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
 import { useRef } from 'react';
 
 const Test = () => {
-  // const scollToRef = useRef();
-  // const handleToPost = () => {
-  //   scollToRef.current.scrollIntoView({behavior: "smooth", block: "start"});
-  // }
 
   return (
     <>
@@ -26,13 +22,8 @@ const Test = () => {
         <ImgBox src = {P5} style = {{margin : '0'}}/>
       </PhotoWrap>
       <BridgeTitleBtm style = {{ color : 'var(--blue)' }}>WANT TO MEET UR BABIES!</BridgeTitleBtm>
-      <div style = {{
-        color : 'var(--post)',
-        fontSize : '40px',
-        marginTop : '20px'
-      }}><button ><FontAwesomeIcon icon = {faAnglesDown} /></button></div>
     </BridgeWrap>
-    <div style = {{ height : '150px', width : '100%', backgroundColor : 'yellow'}}></div></>
+    </>
   )
 }
 

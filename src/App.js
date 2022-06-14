@@ -24,6 +24,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { loginCheckDB, logout } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie, deleteCookie } from './Shared/Cookie';
+import KakaoRedirect from './KakaoRedirect';
+import ScrollTopBtn from './elem/ScrollTopBtn';
 /* Router setup */
 
 function App() {
@@ -50,7 +52,7 @@ function App() {
     deleteCookie('token');
     dispatch(logout());
     alert('로그아웃 되었습니다!');
-    // navigate('/');
+    navigate('/');
   };
 
   return (
@@ -66,7 +68,9 @@ function App() {
         <Route path="/detail/update/:postId" element = { <Update /> } />
         <Route path="/post" element = { <Post username={userId}/> } />
         <Route path="/detail/:postId" element = { <Detail /> } />
+        <Route path="/oauth/kakao/callback" element = {<KakaoRedirect/>} />
     </Routes>
+    <ScrollTopBtn/>
     </>
   );
 }
