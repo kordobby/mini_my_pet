@@ -68,7 +68,7 @@ export const addPostDB = (payload) => {
 
 export const loadPostDB = (token)=> {
     return async function(dispatch){
-        dispatch(serverRequest(true));
+        dispatch(serverRequest(true));  
         try {
             const loaded_data = await axios.get("http://3.39.25.179:8080/api/post", {
                 headers: {
@@ -79,7 +79,7 @@ export const loadPostDB = (token)=> {
             console.log("데이터 Load 실패", error)
                 dispatch(requestError(error));
     }   finally {
-        dispatch(serverRequest(false));
+        dispatch(serverRequest(false));  
     }
 }}
 
