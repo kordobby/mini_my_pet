@@ -27,6 +27,7 @@ import { loadPostDB } from './redux/modules/postReducer';
 import KakaoRedirect from './Pages/KakaoRedirect';
 import ScrollTopBtn from './elem/ScrollTopBtn';
 /* Router setup */
+import { useQuery } from 'react-query';
 
 function App() {
 
@@ -39,12 +40,14 @@ function App() {
     dispatch(loginCheckDB(accessToken));
   }, [dispatch, accessToken]);
 
-  useEffect(() => {
-    dispatch(loadPostDB(accessToken));
-  },[dispatch])
+  // useEffect(() => {
+  //   dispatch(loadPostDB(accessToken));
+  // },[dispatch])
+
+  /* React-query prac */
 
   const userInfo = useSelector((state) => state.userReducer);
-  const postData = useSelector((state)=>state.postReducer.list)
+  const postData = useSelector((state)=>state.postReducer.list);
 
   const userNick = userInfo.nickname;
   const userId = userInfo.username;
