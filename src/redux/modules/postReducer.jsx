@@ -39,10 +39,6 @@ const serverRequest = (payload) => ({ type : SERVER_REQ, payload });
 const requestSuccess = (payload) => ({ type : REQ_SUCCESS, payload })
 const requestError = (payload) => ({ type : REQ_ERROR, payload });
 
-// [ FIREBASE ]
-const addImgFB = (payload) => ({ type : ADD_IMG, payload })
-const loadImgFB = (payload) => ({ type : LOAD_IMG, payload })
-const delImgFB = (payload) => ({ type : DEL_IMG, payload })
 
 // [POST]
 function addPost (payload) {
@@ -73,6 +69,7 @@ export const addPostDB = (payload) => {
                 {headers: {
                     Authorization : `Bearer ${payload.token}`
                 }});
+                console.log(post_data.data)
             dispatch(addPost(post_data.data));}
         catch (error) {
             console.log(error)
@@ -106,13 +103,14 @@ export const updatePostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         console.log(payload)
+        console.log(`${REAL_SERVER}/detail/update/${payload.postId}`)
         try {
             const updated_data = await axios.put(`${REAL_SERVER}/detail/update/${payload.postId}`,{
-                text: payload.text,
-                headers: {
+                text: payload.text},
+                {headers: {
                     Authorization : `Bearer ${payload.token}`
-                }}); 
-                console.log(updated_data);
+                }}) 
+                console.log("업데이트 된 데이터", updated_data);
             dispatch(updatePost(updated_data.data));}
         catch ( error ) {
             console.log("데이터 upload 실패", error)
@@ -166,17 +164,18 @@ export default function postReducer(state=initState, action={}){
         case ADD_POST : 
             return { ...state, list: [...state.list, action.payload] };
         case LOAD_POST : 
-            return { ...state, list: action.payload}; // ...state가 왜 필요할까
+            return { ...state, list: action.payload};
         case DELETE_POST :
             console.log(action.payload);
             return { ...state, list : state.list.filter((value) => {
                 return ( value.postId !== Number(action.payload) )
             }) };
         case UPDATE_POST :
-            return {...state, list:
+            return {...state, detail: action.payload, list:
                 state.list.map((value, index)=>{
                     return index === Number(action.payload.postId) ? action.payload : value})
                 }
+            // return {...state, detail: action.payload}
         case LOAD_DETAIL :
             return { ...state, detail: action.payload};
         case SERVER_REQ :

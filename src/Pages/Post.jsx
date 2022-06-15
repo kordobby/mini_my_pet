@@ -29,8 +29,9 @@ const Post = ({username}) => {
     img_ref.current = { url: img_url}
     console.log(img_ref.current.url);
   }
-
+  
   const addPostHandler = ()=> {
+    setTimeout(() => {
       dispatch(addPostDB({
         img: img_ref.current.url,
         text: text_ref.current?.value,
@@ -38,8 +39,8 @@ const Post = ({username}) => {
         token: getCookie('token'),
       }))
       navigate(-1);
-    }
-
+    }, 3000)
+};
 
   return (
     <>
@@ -48,7 +49,9 @@ const Post = ({username}) => {
       <UserFormWrap>
         <UserPageBox style = {{ height : '250px'}}>
           <UserTitle>Post!</UserTitle>
-          <input ref={img_ref} type='file' className="imgInput" id='postImg' accept="image/*" name="file" onChange={onImgLoaded} required/>
+          <input style={{
+            height: "45rem"
+          }} ref={img_ref} type='file' className="imgInput" id='postImg' accept="image/*" name="file" onChange={onImgLoaded} required/>
           <InputBox 
             type = "text"
             ref={text_ref}
