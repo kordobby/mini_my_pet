@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 /* Styles settings */
 import './index.css';
+import './index.scss';
 import GlobalStyled from './Components/GlobalStyled/GlobalStyled';
 
 /* REDUX settings */

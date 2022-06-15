@@ -11,6 +11,8 @@ import Login from './Pages/Login';
 import Post from './Pages/Post';
 import Update from './Pages/Update';
 import Detail from './Pages/Detail';
+import AboutUs from './Pages/AboutUs';
+import RealAboutUs from './Pages/RealAboutUs';
 
 /* import Components */
 import Header from './Components/Header';
@@ -69,6 +71,8 @@ function App() {
         <Route path="/post" element = { <Post username={userId}/> } />
         <Route path="/detail/:postId" element = { <Detail /> } />
         <Route path="/oauth/kakao/callback" element = {<KakaoRedirect/>} />
+        <Route path="/aboutus" element = { <AboutUs /> }/>
+        <Route path="/1" element = { <RealAboutUs /> }/>
     </Routes>
     <ScrollTopBtn/>
     </>
