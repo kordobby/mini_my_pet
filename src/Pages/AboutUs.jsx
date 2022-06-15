@@ -2,10 +2,11 @@ import { useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGamepad } from "@fortawesome/free-solid-svg-icons";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import A1 from '../img/A1.png';
+import A2 from '../img/A2.png';
 import A5 from '../img/A5.png';
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -38,8 +39,8 @@ const AboutUs = () => {
 
   return (
     <div className = "body__wrap">
-      <div>
-        <span>About Us !</span>
+      <div className="body__title">
+        <span style = {{color : 'black', fontSize : '50px'}}>About Us !</span>
       </div>
       <div className = "body__test">
         <div className="options">
@@ -64,15 +65,16 @@ const AboutUs = () => {
           </div>
 
           <div
+            onClick = {()=> window.open('https://github.com/devPeterLim/', '_blank')}
             onMouseOver = {(event) => onMouseOverHandler(event, 0)}
             onMouseLeave = {onMouseLeaverHandler}
             id = {generateIdName(target, 0, mouseIn)}
             className="option"
-            style = {{ backgroundImage : `url(${A1})` }}>
+            style = {{ backgroundImage : `url(${A2})` }}>
             <div className="shadow"></div>
             <div className="label">
               <div className="icon">
-                <i className="fas fa-snowflake"></i>
+              <FontAwesomeIcon icon = {faRocket} />
               </div>
               <div className="info">
                 <div className="main">DAEKYUN LIM</div>
