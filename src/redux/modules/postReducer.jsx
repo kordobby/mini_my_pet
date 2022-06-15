@@ -121,7 +121,6 @@ export const updatePostDB = (payload)=> {
 
 export const delPostDB = (payload)=> {
     return async function(dispatch, getState){
-        console.log('start')
         dispatch(serverRequest(true));
         try {
             const delPostId = await axios.delete(`${REAL_SERVER}/detail/${payload.postId}`, {
@@ -134,7 +133,6 @@ export const delPostDB = (payload)=> {
             console.log("데이터 삭제 실패", error)
                 dispatch(requestError(error));}
         finally {
-        console.log('end')
         dispatch(serverRequest(false));
 }}}
 
