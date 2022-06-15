@@ -18,13 +18,13 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
   // props : username, postId, commentId, nickname
   const [ modal, setModal ] = useState(false);
   const [ commentData, setCommentData ] = useState('');
-
+  console.log(postId);
   /* 로그인중인 현재 유저 정보 가져오기 */
   const isLoginUser = useSelector((state) => state.userReducer.username);
 
   /* 수정 버튼 Modal 구현 */
   const modalHandler = () => {
-    modal === true ?  setModal(false) : setModal(true)
+    modal === true ?  setModal(false) : setModal(true);
   }
   // 취소버튼
   const modalCancel = () => {
@@ -39,9 +39,10 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
     dispatch(updateCommentDB({
       token : token,
       comment : commentData,
-      commentId : commentId  // props 로 받으면 수정 필요
+      commentId : commentId,  // props 로 받으면 수정 필요
+      postId : postId
     }))
-    
+    setModal(false);
   }
 
   /* Comment 삭제 서버 요청 보내기 : token, commentId */
@@ -49,7 +50,8 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
     console.log(commentId);
     dispatch(delCommentDB({
       token,
-      commentId
+      commentId,
+      postId : postId
     }))
   }
 
@@ -69,10 +71,6 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
         <DelBtn onClick = {delCommentHandler}><FontAwesomeIcon icon = {faTrashCan}/></DelBtn>
         <DelBtn onClick = {modalHandler}><FontAwesomeIcon icon = {faPenToSquare} /></DelBtn>
       </ButtonBoxComment> : <></> }
-      {/* // <ButtonBoxComment>
-      //   <DelBtn onClick = {delCommentHandler}><FontAwesomeIcon icon = {faTrashCan}/></DelBtn>
-      //   <DelBtn onClick = {modalHandler}><FontAwesomeIcon icon = {faPenToSquare} /></DelBtn>
-      // </ButtonBoxComment> */}
       <TimeBox>
         <span>{postTime}</span> {/* createdAt */}
       </TimeBox>

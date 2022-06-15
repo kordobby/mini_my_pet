@@ -15,9 +15,6 @@ import Detail from './Pages/Detail';
 /* import Components */
 import Header from './Components/Header';
 import HeaderIsLogin from './Components/HeaderisLogin'
-import Test from './Pages/Test';
-import MainStyle from './Components/MainStyle';
-/* import Pages */
 
 /* Reducer */
 import { Routes, Route, useNavigate } from 'react-router-dom';
@@ -25,7 +22,7 @@ import { loginCheckDB, logout } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie, deleteCookie } from './Shared/Cookie';
 import { loadPostDB } from './redux/modules/postReducer';
-import KakaoRedirect from './KakaoRedirect';
+import KakaoRedirect from './Pages/KakaoRedirect';
 import ScrollTopBtn from './elem/ScrollTopBtn';
 /* Router setup */
 
@@ -38,13 +35,14 @@ function App() {
 
   useEffect(() => {
     dispatch(loginCheckDB(accessToken));
-    dispatch(loadPostDB(accessToken));
   }, [dispatch, accessToken]);
+
+  useEffect(() => {
+    dispatch(loadPostDB(accessToken));
+  },[dispatch])
 
   const userInfo = useSelector((state) => state.userReducer);
   const postData = useSelector((state)=>state.postReducer.list)
-  console.log(userInfo); // nickname, userId
-  console.log(postData)
 
   const userNick = userInfo.nickname;
   const userId = userInfo.username;

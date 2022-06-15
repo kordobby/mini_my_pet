@@ -13,7 +13,7 @@ import { Button } from '../elem/Button';
 import  Comment  from '../Components/Comment';
 
 /* Redux setup */
-import { delPostDB } from "../redux/modules/postReducer";
+import { delPostDB, loadDetailDB } from "../redux/modules/postReducer";
 import { loadPostDB } from "../redux/modules/postReducer";
 import { loadCommentDB, addCommentDB } from "../redux/modules/commentReducer";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,26 +25,14 @@ import { getCookie } from "../Shared/Cookie";
 const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const postList = useSelector(state=>state.postReducer.list)
   const userData = useSelector(state=>state.userReducer)
   const token = getCookie('token')
   const { postId } = useParams();
-  
-  // useEffect(()=>{
-  //     dispatch(loadPostDB({postId, token})) // loadPostDB에 token 입력해야됨
-  //   },[dispatch]);
-  const tempData = useSelector(state=>state.postReducer.list)
-  console.log(tempData)
-
+  console.log(postId);
   const delPostHandler = () => {
-    dispatch(delPostDB({token, postId})) //token 전달 필요
-    // navigate(-1)
+    dispatch(delPostDB({token, postId})); //token 전달 필요
+    navigate('/');
   }
-
-  const postData = tempData?.filter((value) => (value.postId === Number(postId)));
-  console.log(postData); // 잘 찍히는 것 확인
-
-
   /* YOON'S CODE - comment things */
 
   const [ comments, setComments ] = useState('');
@@ -54,6 +42,12 @@ const Detail = () => {
   useEffect(() => {
     dispatch(loadCommentDB({token, postId}));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadDetailDB({token, postId}));
+  }, [dispatch]);
+
+  const detailData = useSelector((state) => state.postReducer?.detail);
 
   // Comment ADD - userData 잘 넘어가는 것 확인함
   const commentHandler = () => {
@@ -76,14 +70,14 @@ const Detail = () => {
 
       <DetailWrap>
         <DetailBox>
-          <img src = {P3} style = {{ width : '400px', height : '400px' }}></img>
+          <img src = {detailData.img} style = {{ width : '400px', height : '400px' }}></img>
           <Contents>
             <UserHeader style = {{marginLeft : '0'}}>
               <Icon style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
-              <span style = {{ fontSize : '20px'}}>{postData.nickname}</span>
+              <span style = {{ fontSize : '20px'}}>{detailData?.username}</span>
             </UserHeader>
             <MainText>
-              <span>{postData.text}</span>
+              <span>{detailData?.text}</span>
             </MainText>
             <div style = {{ display : "flex", width : '100%', justifyContent : 'flex-end', marginTop : "10px" }}>
               <Button

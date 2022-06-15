@@ -1,5 +1,7 @@
 /* CRUD reducer part */
 import axios from "axios";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase-config";
 
 const MOCK_SERVER = "http://localhost:4000/posts"
 const REAL_SERVER = "http://3.39.25.179:8080/api"
@@ -7,7 +9,8 @@ const REAL_SERVER = "http://3.39.25.179:8080/api"
 const initState = {
     list: [],
     loading: false,
-    error: null
+    error: null,
+    detail : null
 }
 
 //Action Type
@@ -26,6 +29,9 @@ const ADD_POST = 'postReducer/ADD_POST';
 const LOAD_POST = 'postReducer/LOAD_POST';
 const UPDATE_POST = 'postReducer/UPDATE_POST';
 const DELETE_POST = 'postReducer/DELETE_POST';
+
+// [ DETAIL]
+const LOAD_DETAIL = 'postReducer/LOAD_DETAIL';
 
 //Action Creator 
 // [SERVER]
@@ -51,11 +57,12 @@ function updatePost (payload) {
 function deletePost (payload) {
     return {type: DELETE_POST, payload}
 }
-
+function loadDetail (payload) {
+    return {type : LOAD_DETAIL, payload}
+}
 
 //middelwares
 export const addPostDB = (payload) => {
-    console.log("AddPostDB 페이로드 내용: ",payload)
     return async function(dispatch){
         dispatch(serverRequest(true));
         try {
@@ -66,7 +73,6 @@ export const addPostDB = (payload) => {
                 {headers: {
                     Authorization : `Bearer ${payload.token}`
                 }});
-            console.log("postData입닏", post_data);
             dispatch(addPost(post_data.data));}
         catch (error) {
             console.log(error)
@@ -77,18 +83,21 @@ export const addPostDB = (payload) => {
 
 export const loadPostDB = (token)=> {
     return async function(dispatch){
+        console.log("start-load")
         dispatch(serverRequest(true));  
         try {
             const loaded_data = await axios.get(`${REAL_SERVER}/main`, {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }});
-            dispatch(loadPost(loaded_data.data))
-            console.log(loaded_data)}
+            dispatch(loadPost(loaded_data.data));
+            console.log(loaded_data);
+        }
         catch ( error ) {
             console.log("데이터 Load 실패", error)
                 dispatch(requestError(error));}
         finally {
+        console.log("end-load")
         dispatch(serverRequest(false));
 }}}
 
@@ -104,7 +113,7 @@ export const updatePostDB = (payload)=> {
                     Authorization : `Bearer ${payload.token}`
                 }}); 
                 console.log(updated_data);
-            dispatch(updatePost(updated_data));}
+            dispatch(updatePost(updated_data.data));}
         catch ( error ) {
             console.log("데이터 upload 실패", error)
             dispatch(requestError(error));}
@@ -113,39 +122,65 @@ export const updatePostDB = (payload)=> {
 }}}
 
 export const delPostDB = (payload)=> {
-    return async function(dispatch){
+    return async function(dispatch, getState){
+        console.log('start')
         dispatch(serverRequest(true));
         try {
             const delPostId = await axios.delete(`${REAL_SERVER}/detail/${payload.postId}`, {
                 headers: {
                     Authorization : `Bearer ${payload.token}`                
             }});
-            console.log(delPostId);
-            dispatch(deletePost(delPostId))}
+            dispatch(deletePost(delPostId.data));
+        }
         catch ( error ) {
             console.log("데이터 삭제 실패", error)
                 dispatch(requestError(error));}
         finally {
+        console.log('end')
         dispatch(serverRequest(false));
 }}}
 
+export const loadDetailDB = (payload) => {
+    return async function(dispatch) {
+        dispatch(serverRequest(true));
+        try {
+            const detailData = await axios.get(`${REAL_SERVER}/detail/${payload.postId}`, {
+                headers: {
+                    Authorization : `Bearer ${payload.token}`         
+            }
+        });
+        console.log(detailData.data);
+        dispatch(loadDetail(detailData.data))
+        } catch (error) {
+            console.log('상세 페이지 로드 실패', error)
+            dispatch(requestError(error));
+        } finally {
+            dispatch(serverRequest(false));
+        }
+}}
+
+
+
+
 // REDUCER
 export default function postReducer(state=initState, action={}){
-    console.log(action);
     switch (action.type){
         case ADD_POST : 
             return { ...state, list: [...state.list, action.payload] };
         case LOAD_POST : 
             return { ...state, list: action.payload}; // ...state가 왜 필요할까
         case DELETE_POST :
-            return {...state, list: 
-                state.list.filter((value)=> {
-                    return (value.postId !== action.payload)})}
+            console.log(action.payload);
+            return { ...state, list : state.list.filter((value) => {
+                return ( value.postId !== Number(action.payload) )
+            }) };
         case UPDATE_POST :
             return {...state, list:
                 state.list.map((value, index)=>{
                     return index === Number(action.payload.postId) ? action.payload : value})
                 }
+        case LOAD_DETAIL :
+            return { ...state, detail: action.payload};
         case SERVER_REQ :
             return { ...state, loading: action.payload };
         // case REQ_SUCCESS :
