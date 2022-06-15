@@ -1,6 +1,6 @@
 /* 수정 page */
 import { useRef } from "react";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom";
 import { updatePostDB } from "../redux/modules/postReducer";
 import { getCookie } from "../Shared/Cookie";
@@ -9,6 +9,7 @@ import { getCookie } from "../Shared/Cookie";
 import { InputBox, UserFormWrap, UserPageBox, UserTitle, LoginBtnWrap, StateHeader, StateHeaderText } from './Login';
 import { Button } from '../elem/Button';
 import { useEffect } from "react";
+import { useState } from "react";
 
 const Update = () => {
   const navigate = useNavigate();
@@ -16,16 +17,16 @@ const Update = () => {
   const text_ref = useRef(null);
   const distpatch = useDispatch();
   const postId = params.postId;
-
+  const postList = useSelector((state) =>state.postReducer?.list)
+  
   const updatePostHandler = () => {
   distpatch(updatePostDB({
     postId,
     token: getCookie('token'),
-    text: text_ref.current?.value,}))
+    text: text_ref.current?.value}))
     navigate(-1);
   }
 
-  
   return (
     <>
       <UserFormWrap>
@@ -35,7 +36,8 @@ const Update = () => {
             type = "text"
             ref={text_ref}
             placeholder = "UPDATE"
-            required />
+            required 
+            />
         <LoginBtnWrap
           style = {{
             marginTop : '20px',
@@ -45,7 +47,7 @@ const Update = () => {
             width : '100%'
           }}>
         <Button
-            onClick={()=>(updatePostHandler())}
+            onClick={updatePostHandler}
             style = {{
               marginTop : '6px',
               marginBottom : '10px',

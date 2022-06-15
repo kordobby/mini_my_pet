@@ -7,14 +7,12 @@ import { useNavigate, useParams } from "react-router-dom";
 /* Styles */
 import { StateHeader, StateHeaderText } from "./Login";
 import styled from 'styled-components';
-import P3 from '../Public/Images/P3.jpeg';
 import { Icon, UserHeader } from '../Components/CardBox';
 import { Button } from '../elem/Button';
 import  Comment  from '../Components/Comment';
 
 /* Redux setup */
 import { delPostDB, loadDetailDB } from "../redux/modules/postReducer";
-import { loadPostDB } from "../redux/modules/postReducer";
 import { loadCommentDB, addCommentDB } from "../redux/modules/commentReducer";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -30,9 +28,10 @@ const Detail = () => {
   const { postId } = useParams();
   console.log(postId);
   const delPostHandler = () => {
-    dispatch(delPostDB({token, postId})); //token 전달 필요
+    dispatch(delPostDB({token, postId}));
     navigate('/');
   }
+
   /* YOON'S CODE - comment things */
 
   const [ comments, setComments ] = useState('');
@@ -43,11 +42,11 @@ const Detail = () => {
     dispatch(loadCommentDB({token, postId}));
   }, [dispatch]);
 
+  const detailData = useSelector((state) => state.postReducer?.detail);
+  console.log(detailData)
   useEffect(() => {
     dispatch(loadDetailDB({token, postId}));
-  }, [dispatch]);
-
-  const detailData = useSelector((state) => state.postReducer?.detail);
+  }, [dispatch, detailData?.text]);
 
   // Comment ADD - userData 잘 넘어가는 것 확인함
   const commentHandler = () => {

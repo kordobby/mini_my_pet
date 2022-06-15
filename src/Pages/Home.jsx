@@ -15,10 +15,15 @@ const Home = () => {
   const token = getCookie('token')
   const navigate = useNavigate();
 
+  useEffect(() => {
+    dispatch(loadPostDB(token));
+  },[dispatch])
+
     //2. 저장된 state에서 가져오기
     const postList = useSelector(state=>state.postReducer?.list);
     console.log(postList);
     const loadingState = useSelector(state=>state.postReducer?.loading);
+
 
   return (
     <>
