@@ -84,7 +84,7 @@ const Detail = () => {
                 bottom: "5px",
                 right: "6px",
                 color: "grey"
-              }}>modifiedAt{detailData?.modifiedAt}</span> 
+              }}>{detailData?.modifiedAt.slice(0,10)}</span> 
             </MainText>
             <div style = {{ display : "flex", width : '100%', justifyContent : 'flex-end', marginTop : "10px" }}>
               <Button
