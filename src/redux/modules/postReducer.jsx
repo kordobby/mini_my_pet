@@ -73,6 +73,7 @@ export const addPostDB = (payload) => {
                 {headers: {
                     Authorization : `Bearer ${payload.token}`
                 }});
+                console.log(post_data.data)
             dispatch(addPost(post_data.data));}
         catch (error) {
             console.log(error)
@@ -106,13 +107,14 @@ export const updatePostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
         console.log(payload)
+        console.log(`${REAL_SERVER}/detail/update/${payload.postId}`)
         try {
             const updated_data = await axios.put(`${REAL_SERVER}/detail/update/${payload.postId}`,{
-                text: payload.text,
-                headers: {
+                text: payload.text},
+                {headers: {
                     Authorization : `Bearer ${payload.token}`
-                }}); 
-                console.log(updated_data);
+                }}) 
+                console.log("업데이트 된 데이터", updated_data);
             dispatch(updatePost(updated_data.data));}
         catch ( error ) {
             console.log("데이터 upload 실패", error)

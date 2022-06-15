@@ -9,7 +9,7 @@ const CardBox = ({img_url, nickname, postId, username, textData, index}) => {
       <CardHeader>
         <Icon></Icon>
         <UserHeader>
-          <span>user_nickname</span>
+          <span>{nickname}</span>
         </UserHeader>
       </CardHeader>
       <CardBody>

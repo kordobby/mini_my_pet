@@ -70,11 +70,11 @@ const Detail = () => {
 
       <DetailWrap>
         <DetailBox>
-          <img src = {detailData.img} style = {{ width : '400px', height : '400px' }}></img>
+          <img src = {detailData?.img} style = {{ width : '400px', height : '400px' }}></img>
           <Contents>
             <UserHeader style = {{marginLeft : '0'}}>
               <Icon style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
-              <span style = {{ fontSize : '20px'}}>{detailData?.username}</span>
+              <span style = {{ fontSize : '20px'}}>{detailData?.nickname}</span>
             </UserHeader>
             <MainText>
               <span>{detailData?.text}</span>

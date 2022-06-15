@@ -22,7 +22,7 @@ const Update = () => {
     postId,
     token: getCookie('token'),
     text: text_ref.current?.value,}))
-    // navigate('/');
+    navigate(-1);
   }
 
   
