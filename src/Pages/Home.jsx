@@ -8,22 +8,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import Test from '../Pages/Test';
 import { loadPostDB } from "../redux/modules/postReducer";
 import { getCookie } from "../Shared/Cookie";
-
+import { useQuery, useQueryClient } from 'react-query';
+import axios from 'axios';
 
 const Home = () => {
   const dispatch = useDispatch()
   const token = getCookie('token')
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(loadPostDB(token));
-  },[dispatch])
+  // useEffect(() => {
+  //   dispatch(loadPostDB(token));
+  // },[dispatch])
 
     //2. 저장된 state에서 가져오기
     const postList = useSelector(state=>state.postReducer?.list);
     console.log(postList);
     const loadingState = useSelector(state=>state.postReducer?.loading);
 
+    /* Pagenation - useState */
+    const [ page, setPage ] = useState(1); // 페이지 갯수 그려낼 값
+    const [ currentPage, setCurrentPage ] = useState(1); // 페이지 이동할 때 사용할 변수
+
+    /* React-query : GET_POST request */
+    const fetcher = async () => {
+      const post = await axios.get("http://3.39.25.179:8080/api/main?page=1&size=2&sortBy=postId&isAsc=false", {
+        headers: {
+            Authorization : `Bearer ${token}`
+        }});
+      return post.data;
+    };
+    const { data, isLoading, error, isError } = useQuery("posts", fetcher);
+    /* totalPosts, currentPage, pageLength, itemPerPage */
+    console.log(data);
+    const postData = data?.content;              // postData : 데이터 리스트
+    const pageSize = data?.pageable.pageSize;    // pageSize : 페이지 수
+    const postEmpty = data?.empty;               // postEmpty : 데이터 유무
+    const postArray = data?.sort.sorted;         // postArray : 정렬 순서 (오름차순 / 내림차순)
 
   return (
     <>
@@ -41,7 +61,7 @@ const Home = () => {
       <ButtonPost onClick={()=>navigate('/post')}> + Post!</ButtonPost>
       </MainHeader>
       <GridWrap>
-        { (postList !== undefined) ? postList?.map((v, i) => { //is_loading 활용해서 만들수 있음
+        { postData?.map((v) => { 
         return (
         <CardBox
           img_url = {v.img}
@@ -50,10 +70,11 @@ const Home = () => {
           username = {v.username}
           textData = {v.text}
           key = {v.postId}
-        > 
-        </CardBox>
-        )}) : <></> }
+        ></CardBox> )})}
       </GridWrap>
+      <MainFooter>
+        <button>see more!</button>
+      </MainFooter>
       <MainFooter>
         <span>seungjun-Koe is King of Spring</span>
       </MainFooter>

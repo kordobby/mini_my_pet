@@ -21,12 +21,14 @@ import { CookiesProvider } from 'react-cookie'
 import App from './App';
 
 /* react-query */
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
       <CookiesProvider>
-        <QueryClientProvider client = {QueryClient}>
+        <QueryClientProvider client = {queryClient}>
           <Provider store={store}>
               <BrowserRouter>
                   {/* Global CSS */}
@@ -34,6 +36,6 @@ root.render(
                   <App />
               </BrowserRouter>
           </Provider>
-        </QueryClientProvider>
+          </QueryClientProvider>
       </CookiesProvider>
 );

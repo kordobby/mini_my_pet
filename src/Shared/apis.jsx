@@ -9,3 +9,5 @@ const accessToken = getCookie('token');
 instance.defaults.headers.common["Authorization"] = accessToken; 
 
 export default instance;
+
+/* /api/main?page=1&size=12&isAsc&=true&sortBy=postId  */
