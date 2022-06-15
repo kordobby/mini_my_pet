@@ -72,7 +72,7 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
         <DelBtn onClick = {modalHandler}><FontAwesomeIcon icon = {faPenToSquare} /></DelBtn>
       </ButtonBoxComment> : <></> }
       <TimeBox>
-        <span>{postTime}</span> {/* createdAt */}
+        <span>{postTime.slice(0,10)}</span> {/* createdAt */}
       </TimeBox>
     </CommentBox>
 

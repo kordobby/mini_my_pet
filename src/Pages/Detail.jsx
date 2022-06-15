@@ -24,6 +24,7 @@ const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector(state=>state.userReducer)
+  const isLoginUser = userData.username;
   const token = getCookie('token')
   const { postId } = useParams();
   console.log(postId);
@@ -86,14 +87,18 @@ const Detail = () => {
                 color: "grey"
               }}>{detailData?.modifiedAt.slice(0,10)}</span> 
             </MainText>
+            { isLoginUser === detailData?.username ?
             <div style = {{ display : "flex", width : '100%', justifyContent : 'flex-end', marginTop : "10px" }}>
-              <Button
-                onClick={() => {navigate(`/detail/update/${postId}`)}}
-                style = {{
-                  marginRight : '10px'
-                }}>update!</Button>
-              <Button onClick={delPostHandler}>delete!</Button>
-            </div>
+            <Button
+              onClick={() => {navigate(`/detail/update/${postId}`)}}
+              style = {{
+                marginRight : '10px'
+              }}>update!</Button>
+            <Button onClick={delPostHandler}>delete!</Button>
+           </div>
+          :
+            <></>
+          } 
             <CommentWrap style = {{
                 position : 'relative'}}>
               <ComTitle>
