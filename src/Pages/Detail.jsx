@@ -127,10 +127,11 @@ const Detail = () => {
 
 const DetailWrap = styled.div`
   background-color: var(--bg);
-  height: 100%;
+  height: 100vh;
   display : flex;
 
   margin-top: 120px;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 0 100px;
@@ -225,8 +226,11 @@ const CommentListForm = styled.div`
 `
 
 const DetailFooter = styled.div`
-  height : 80px;
+  height : 500px;
   width : 100%; 
+  position : fixed;
+  bottom : 0;
+  z-index: -5;
   background-color: var(--bg);
 `
 export default Detail;

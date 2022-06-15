@@ -78,14 +78,14 @@ export const addPostDB = (payload) => {
             dispatch(serverRequest(false))
 }}}
 
-export const loadPostDB = (token)=> {
+export const loadPostDB = (payload)=> {
     return async function(dispatch){
-        console.log("start-load")
+        console.log(payload)
         dispatch(serverRequest(true));  
         try {
-            const loaded_data = await axios.get(`${REAL_SERVER}/main`, {
+            const loaded_data = await axios.get(`http://3.39.25.179:8080/api/main?page=${payload.currentPage}&size=8&sortBy=postId&isAsc=${payload.isAsc}`, {
                 headers: {
-                    Authorization : `Bearer ${token}`
+                    Authorization : `Bearer ${payload.token}`
                 }});
             dispatch(loadPost(loaded_data.data));
             console.log(loaded_data);
