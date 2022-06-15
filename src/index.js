@@ -20,15 +20,20 @@ import { CookiesProvider } from 'react-cookie'
 /* import Components */
 import App from './App';
 
+/* react-query */
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
       <CookiesProvider>
-        <Provider store={store}>
-            <BrowserRouter>
-                {/* Global CSS */}
-                <GlobalStyled />
-                <App />
-            </BrowserRouter>
-        </Provider>
+        <QueryClientProvider client = {QueryClient}>
+          <Provider store={store}>
+              <BrowserRouter>
+                  {/* Global CSS */}
+                  <GlobalStyled />
+                  <App />
+              </BrowserRouter>
+          </Provider>
+        </QueryClientProvider>
       </CookiesProvider>
 );

@@ -48,7 +48,7 @@ const Detail = () => {
   }, [dispatch]);
 
   const detailData = useSelector((state) => state.postReducer?.detail);
-
+  console.log(detailData);
   // Comment ADD - userData 잘 넘어가는 것 확인함
   const commentHandler = () => {
     dispatch(addCommentDB({
@@ -70,7 +70,7 @@ const Detail = () => {
 
       <DetailWrap>
         <DetailBox>
-          <img src = {detailData.img} style = {{ width : '400px', height : '400px' }}></img>
+          <img src = {detailData?.img} style = {{ width : '400px', height : '400px' }}></img>
           <Contents>
             <UserHeader style = {{marginLeft : '0'}}>
               <Icon style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
