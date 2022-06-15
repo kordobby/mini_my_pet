@@ -85,7 +85,6 @@ export const loadPostDB = (token)=> {
                 }});
             dispatch(loadPost(loaded_data.data))
             console.log(loaded_data)}
-            
         catch ( error ) {
             console.log("데이터 Load 실패", error)
                 dispatch(requestError(error));}
