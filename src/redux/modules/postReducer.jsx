@@ -1,5 +1,7 @@
 /* CRUD reducer part */
 import axios from "axios";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase-config";
 
 const MOCK_SERVER = "http://localhost:4000/posts"
 const REAL_SERVER = "http://3.39.25.179:8080/api"
@@ -71,7 +73,6 @@ export const addPostDB = (payload) => {
                 {headers: {
                     Authorization : `Bearer ${payload.token}`
                 }});
-            console.log("postData입닏", post_data);
             dispatch(addPost(post_data.data));}
         catch (error) {
             console.log(error)
@@ -89,9 +90,9 @@ export const loadPostDB = (token)=> {
                 headers: {
                     Authorization : `Bearer ${token}`
                 }});
-            dispatch(loadPost(loaded_data.data))
-            console.log(loaded_data)}
-            
+            dispatch(loadPost(loaded_data.data));
+            console.log(loaded_data);
+        }
         catch ( error ) {
             console.log("데이터 Load 실패", error)
                 dispatch(requestError(error));}
@@ -155,6 +156,7 @@ export const loadDetailDB = (payload) => {
             dispatch(serverRequest(false));
         }
 }}
+
 
 
 

@@ -14,7 +14,7 @@ const CardBox = ({img_url, nickname, postId, username, textData, index}) => {
       </CardHeader>
       <CardBody>
         <img
-          src = {P1}
+          src = {img_url} 
           style = {{
             width : '280px',
             height: '280px'

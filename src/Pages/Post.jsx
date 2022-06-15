@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { addPostDB, delPostDB } from "../redux/modules/postReducer";
 import { getCookie } from "../Shared/Cookie";
 import { useParams } from "react-router-dom"
+import { InputBox, UserFormWrap, UserPageBox, UserTitle, LoginBtnWrap, StateHeader, StateHeaderText } from './Login';
+import { Button } from '../elem/Button';
 
+// [ Firebase ]
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../firebase-config";
 
 
 const Post = ({username}) => {
@@ -16,31 +21,63 @@ const Post = ({username}) => {
   const img_ref = useRef(null);
   let IMG_URL = "";
 
-  // image 파트는 일단 URL "문자열"로 주고받기 --> FB에 Storage 가능한지 확인
-  const onImgLoaded = (e) => {
-    const img = e.target.files;
-    IMG_URL = img[0].name;
-    console.log("이미지 URL",IMG_URL);
+  const onImgLoaded = async (e) => {
+    const uploadImg = await uploadBytes(
+      ref(storage, `images/${e.target.files[0].name}`),
+      e.target.files[0]);
+    const img_url = await getDownloadURL(uploadImg.ref);
+    img_ref.current = { url: img_url}
+    console.log(img_ref.current.url);
   }
 
   const addPostHandler = ()=> {
       dispatch(addPostDB({
-        img: IMG_URL,
+        img: img_ref.current.url,
         text: text_ref.current?.value,
         username: username,
-        token: getCookie('token')
+        token: getCookie('token'),
       }))
       navigate(-1);
     }
 
+
   return (
     <>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-      <span>Post</span><br/>
-      <input ref={img_ref} type='file' className="imgInput" id='postImg' accept="image/*" name="file" onChange={onImgLoaded} required/>  
       {/* <div className="thumbnail">썸네일</div>  */}
       <input ref={text_ref}></input>
-      <button onClick={addPostHandler}>Submit</button><br/>
+      <UserFormWrap>
+        <UserPageBox style = {{ height : '250px'}}>
+          <UserTitle>Post!</UserTitle>
+          <input ref={img_ref} type='file' className="imgInput" id='postImg' accept="image/*" name="file" onChange={onImgLoaded} required/>
+          <InputBox 
+            type = "text"
+            ref={text_ref}
+            placeholder = "50자 내로 작성해주세요!"
+            required /> 
+        <LoginBtnWrap
+          style = {{
+            marginTop : '20px',
+            flexDirection : 'row',
+            alignContent : 'center',
+            justifyContent : 'flex-end',
+            width : '100%'
+          }}>
+        <Button
+            onClick={()=>(addPostHandler())}
+            style = {{
+              marginTop : '6px',
+              marginBottom : '10px',
+              marginRight : '10px'
+            }}>Post</Button>
+        <Button
+            onClick={()=>(navigate(-1))}
+            style = {{
+              marginTop : '6px',
+              marginBottom : '10px'
+            }}>Cancel</Button>
+        </LoginBtnWrap>
+        </UserPageBox>
+      </UserFormWrap>
     </>
   )
 }
