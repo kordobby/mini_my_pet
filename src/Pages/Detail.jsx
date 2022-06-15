@@ -75,8 +75,16 @@ const Detail = () => {
               <Icon style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
               <span style = {{ fontSize : '20px'}}>{detailData?.nickname}</span>
             </UserHeader>
-            <MainText>
+            <MainText style={{
+              position: "relative"
+            }}>
               <span>{detailData?.text}</span>
+              <span style={{
+                position:"absolute",
+                bottom: "5px",
+                right: "6px",
+                color: "grey"
+              }}>{detailData?.modifiedAt.slice(0,10)}</span> 
             </MainText>
             <div style = {{ display : "flex", width : '100%', justifyContent : 'flex-end', marginTop : "10px" }}>
               <Button

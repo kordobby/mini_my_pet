@@ -87,6 +87,7 @@ export const loadPostDB = (payload)=> {
                 headers: {
                     Authorization : `Bearer ${payload.token}`
                 }});
+                
             dispatch(loadPost(loaded_data.data));
             console.log(loaded_data);
         }
