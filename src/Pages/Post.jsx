@@ -73,13 +73,11 @@ const Post = ({username}) => {
             height: "10rem",
             border: "solid #ddd 1px"
           }}>
-          {(img_ref.current.url)?({
           <img src={img_ref?.current?.url}
           style={{
             width: "18rem",
             height: "10rem",
-          }}/>}):""
-        }
+          }}/>
           </div><br/><br/><br/>
           <InputBox 
             type = "text"
