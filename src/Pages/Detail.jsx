@@ -27,7 +27,6 @@ const Detail = () => {
   const isLoginUser = userData.username;
   const token = getCookie('token')
   const { postId } = useParams();
-  console.log(postId);
   const delPostHandler = () => {
     dispatch(delPostDB({token, postId}));
     navigate('/');
@@ -44,7 +43,6 @@ const Detail = () => {
   }, [dispatch]);
 
   const detailData = useSelector((state) => state.postReducer?.detail);
-  console.log(detailData)
   useEffect(() => {
     dispatch(loadDetailDB({token, postId}));
   }, [dispatch, detailData?.text]);

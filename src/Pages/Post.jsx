@@ -28,7 +28,6 @@ const Post = ({username}) => {
       e.target.files[0]);
     const img_url = await getDownloadURL(uploadImg.ref);
     img_ref.current = { url: img_url}
-    console.log(img_ref.current.url);
     setLoadedImg(img_ref?.current?.url)
   }
 

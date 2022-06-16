@@ -47,12 +47,10 @@ const updateComment = (payload) => {
 
 /* THUNK */
 export const loadCommentDB = (payload) => {
-  console.log(payload)
   // payload : { token : #### , postID : #### }
   return async function(dispatch) {
     dispatch(getRequest(true));
     try {
-      console.log(payload);
       const commentData = await axios({
         method : 'get',
         url : `http://3.39.25.179:8080/api/comment/${payload.postId}`,
@@ -71,11 +69,9 @@ export const loadCommentDB = (payload) => {
 }};
 
 export const addCommentDB = (payload) => {
-  console.log(payload)
   return async function (dispatch) {
     dispatch(getRequest(true));
   try {
-    console.log(payload.token);
     const addData = await axios({
       method : 'post',
       url : `http://3.39.25.179:8080/api/comment/${payload.postId}`,
@@ -88,7 +84,6 @@ export const addCommentDB = (payload) => {
         Authorization : `Bearer ${payload.token}`
       }
     })
-    console.log(addData);
     dispatch(addComment(addData.data));
     alert('댓글 작성이 완료되었습니다!');
   } catch (error) {
@@ -122,7 +117,6 @@ export const delCommentDB = (payload) => {
         postId : payload.postId,
         token : payload.token
       };
-      console.log(loadReq);
       dispatch(loadCommentDB(loadReq));
       dispatch(delComment(delData.data));
     } catch ( error )  {
@@ -138,7 +132,6 @@ export const updateCommentDB = (payload) => {
   return async function(dispatch, getState) {
     dispatch(getRequest(true));
   try {
-    console.log(payload);
     const updateData = await axios({
       method : 'put',
       url : `http://3.39.25.179:8080/api/comment/${payload.commentId}`,
@@ -165,7 +158,6 @@ export const updateCommentDB = (payload) => {
  }}; 
 /* REDUCER */
 export default function commentReducer( state = initComment, action = {}) {
-  console.log(action);
   switch (action.type) {
     case LOAD_COMMENT :
       return { ...state, list : action.payload }

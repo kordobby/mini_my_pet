@@ -19,7 +19,6 @@ const Home = () => {
 
     //2. 저장된 state에서 가져오기
     const postList = useSelector(state=>state.postReducer?.list);
-    console.log(postList);
     const postData = postList?.content;              // postData : 데이터 리스트
     const pageSize = postList?.totalPages;           // pageSize : 페이지 수
 
@@ -34,7 +33,6 @@ const Home = () => {
         isAsc
       }));
     },[dispatch])
-    console.log(currentPage);
 
     /* Page 배열 만들기 */
     const pageSizeArr = Array.from({length: Number(pageSize)}, (v, i) => i + 1);
@@ -42,7 +40,6 @@ const Home = () => {
     /* Page change Function */
     const handlePageChange = (payload) => {
       setCurrentPage(payload.currentPage);
-      console.log(payload.currentPage);  //2
       dispatch(loadPostDB({
         token,
         currentPage : payload.currentPage,

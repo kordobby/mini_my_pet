@@ -43,12 +43,10 @@ const loginCheck = (payload) => ({ type : LOGIN_CHECK, payload });
 export const kakaoLoginDB = (code) => {  
   return async function(dispatch) {  
     dispatch(serverRequest(true)); 
-    console.log(code);
   try {
     const kakaoLogin = await axios({                                                     
       url : `http://3.39.25.179:8080/oauth/kakao/callback?code=${code}` 
-    })                                                               
-    console.log(kakaoLogin);
+    })        
     /* Token - Cookie */
     const accessToken =  kakaoLogin.headers.authorization.split(" ")[1];  
       setCookie('token', accessToken, {
@@ -69,7 +67,6 @@ export const kakaoLoginDB = (code) => {
 
 // [ SIGN-UP : checkId ]
 export const checkIdDB = (payload) => {
-  console.log(payload) // username : #### 확인!
   return async function(dispatch) {   // promise 객체 => [ pending ] / fulfilled / rejected
     dispatch(serverRequest(true));
   try {
@@ -81,7 +78,6 @@ export const checkIdDB = (payload) => {
       }
     })
     
-    console.log(idCheck.data);
     if ( idCheck.data === true ) {
       dispatch(checkId(idCheck.data));
       alert("사용가능한 ID입니다!")
@@ -101,7 +97,7 @@ export const checkIdDB = (payload) => {
 
 // [ SIGN-UP ]
 export const signUpDB = (payload) => {   // payload : { username : ###, password : ###, nickName : ###}
-  console.log(payload); 
+
   return async function(dispatch, getState) {
   try {
     const join = await axios({
@@ -113,7 +109,6 @@ export const signUpDB = (payload) => {   // payload : { username : ###, password
         nickname : payload.nickname
       }
     })
-    console.log(join); 
     if ( join.data === true ) {
       alert('회원가입 성공!');
     }
@@ -161,7 +156,6 @@ export const loginCheckDB = (token) => {
   try {
     // #2. 서버 로그인 요청
     // response (success) => result { nickname : #### , ID : #### }
-    console.log(token);
     const loginState = await axios({
       method : 'get',
       url : 'http://3.39.25.179:8080/api/auth',
@@ -169,11 +163,9 @@ export const loginCheckDB = (token) => {
         Authorization : `Bearer ${token}`
       }
     })
-      console.log(loginState);
       dispatch(loginCheck(loginState.data));   // response (success) => result { nickname : #### , ID : #### }
       dispatch(requestSuccess(true));          // login state 값을 true로 변경
   } catch ( error ) {
-    console.log( "로그인 확인 실패", error );
     dispatch(requestError(error));
   } finally {
     dispatch(serverRequest(false)); // loading : false 

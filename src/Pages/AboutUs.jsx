@@ -22,7 +22,6 @@ const AboutUs = () => {
   const onMouseLeaverHandler = (event) => {
     setTarget(1);  // mouseover 시 targer 제거
     setMouseIn(!event);
-    console.log(!event);
   };
 
   const generateIdName = (target, itemValue, isMouseIn) => {

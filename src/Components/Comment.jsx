@@ -18,7 +18,6 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
   // props : username, postId, commentId, nickname
   const [ modal, setModal ] = useState(false);
   const [ commentData, setCommentData ] = useState('');
-  console.log(postId);
   /* 로그인중인 현재 유저 정보 가져오기 */
   const isLoginUser = useSelector((state) => state.userReducer.username);
 
@@ -47,7 +46,6 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
 
   /* Comment 삭제 서버 요청 보내기 : token, commentId */
   const delCommentHandler = () => {
-    console.log(commentId);
     dispatch(delCommentDB({
       token,
       commentId,

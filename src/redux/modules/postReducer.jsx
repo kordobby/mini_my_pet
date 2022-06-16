@@ -69,7 +69,6 @@ export const addPostDB = (payload) => {
                 {headers: {
                     Authorization : `Bearer ${payload.token}`
                 }});
-                console.log(post_data.data)
             const old_data = getState().postReducer.list;
             dispatch(addPost({
                 newData : post_data.data,
@@ -83,7 +82,6 @@ export const addPostDB = (payload) => {
 
 export const loadPostDB = (payload)=> {
     return async function(dispatch){
-        console.log(payload)
         dispatch(serverRequest(true));  
         try {
             const loaded_data = await axios.get(`http://3.39.25.179:8080/api/main?page=${payload.currentPage}&size=8&sortBy=postId&isAsc=${payload.isAsc}`, {
@@ -92,13 +90,11 @@ export const loadPostDB = (payload)=> {
                 }});
                 
             dispatch(loadPost(loaded_data.data));
-            console.log(loaded_data);
         }
         catch ( error ) {
             console.log("데이터 Load 실패", error)
                 dispatch(requestError(error));}
         finally {
-        console.log("end-load")
         dispatch(serverRequest(false));
 }}}
 
@@ -106,18 +102,14 @@ export const loadPostDB = (payload)=> {
 export const updatePostDB = (payload)=> {
     return async function(dispatch){
         dispatch(serverRequest(true));
-        console.log(payload)
-        console.log(`${REAL_SERVER}/detail/update/${payload.postId}`)
         try {
             const updated_data = await axios.put(`${REAL_SERVER}/detail/update/${payload.postId}`,{
                 text: payload.text},
                 {headers: {
                     Authorization : `Bearer ${payload.token}`
                 }}) 
-                console.log("업데이트 된 데이터", updated_data);
             dispatch(updatePost(updated_data.data));}
         catch ( error ) {
-            console.log("데이터 upload 실패", error)
             dispatch(requestError(error));}
         finally {
             dispatch(serverRequest(false));
@@ -134,7 +126,6 @@ export const delPostDB = (payload)=> {
             dispatch(deletePost(delPostId.data));
         }
         catch ( error ) {
-            console.log("데이터 삭제 실패", error)
                 dispatch(requestError(error));}
         finally {
         dispatch(serverRequest(false));
@@ -149,7 +140,6 @@ export const loadDetailDB = (payload) => {
                     Authorization : `Bearer ${payload.token}`         
             }
         });
-        console.log(detailData.data);
         dispatch(loadDetail(detailData.data))
         } catch (error) {
             console.log('상세 페이지 로드 실패', error)
@@ -161,14 +151,12 @@ export const loadDetailDB = (payload) => {
 
 // REDUCER
 export default function postReducer(state=initState, action={}){
-    console.log(action)
     switch (action.type){
         case ADD_POST : 
             return { ...state, list: [ ...action.payload.oldData.content, action.payload.newData] };
         case LOAD_POST : 
             return { ...state, list: action.payload};
         case DELETE_POST :
-            console.log(action.payload);
             return { ...state, list : state.list.filter((value) => {
                 return ( value.postId !== Number(action.payload) )
             }) };
