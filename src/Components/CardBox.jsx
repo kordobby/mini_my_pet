@@ -43,7 +43,7 @@ const PostCards = styled.div`
 `;
 
 const CardHeader = styled.div`
-  width : 100%;
+  width : 95%;
   height: 50px;
   box-sizing: border-box;
   padding : 10px;
@@ -61,6 +61,7 @@ export const UserHeader = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+  overflow: hidden;
 `
 
 const CardBody = styled.div`
@@ -69,8 +70,9 @@ const CardBody = styled.div`
 `
 
 const CardFooter = styled.div`
-  width : 100%;
+  width : 95%;
   padding : 10px;
+  overflow: hidden;
 `
 
 export default CardBox;

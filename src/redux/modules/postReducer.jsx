@@ -59,7 +59,7 @@ function loadDetail (payload) {
 
 //middelwares
 export const addPostDB = (payload) => {
-    return async function(dispatch){
+    return async function(dispatch, getState){
         dispatch(serverRequest(true));
         try {
             const post_data = await axios.post(`${REAL_SERVER}/post`, {
@@ -70,7 +70,10 @@ export const addPostDB = (payload) => {
                     Authorization : `Bearer ${payload.token}`
                 }});
                 console.log(post_data.data)
-            dispatch(addPost(post_data.data));}
+            const old_data = getState().postReducer.list;
+            dispatch(addPost({
+                newData : post_data.data,
+                oldData : old_data}));}
         catch (error) {
             console.log(error)
             alert("통신 에러 도망가세요 addPost")}
@@ -156,15 +159,12 @@ export const loadDetailDB = (payload) => {
         }
 }}
 
-
-
-
 // REDUCER
 export default function postReducer(state=initState, action={}){
     console.log(action)
     switch (action.type){
         case ADD_POST : 
-            return { ...state, list: [ state.list, action.payload] };
+            return { ...state, list: [ ...action.payload.oldData.content, action.payload.newData] };
         case LOAD_POST : 
             return { ...state, list: action.payload};
         case DELETE_POST :

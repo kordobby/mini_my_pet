@@ -1,6 +1,6 @@
 /* 디테일 page => 포스트 클릭시 연결되는 상세페이지 */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 /* Hooks */
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -36,8 +36,8 @@ const Detail = () => {
   /* YOON'S CODE - comment things */
 
   const [ comments, setComments ] = useState('');
-
   const CommentList = useSelector((state) => state.commentReducer?.list);
+
   // CommentList.loading = true / false
   useEffect(() => {
     dispatch(loadCommentDB({token, postId}));
@@ -51,14 +51,19 @@ const Detail = () => {
 
   // Comment ADD - userData 잘 넘어가는 것 확인함
   const commentHandler = () => {
+    if (isLoginUser === null) {
+      alert('로그인 후 사용해주세요!');
+      return
+    } else {
     dispatch(addCommentDB({
       postId,
       token,
       comment : comments,
       username : userData.username,
       nickname : userData.nickname
-    }))
+    }))  
   }
+}
 
   return (
     <>
@@ -210,6 +215,7 @@ const CommentWrap = styled.div`
 
   @media screen and (max-width : 1300px) {
     height : 120px;
+    margin-bottom: 100px;
   }
 `
 

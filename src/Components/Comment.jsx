@@ -82,7 +82,7 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
       <CommentInput
           type = "text"
           onChange = {(event) => { setCommentData(event.target.value);}}
-          placeholder="수정할 댓글을 작성해주세요!"
+          placeholder= {comment}
           required />
       {/* isLoginUser === username ? 버튼 표시 : null */}
       <DelBtn
@@ -102,6 +102,10 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
 
 const CommentBoxWrap = styled.div`
   background-color  : var(--bg);
+  margin-top: 20px;
+  @media screen and (max-width : 1300px) {
+    margin-top: 20px;
+} 
 `
 
 const CommentBox = styled.div`
@@ -114,7 +118,6 @@ const CommentBox = styled.div`
   align-items: center;
   
   padding-left : 20px;
-  margin-top: 20px;
 
   @media screen and (max-width : 1300px) {
     height : 100px;

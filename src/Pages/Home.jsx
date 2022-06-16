@@ -86,6 +86,14 @@ const Home = () => {
     };
     // const loadingCallback = useCallback(fetcher);
     // 이렇게 되면, 현재 페이지가 설정이 됨 => 여기서 parameter의 값을 바꿔준다면? ${currentPage}
+    const loginUserPostHandler = () => {
+      if ( token ) {
+      navigate('/post') }
+       else {
+        alert("로그인 후 사용해주세요!")
+        return ;
+       }
+    }
   return (
     <>
     <Test/>
@@ -99,7 +107,7 @@ const Home = () => {
           }}>
             GUNDIPANG GALLERY
       </BridgeTitle>
-          <ButtonPost onClick={()=>navigate('/post')}> + Post!</ButtonPost>
+          <ButtonPost onClick={loginUserPostHandler}> + Post!</ButtonPost>
       </MainHeader>
       <GridWrap>
         { postData?.map((v) => { 

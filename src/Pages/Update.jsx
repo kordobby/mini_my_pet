@@ -17,8 +17,8 @@ const Update = () => {
   const text_ref = useRef(null);
   const distpatch = useDispatch();
   const postId = params.postId;
-  const postList = useSelector((state) =>state.postReducer?.list)
-  
+  const postData = useSelector((state) =>state.postReducer?.detail);
+
   const updatePostHandler = () => {
   distpatch(updatePostDB({
     postId,
@@ -35,7 +35,7 @@ const Update = () => {
           <InputBox 
             type = "text"
             ref={text_ref}
-            placeholder = "UPDATE"
+            placeholder = {postData.text}
             required 
             />
         <LoginBtnWrap

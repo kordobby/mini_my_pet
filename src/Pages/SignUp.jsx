@@ -126,10 +126,11 @@ const SignUp = () => {
         <SignUpForm>
         <label className = 'label-form'>닉네임</label>
         <SignUpInput
+          maxLength = "5"
           required
           type = "text"
           onChange = {(event) => { setNickName(event.target.value); }}
-          placeholder = "닉네임을 입력해주세요." />
+          placeholder = "닉네임을 입력해주세요. (5자리 이하!)" />
         </SignUpForm>
       <LoginBtnWrap>
         <Button onClick = {signUpHandler}>Join</Button>
