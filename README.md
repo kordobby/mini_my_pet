@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# 궁디팡!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 🛠️ 스택
+  * <b>Front-end</b> <br/>
+  <img src="https://img.shields.io/badge/React-0080B9?style=flat&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-FDC813?style=flat&logo=JavaScript&logoColor=black"/> <img src="https://img.shields.io/badge/CSS-0080B9?style=flat&logo=CSS3&logoColor=white"/>
 
-## Available Scripts
+  * <b>Tool</b>
+   <br/><img src="https://img.shields.io/badge/GitHub-purple?style=flat-flat&logo=Github&logoColor=white"/>
 
-In the project directory, you can run:
+  
+## 📽 배포
+[http://62442.s3-website.ap-northeast-2.amazonaws.com/](http://62442.s3-website.ap-northeast-2.amazonaws.com/)
 
-### `npm start`
+## 📽 시연영상
+https://youtu.be/lngKTDnmBxA
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 과제 계획
+https://kaput-tv-e90.notion.site/8-SA-50f1b0349ea249d9baefe083fb466faa
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📝 기능 구현
+### 회원가입
+* 회원가입 기능
+* 중복 ID 체크
+* ID : email 유효성 검사
+* PW : 패스워드 형식 유효성 검사
+* 모든 조건 충족 시 회원가입 요청
 
-### `npm test`
+### 로그인
+* 로그인 & 로그아웃 기능
+* 소셜 로그인(카카오) 기능
+* 쿠키 저장 및 로그인 상태 유지
+* 로그인 시 로그인 전용 헤더 전환
+   * 로그인 시 포스팅 목록 LOAD
+   
+### 게시글 CRUD
+* [CREATE]
+   * 포스트 작성기능
+   * 작성자, 작성시간 기록, 사진 업로드 등 기능 구현
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* [READ]
+   * 작성된 포스트 화면에 로드
+   * 포스트별 작성자, 작성 시간 등 로드   
+   * GRID 를 활용한 화면 구성 및 반응형 구현
+   * [ 페이지네이션 ] 기능 구현
 
-### `npm run build`
+* [UPDATE & DELETE]
+   * 본인이 작성한 포스트에만 수정/삭제 버튼 활성화
+   * 포스트 수정 및 삭제 기능 구현
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 댓글 CRUD
+* [CREATE]
+   * 댓글 작성기능
+   * 작성자, 작성시간 등 기록
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* [READ]
+   * 작성된 댓글 화면에 로드
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* [UPDATE & DELETE]
+   * 본인이 작성한 댓글에만 수정/삭제 버튼 활성화
+   * 댓글 수정 및 삭제 기능 구현
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### CSS
+* 반응형 화면 구성
