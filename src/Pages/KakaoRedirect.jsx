@@ -7,6 +7,7 @@ import { kakaoLoginDB } from '../redux/modules/userReducer';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../Shared/Cookie';
 import Loading from '../img/Laoding.png';
+import { keyframes } from 'styled-components';
 
 const KakaoRedirect = (props) => {
   const dispatch = useDispatch();
@@ -28,11 +29,21 @@ const KakaoRedirect = (props) => {
   return (
     <>
       <LoadingWrap>
-        <img style = {{ width : '300px', height : '300px', marginTop : '30px'}} src = {Loading} alt = "" />
+        <CatImg style = {{ width : '300px', height : '300px', marginTop : '30px'}} src = {Loading} alt = "" />
       </LoadingWrap>
     </>
   );
 };
+
+const Loadinganimation = keyframes`
+  0% {
+    transform: none;
+  } 50% {
+    transform: translateY(-10px);
+  } 100% {
+    transform: none;
+  }
+  `
 
 const LoadingWrap = styled.div`
   display : flex;
@@ -42,4 +53,7 @@ const LoadingWrap = styled.div`
   height : 100vh;
 `;
 
+const CatImg = styled.img`
+  animation : ${Loadinganimation} 1s infinite linear alternate;
+`
 export default KakaoRedirect;

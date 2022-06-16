@@ -101,8 +101,6 @@ const Comment = ({ username, nickname, comment, postTime, commentId, postId } ) 
 }
 
 const CommentBoxWrap = styled.div`
-  height : 100%;
-  width : 100%;
   background-color  : var(--bg);
 `
 

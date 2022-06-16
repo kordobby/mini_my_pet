@@ -1,13 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import P1 from '../Public/Images/P1.jpeg';
+import { keyframes } from 'styled-components';
+import Yoon from '../Public/Images/Yoon.jpg';
 
 const CardBox = ({img_url, nickname, postId, username, textData, index}) => {
   const navigate = useNavigate();
   return (
     <PostCards style={{cursor:"pointer"}} onClick={()=>{navigate(`/detail/${postId}`)}}>
       <CardHeader>
-        <Icon></Icon>
+        <Icon src = {Yoon}></Icon>
+        {/* <img src = {Yoon}></img> */}
         <UserHeader>
           <span>{nickname}</span>
         </UserHeader>
@@ -34,6 +36,10 @@ const PostCards = styled.div`
   background-color: white;
   border-radius: 5px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  &:hover {
+    transform: scale(1.05);
+    transition : transform 0.5s ease .1s;
+   }
 `;
 
 const CardHeader = styled.div`
@@ -44,11 +50,10 @@ const CardHeader = styled.div`
   
   display: flex;
 `
-export const Icon = styled.div`
+export const Icon = styled.img`
   width : 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: var(--yellow);
 `
 
 export const UserHeader = styled.div`

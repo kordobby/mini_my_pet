@@ -12,23 +12,23 @@ import Post from './Pages/Post';
 import Update from './Pages/Update';
 import Detail from './Pages/Detail';
 import AboutUs from './Pages/AboutUs';
-import RealAboutUs from './Pages/RealAboutUs';
 
 /* import Components */
 import Header from './Components/Header';
 import HeaderIsLogin from './Components/HeaderisLogin'
+import AboutUsBtn from './elem/AboutUsBtn';
 
 /* Reducer */
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { loginCheckDB, logout } from './redux/modules/userReducer';
+import { logout } from './redux/modules/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCookie, deleteCookie } from './Shared/Cookie';
-import { loadPostDB } from './redux/modules/postReducer';
 import KakaoRedirect from './Pages/KakaoRedirect';
 import ScrollTopBtn from './elem/ScrollTopBtn';
 /* Router setup */
-import { useQuery } from 'react-query';
-
+import axios from 'axios';
+import { useQuery, useQueryClient } from 'react-query';
+import { loginCheckDB } from './redux/modules/userReducer';
 function App() {
 
   const dispatch = useDispatch();
@@ -40,18 +40,25 @@ function App() {
     dispatch(loginCheckDB(accessToken));
   }, [dispatch, accessToken]);
 
-  // useEffect(() => {
-  //   dispatch(loadPostDB(accessToken));
-  // },[dispatch])
+    /* React-query : login Check request */
+    // const fetcher = async () => {
+    //   const user = await axios.get(`http://3.39.25.179:8080/api/auth`, {
+    //     headers: {
+    //         Authorization : `Bearer ${accessToken}`
+    //     }});
+    //   return user.data;
+    // };
+
+    // const { data, isLoading, error, isError } = useQuery("loginCheck", fetcher);
+    // console.log(data);
 
   /* React-query prac */
 
-  const userInfo = useSelector((state) => state.userReducer);
-  const postData = useSelector((state)=>state.postReducer.list);
+  const userInfo = useSelector((state) => state?.userReducer);
+  const postData = useSelector((state)=>state?.postReducer.list);
 
-  const userNick = userInfo.nickname;
-  const userId = userInfo.username;
-  const login = userInfo.login;
+  const userNick = userInfo?.nickname;
+  const userId = userInfo?.username;
 
   const logoutHandler = () => {
     deleteCookie('token');
@@ -67,7 +74,7 @@ function App() {
     {/* <Test></Test>
     <MainStyle></MainStyle> */}
     <Routes>
-    <Route path="/" element = { <Home login={login}/> } />
+    <Route path="/" element = { <Home/> } />
         <Route path="/signup" element = { <SignUp /> } />
         <Route path="/login" element = { <Login /> } />
         <Route path="/detail/update/:postId" element = { <Update /> } />
@@ -75,9 +82,9 @@ function App() {
         <Route path="/detail/:postId" element = { <Detail /> } />
         <Route path="/oauth/kakao/callback" element = {<KakaoRedirect/>} />
         <Route path="/aboutus" element = { <AboutUs /> }/>
-        <Route path="/1" element = { <RealAboutUs /> }/>
     </Routes>
     <ScrollTopBtn/>
+    <AboutUsBtn/>
     </>
   );
 }

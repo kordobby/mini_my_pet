@@ -5,15 +5,13 @@ import P2 from '../Public/Images/P2.jpeg';
 import P3 from '../Public/Images/P3.jpeg';
 import P4 from '../Public/Images/P4.jpeg';
 import P5 from '../Public/Images/P5.jpeg';
-import { faAnglesDown } from '@fortawesome/free-solid-svg-icons';
-import { useRef } from 'react';
 
 const Test = () => {
 
   return (
     <>
     <BridgeWrap>
-      <BridgeTitle>TellmeTellme</BridgeTitle>
+      <BridgeTitle>Gundi Pang Pang!</BridgeTitle>
       <PhotoWrap>
         <ImgBox src = {P1} />
         <ImgBox src = {P2} />

@@ -54,6 +54,7 @@ export const HeaderWrap = styled.div`
   position : fixed;
   top : 0;
   background-color: var(--blue);
+  z-index: 5;
 `;
 
 export const LogoWrap = styled.div`

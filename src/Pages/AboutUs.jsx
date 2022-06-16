@@ -84,6 +84,7 @@ const AboutUs = () => {
           </div>
 
           <div
+            onClick = {()=> window.open('https://github.com/kokomong2', '_blank')}
             onMouseOver = {(event) => onMouseOverHandler(event, 3)}
             onMouseLeave = {onMouseLeaverHandler}
             id = {generateIdName(target, 3, mouseIn)}
@@ -102,6 +103,7 @@ const AboutUs = () => {
           </div>
 
           <div
+            onClick = {()=> window.open('https://github.com/Joo-hui', '_blank')}
             onMouseOver = {(event) => onMouseOverHandler(event, 4)}
             onMouseLeave = {onMouseLeaverHandler}
             id = {generateIdName(target, 4, mouseIn)}
@@ -118,7 +120,9 @@ const AboutUs = () => {
                   </div>
                 </div>
               </div>
+
             <div
+            onClick = {()=> window.open('https://github.com/sungyoungk', '_blank')}
             onMouseOver = {(event) => onMouseOverHandler(event, 5)}
             onMouseLeave = {onMouseLeaverHandler}
             id = {generateIdName(target, 5, mouseIn)}

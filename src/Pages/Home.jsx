@@ -8,9 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Test from '../Pages/Test';
 import { loadPostDB } from "../redux/modules/postReducer";
 import { getCookie } from "../Shared/Cookie";
-import { useQuery, useQueryClient } from 'react-query';
-import axios from 'axios';
-import { useCallback } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretLeft, faCaretRight, faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
@@ -38,17 +35,6 @@ const Home = () => {
       }));
     },[dispatch])
     console.log(currentPage);
-    // /* React-query : GET_POST request */
-    // const fetcher = async () => {
-    //   // `http://3.39.25.179:8080/api/main?page=${currentPage}&size=8&sortBy=postId&isAsc=false`
-    //   const post = await axios.get(`http://3.39.25.179:8080/api/main?page=${currentPage}&size=8&sortBy=postId&isAsc=false`, {
-    //     headers: {
-    //         Authorization : `Bearer ${token}`
-    //     }});
-    //   return post.data;
-    // };
-    // const { data, isLoading, error, isError } = useQuery("posts", fetcher);
-    // /* totalPosts, currentPage, pageLength, itemPerPage */
 
     /* Page 배열 만들기 */
     const pageSizeArr = Array.from({length: Number(pageSize)}, (v, i) => i + 1);

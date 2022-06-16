@@ -161,9 +161,10 @@ export const loadDetailDB = (payload) => {
 
 // REDUCER
 export default function postReducer(state=initState, action={}){
+    console.log(action)
     switch (action.type){
         case ADD_POST : 
-            return { ...state, list: [...state.list, action.payload] };
+            return { ...state, list: [ state.list, action.payload] };
         case LOAD_POST : 
             return { ...state, list: action.payload};
         case DELETE_POST :

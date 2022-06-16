@@ -74,7 +74,7 @@ body {
 
          cursor: pointer;
 
-         transition:.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+         transition:1.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
 
          @for $i from 1 through length($optionDefaultColours) {
             &:nth-child(#{$i}) {

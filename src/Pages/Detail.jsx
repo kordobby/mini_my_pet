@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 /* Cookies */
 import { getCookie } from "../Shared/Cookie";
-
+import Yoon from '../Public/Images/Yoon.jpg';
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ const Detail = () => {
           <img src = {detailData?.img} style = {{ width : '400px', height : '400px' }}></img>
           <Contents>
             <UserHeader style = {{marginLeft : '0'}}>
-              <Icon style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
+              <Icon src = {Yoon }style = {{marginRight : '10px', width : '40px', height : '40px', borderRadius : '20px'}}></Icon>
               <span style = {{ fontSize : '20px'}}>{detailData?.nickname}</span>
             </UserHeader>
             <MainText style={{
@@ -119,7 +119,7 @@ const Detail = () => {
         </DetailBox>
         <CommentListForm>
           {/* <Comment/><Comment/><Comment/> */}
-          <ComTitle>Comments!</ComTitle>
+          <ComTitleBtm>Comments!</ComTitleBtm>
           { 
               CommentList?.map((value, index) => {
                 return <Comment
@@ -142,12 +142,15 @@ const DetailWrap = styled.div`
   background-color: var(--bg);
   height: 100vh;
   display : flex;
-
-  margin-top: 120px;
+  background-color: var(--bg);
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 0 100px;
+  @media screen and (max-width : 1300px) {
+    height: 100%;
+    margin-top: 120px;
+  }
 `;
 
 const DetailBox = styled.div`
@@ -215,7 +218,14 @@ const ComTitle = styled.span`
   font-size: 40px;
   color : var(--blue);
 `
-
+const ComTitleBtm = styled.span`
+  font-family: 'Dokdo', cursive;
+  font-size: 40px;
+  color : var(--blue);
+  @media screen and (max-width : 1300px) {
+    display : none;
+  }
+`
 export const CommentInput = styled.input`
   width : 100%;
   height: 40px;
@@ -234,10 +244,9 @@ const CommentListForm = styled.div`
   
   @media screen and (max-width : 1300px) {
     width : 400px;
-    margin-top : 150px;
+    margin-bottom : 150px;
   }
 `
-
 const DetailFooter = styled.div`
   height : 500px;
   width : 100%; 

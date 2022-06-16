@@ -17,13 +17,13 @@ const ScrollTopBtn = () => {
   )
 };
 
-const boxFade = keyframes`
+export const boxFade = keyframes`
   0% {
     transform: none;
   } 50% {
     transform: translateY(-10px);
   } 100% {
-    otransform: none;
+    transform: none;
   }
   `
 
@@ -31,9 +31,9 @@ const ScrollBox = styled.div`
   width : 50px;
   height : 50px;
   border-radius: 25px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.6);
   font-size: 25px;
-  color : white;
+  color : #578b67;
   font-family: 'Dokdo', cursive;
   display : flex;
   justify-content: center;
