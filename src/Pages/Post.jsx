@@ -8,6 +8,8 @@ import { getCookie } from "../Shared/Cookie";
 import { useParams } from "react-router-dom"
 import { InputBox, UserFormWrap, UserPageBox, UserTitle, LoginBtnWrap, StateHeader, StateHeaderText } from './Login';
 import { Button, imgUploadLabel } from '../elem/Button';
+import thumbnail from '../img/thumbnail.png';
+
 
 // [ Firebase ]
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -27,7 +29,10 @@ const Post = ({username}) => {
     const img_url = await getDownloadURL(uploadImg.ref);
     img_ref.current = { url: img_url}
     console.log(img_ref.current.url);
+    setLoadedImg(img_ref?.current?.url)
   }
+
+  const [loadedImg, setLoadedImg] = useState(thumbnail)
   
   const addPostHandler = ()=> {
     setTimeout(() => {
@@ -45,7 +50,7 @@ const Post = ({username}) => {
     <>
       <input ref={text_ref}></input>
       <UserFormWrap>
-        <UserPageBox style = {{ height : '500px'}}>
+        <UserPageBox style = {{ height : '600px'}}>
           <UserTitle>Post!</UserTitle>
           {/* <InputBox 
             type = "text"
@@ -69,14 +74,18 @@ const Post = ({username}) => {
           name="file" 
           onChange={onImgLoaded}/><br/>
           <div style={{
-            width: "18rem",
-            height: "10rem",
-            border: "solid #ddd 1px"
+            width: "15rem",
+            height: "15rem",
+            border: "solid #ddd 1px",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            textAlign: "center"
           }}>
-          <img src={img_ref?.current?.url}
+          <img src={loadedImg}
           style={{
-            width: "18rem",
-            height: "10rem",
+            width: "15rem",
+            height: "15rem",
           }}/>
           </div><br/><br/><br/>
           <InputBox 
